@@ -17,10 +17,10 @@ scraper/
     errors/
         missing-items.csv
 
-    get-item-links.py
-    get-items-details.py
+    get-all-items-links.py
+    get-all-items-details.py
     get-item-details.py
-    build-item-list.py
+    build-all-items-list.py
 
 data/
     women-top-rated.csv

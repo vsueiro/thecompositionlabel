@@ -1,4 +1,4 @@
-name: Scrape All Links
+name: get-all-items-links
 
 on:
   schedule:
@@ -31,7 +31,7 @@ jobs:
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run scraper script
-        run: python scraper/get-all-items-links-with-selenium.py
+        run: python scraper/get-all-items-links.py
 
       - name: Commit and push if there are changes
         run: |
