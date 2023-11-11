@@ -4,11 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fast Fashion Composition</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://d3js.org/d3.v7.min.js" defer></script>
+    <script src="js/script.js" defer></script>
   </head>
   <body>
-    <ul id="list"></ul>
+    <label
+      ><input type="checkbox" class="filter" value="Polyester" />
+      Polyester</label
+    >
+    <label
+      ><input type="checkbox" class="filter" value="Elastane" /> Elastane</label
+    >
+    <label
+      ><input type="checkbox" class="filter" value="Viscose" /> Viscose</label
+    >
+    <label
+      ><input type="checkbox" class="filter" value="Cotton" /> Cotton</label
+    >
+    <label
+      ><input type="checkbox" class="filter" value="Polyamide" />
+      Polyamide</label
+    >
+    <button id="applyFilters">Aplicar Filtros</button>
+    <div id="list"></div>
   </body>
 </html>

@@ -1,8 +1,44 @@
+// Dados globais
+let globalData = [];
+
 // Função para ler o arquivo CSV e criar a lista
 d3.csv("data/women-top-rated.csv").then(function(data) {
-    // Aqui, 'data' é um array de objetos, onde cada objeto representa uma linha do CSV
+    globalData = data;
     createList(data);
 });
+
+// Função para filtrar e criar a lista de cards
+function filterAndCreateList() {
+    const selectedMaterials = Array.from(document.querySelectorAll('.filter:checked')).map(checkbox => checkbox.value);
+    const filteredData = globalData.filter(item => {
+        // Se nenhum filtro estiver selecionado, mostra todos os itens
+        if (selectedMaterials.length === 0) return true;
+
+        // Conta quantos materiais selecionados estão presentes no item
+        const countMaterialsInItem = selectedMaterials.reduce((count, material) => {
+            return count + (item[material] ? 1 : 0);
+        }, 0);
+
+        // O item deve conter todos os materiais selecionados e somente eles
+        return countMaterialsInItem === selectedMaterials.length && countMaterialsInItem === Object.keys(item).filter(key => key.match(/Polyester|Elastane|Viscose|Cotton|Polyamide/) && item[key]).length;
+    });
+
+    createList(filteredData);
+}
+
+// Adiciona event listener ao botão de aplicar filtros
+document.getElementById('applyFilters').addEventListener('click', filterAndCreateList);
+
+// Função createList
+function createList(data) {
+    const container = document.getElementById('list');
+    container.innerHTML = ''; // Limpa a lista atual
+
+    data.forEach(item => {
+        const cardMarkup = createCardMarkup(item);
+        container.insertAdjacentHTML('beforeend', cardMarkup);
+    });
+}
 
 // Função para criar o markup de um card
 function createCardMarkup(item) {
@@ -30,14 +66,4 @@ function createCardMarkup(item) {
     `;
 }
 
-// Função para criar a lista de cards
-function createList(data) {
-    const container = document.getElementById('list'); // Seleciona o elemento container existente
-
-    data.forEach(item => {
-        // Gera o markup para o card e insere no container
-        const cardMarkup = createCardMarkup(item);
-        container.insertAdjacentHTML('beforeend', cardMarkup);
-    });
-}
 

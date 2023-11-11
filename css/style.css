@@ -35,3 +35,7 @@
     font-size: 14px;
     color: grey;
 }
+
+#list:empty::before {
+    content: "No items found :/"
+}
