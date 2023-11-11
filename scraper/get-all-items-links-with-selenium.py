@@ -12,7 +12,11 @@ base_url = "https://us.shein.com/hotsale/Women-top-rated-sc-003161153.html?adp=2
 
 # Configure Chrome Options for Headless Mode
 options = Options()
-options.headless = True
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")  # Bypass OS security model, necessary for Docker and certain CI environments
+options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+options.add_argument("--disable-gpu")  # Applicable to windows os only
+options.add_argument("--disable-setuid-sandbox")
 
 # Initialize Selenium WebDriver
 service = Service(ChromeDriverManager().install())
