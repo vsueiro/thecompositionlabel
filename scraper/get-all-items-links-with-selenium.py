@@ -24,16 +24,16 @@ driver = webdriver.Chrome(service=service, options=options)
 
 def scrape_links(url):
     driver.get(url)
-    time.sleep(5)  # Wait for the page to load
+    time.sleep(10)  # Wait for the page to load
     elements = driver.find_elements(By.CSS_SELECTOR, 'a')
     
     # Specify the class you are interested in
-    desired_class = 'goods-title-link'
+    # desired_class = 'goods-title-link'
 
     # Filter elements that contain the specified class
-    elements = [element for element in elements if desired_class in element.get_attribute('class')]
+    # elements = [element for element in elements if desired_class in element.get_attribute('class')]
     
-    links = [(element.get_attribute('href'), datetime.datetime.now()) for element in elements]
+    links = [(element.get_attribute('href'), datetime.datetime.now(), element.get_attribute('class')) for element in elements]
     return links
 
 all_links = []
@@ -55,7 +55,10 @@ while True:
 driver.quit()  # Close the browser
 
 # Creating DataFrame
-df = pd.DataFrame(all_links, columns=['Link', 'Timestamp'])
+df = pd.DataFrame(all_links, columns=['Link', 'Timestamp', 'Class'])
+
+# Filtering the DataFrame to keep rows where 'Class' contains 'goods-title-link'
+df = df[df['Class'].str.contains('goods-title-link')]
 
 # Create a new directory 'links' if it doesn't exist
 os.makedirs('links', exist_ok=True)
