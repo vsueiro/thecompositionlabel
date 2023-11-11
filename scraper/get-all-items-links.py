@@ -5,15 +5,20 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 import datetime
+import random
 import re
 import os
 import time
 
 base_url = "https://us.shein.com/hotsale/Women-top-rated-sc-003161153.html?adp=20527159&categoryJump=true&ici=us_tab01navbar03menu01dir03&src_identifier=fc%3DAll%60sc%3DWomenClothing%60tc%3D0%60oc%3DToprated%60ps%3Dtab01navbar03menu01dir03%60jc%3DitemPicking_003161153&src_module=topcat&src_tab_page_id=page_real_class1697808447511&child_cat_id=1766"
 
+# Setting a realistic user agent
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
+
 # Configure Chrome Options for Headless Mode
 options = Options()
-options.add_argument("--headless")
+options.add_argument(f'user-agent={user_agent}')
+# options.add_argument("--headless")
 options.add_argument("--no-sandbox")  # Bypass OS security model, necessary for Docker and certain CI environments
 options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 options.add_argument("--disable-gpu")  # Applicable to windows os only
@@ -25,7 +30,7 @@ driver = webdriver.Chrome(service=service, options=options)
 
 def scrape_links(url):
     driver.get(url)
-    time.sleep(20)  # Wait for the page to load
+    time.sleep(random.uniform(12, 24))
     elements = driver.find_elements(By.CSS_SELECTOR, 'a')
     
     # Specify the class you are interested in
@@ -67,7 +72,7 @@ while True:
 
     all_links.extend(links)
     page_number += 1
-    time.sleep(1)  # Pause to mimic human browsing
+    time.sleep(random.uniform(1, 2)) # Pause to mimic human browsing
 
 driver.quit()  # Close the browser
 

@@ -21,6 +21,13 @@ jobs:
         run: |
           pip install selenium webdriver-manager pandas
 
+      - name: Run xvfb
+        run: |
+          # Start xvfb
+          sudo Xvfb :99 -ac &
+          # Export display environment variable
+          echo "DISPLAY=:99" >> $GITHUB_ENV
+
       - name: Install Chrome and ChromeDriver
         run: |
           sudo apt-get update
