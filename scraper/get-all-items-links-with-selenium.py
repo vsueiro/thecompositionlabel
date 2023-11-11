@@ -25,7 +25,14 @@ driver = webdriver.Chrome(service=service, options=options)
 def scrape_links(url):
     driver.get(url)
     time.sleep(5)  # Wait for the page to load
-    elements = driver.find_elements(By.CLASS_NAME, 'S-product-item__link')
+    elements = driver.find_elements(By.CSS_SELECTOR, 'a')
+    
+    # Specify the class you are interested in
+    desired_class = 'goods-title-link'
+
+    # Filter elements that contain the specified class
+    elements = [element for element in elements if desired_class in element.get_attribute('class')]
+    
     links = [(element.get_attribute('href'), datetime.datetime.now()) for element in elements]
     return links
 
@@ -43,7 +50,7 @@ while True:
 
     all_links.extend(links)
     page_number += 1
-    time.sleep(2)  # Pause to mimic human browsing
+    time.sleep(1)  # Pause to mimic human browsing
 
 driver.quit()  # Close the browser
 
