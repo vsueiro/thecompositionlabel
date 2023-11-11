@@ -5,6 +5,7 @@ import pandas as pd
 import random
 import time
 import datetime
+import os
 
 base_url = "https://us.shein.com/hotsale/Women-top-rated-sc-003161153.html?adp=20527159&categoryJump=true&ici=us_tab01navbar03menu01dir03&src_identifier=fc%3DAll%60sc%3DWomenClothing%60tc%3D0%60oc%3DToprated%60ps%3Dtab01navbar03menu01dir03%60jc%3DitemPicking_003161153&src_module=topcat&src_tab_page_id=page_real_class1697808447511&child_cat_id=1766"
 
@@ -67,9 +68,14 @@ while True:
     page_number += 1
     time.sleep(10)
 
-# Creating DataFrame and saving to CSV
+# Creating DataFrame
 df = pd.DataFrame(all_links, columns=['Link', 'Timestamp'])
 
+# Create a new directory 'links' if it doesn't exist
+os.makedirs('links', exist_ok=True)
+
+# Define file name
 filename = datetime.datetime.now()
 
+# Save to CSV
 df.to_csv(f"links/{filename}.csv", index=False)
