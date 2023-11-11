@@ -52,7 +52,7 @@ def get_random_user_agent():
     return random.choice(user_agents)
 
 all_links = []
-page_number = 4
+page_number = 1
 
 while True:
 
