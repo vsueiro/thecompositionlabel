@@ -25,14 +25,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y chromium-browser
-          CHROME_VERSION=$(chromium-browser --version | grep -oP "Chromium \K\d+\.\d+\.\d+\.\d+")
-          DRIVERS_URL=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
-          wget -N https://chromedriver.storage.googleapis.com/$DRIVERS_URL/chromedriver_linux64.zip -P ~/
-          unzip ~/chromedriver_linux64.zip -d ~/
-          sudo mv -f ~/chromedriver /usr/local/share/chromedriver
-          sudo chmod +x /usr/local/share/chromedriver
-          sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
-          sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
+          wget https://chromedriver.storage.googleapis.com/$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run scraper script
         run: python scraper/get-all-items-links-with-selenium.py
