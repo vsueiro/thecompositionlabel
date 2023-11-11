@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 import datetime
+import re
 import os
 import time
 
@@ -33,7 +34,23 @@ def scrape_links(url):
     # Filter elements that contain the specified class
     elements = [element for element in elements if desired_class in element.get_attribute('class')]
     
-    links = [(element.get_attribute('href'), datetime.datetime.now()) for element in elements]
+    links = []
+    for element in elements:
+        # Get the core part of the href
+        href_full = element.get_attribute('href')
+        href = href_full.split('?')[0]
+
+        # Extract the ID using regex
+        match = re.search(r'-p-(\d+)-', href)
+        if match:
+            id = match.group(1)
+        else:
+            id = None
+
+        timestamp = datetime.datetime.now()
+
+        links.append((id, href, timestamp))
+
     return links
 
 all_links = []
@@ -55,7 +72,7 @@ while True:
 driver.quit()  # Close the browser
 
 # Creating DataFrame
-df = pd.DataFrame(all_links, columns=['Link', 'Timestamp'])
+df = pd.DataFrame(all_links, columns=['Item ID', 'Link', 'Timestamp'])
 
 # Create a new directory 'links' if it doesn't exist
 os.makedirs('scraper/links', exist_ok=True)
