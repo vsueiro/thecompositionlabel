@@ -58,10 +58,10 @@ driver.quit()  # Close the browser
 df = pd.DataFrame(all_links, columns=['Link', 'Timestamp'])
 
 # Create a new directory 'links' if it doesn't exist
-os.makedirs('links', exist_ok=True)
+os.makedirs('scraper/links', exist_ok=True)
 
 # Define file name
 filename = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
 # Save to CSV
-df.to_csv(f"links/{filename}.csv", index=False)
+df.to_csv(f"scraper/links/{filename}.csv", index=False)
