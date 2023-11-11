@@ -25,7 +25,7 @@ driver = webdriver.Chrome(service=service, options=options)
 
 def scrape_links(url):
     driver.get(url)
-    time.sleep(12)  # Wait for the page to load
+    time.sleep(20)  # Wait for the page to load
     elements = driver.find_elements(By.CSS_SELECTOR, 'a')
     
     # Specify the class you are interested in
