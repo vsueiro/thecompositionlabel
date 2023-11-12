@@ -18,7 +18,6 @@ user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 # Configure Chrome Options for Headless Mode
 options = Options()
 options.add_argument(f'user-agent={user_agent}')
-# options.add_argument("--headless")
 options.add_argument("--no-sandbox")  # Bypass OS security model, necessary for Docker and certain CI environments
 options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 options.add_argument("--disable-gpu")  # Applicable to windows os only
