@@ -1,8 +1,8 @@
-name: get-all-items-links
+name: get-items-details
 
 on:
   schedule:
-    - cron: "0 17 * * 1" # Runs at 5 PM UTC every Monday, which is 12 PM
+    - cron: "0 0 * * *" # Run the task at midnight every day
   workflow_dispatch: # Allows manual triggering via GitHub UI
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run scraper script
-        run: python scraper/get-all-items-links.py
+        run: python scraper/get-items-details.py
 
       - name: Commit and push if there are changes
         run: |
@@ -49,5 +49,5 @@ jobs:
           git add scraper/* data/*
 
           # Commit and push changes
-          git commit -m "Update items links" || exit 0  # Prevents error if no changes
+          git commit -m "Update scraped items details" || exit 0  # Prevents error if no changes
           git push
