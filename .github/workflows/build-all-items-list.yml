@@ -1,0 +1,39 @@
+name: build-all-items-list
+
+on:
+  workflow_run:
+    workflows: ["get-items-details"]
+    types:
+      - completed
+  workflow_dispatch: # Allows manual triggering via GitHub UI
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x" # Replace with your specific Python version
+
+      - name: Install dependencies
+        run: |
+          pip install pandas
+
+      - name: Run consolidating script
+        run: python scraper/build-all-items-list.py
+
+      - name: Commit and push if there are changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # Add only new files in scraper/ or data/ folders
+          git add data/*
+
+          # Commit and push changes
+          git commit -m "Update consolidated files" || exit 0 
+          git push

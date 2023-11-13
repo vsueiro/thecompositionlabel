@@ -3,6 +3,10 @@ name: get-items-details
 on:
   schedule:
     - cron: "0 0 * * *" # Run the task at midnight every day
+  workflow_run:
+    workflows: ["get-all-items-links"]
+    types:
+      - completed
   workflow_dispatch: # Allows manual triggering via GitHub UI
 
 jobs:
@@ -49,5 +53,5 @@ jobs:
           git add scraper/* data/*
 
           # Commit and push changes
-          git commit -m "Update scraped items details" || exit 0  # Prevents error if no changes
+          git commit -m "Update scraped items details" || exit 0
           git push

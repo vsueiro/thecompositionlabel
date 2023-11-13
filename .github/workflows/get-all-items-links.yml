@@ -49,5 +49,5 @@ jobs:
           git add scraper/* data/*
 
           # Commit and push changes
-          git commit -m "Update items links" || exit 0  # Prevents error if no changes
+          git commit -m "Update items links" || exit 0
           git push
