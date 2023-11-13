@@ -56,7 +56,7 @@ output_folder = 'scraper/items/'
 links_folder = 'scraper/links/'
 
 # Define the amount of links per scraping batch
-limit = 5
+limit = 500
 
 # Get the most recent list of links
 def get_most_recent_csv(directory):
@@ -105,7 +105,7 @@ driver = webdriver.Chrome(service=service, options=options)
 # Define get_item_details function
 def get_item_details(link, item_id):
     driver.get(link)
-    time.sleep(random.uniform(5, 10))
+    time.sleep(random.uniform(6, 8))
     
     # Get hardcoded JSON
     def extract_json():
