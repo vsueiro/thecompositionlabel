@@ -69,10 +69,11 @@ if new_materials:
     # Save the updated DataFrame to materials.csv
     updated_materials_df.to_csv(materials_file, index=False)
 
-# Iterate through each material in updated_materials_df
-for material in updated_materials_df['Material']:
-    # Add a new column for each material in consolidated_df and set default value to 0
-    consolidated_df[material] = 0
+# Only iterate if 'updated_materials_df' is not empty
+if not updated_materials_df.empty:
+    for material in updated_materials_df['Material']:
+        # Add a new column for each material in consolidated_df and set default value to 0
+        consolidated_df[material] = 0
 
 # Function to extract and round material percentages from composition string
 def extract_material_percentages(composition):
