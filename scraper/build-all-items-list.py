@@ -50,6 +50,9 @@ else:
 # Filter new materials that are not in existing_materials
 new_materials = new_material_set - existing_materials
 
+# Initialization outside the if block
+updated_materials_df = pd.DataFrame() 
+
 # Proceed only if there are new materials to add
 if new_materials:
     new_materials_df = pd.DataFrame(list(new_materials), columns=['Material'])
