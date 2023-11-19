@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetch all history for all tags and branches
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -48,6 +50,5 @@ jobs:
           # Add only new files in scraper/ or public/data/ folders
           git add scraper/* public/data/*
 
-          # Commit and push changes
-          git commit -m "Update items links" || exit 0
-          git push
+          # Commit only if there are changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update items links" && git pull --rebase && git push)
