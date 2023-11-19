@@ -4,8 +4,8 @@ import os
 # Define directory for saving item details CSVs
 links_folder = 'scraper/links/'
 items_folder = 'scraper/items/'
-output_file = 'data/women-top-rated.csv'
-materials_file = 'data/materials.csv'
+output_file = 'public/data/items.csv'
+materials_file = 'public/data/materials.csv'
 
 # Get the most recent list of links
 def get_most_recent_csv(directory):
@@ -43,7 +43,7 @@ for composition in consolidated_df['Composition'].dropna():
 # Check if materials.csv exists and read it
 if os.path.exists(materials_file):
     existing_materials_df = pd.read_csv(materials_file)
-    existing_materials = set(existing_materials_df['Material'])
+    existing_materials = set(existing_materials_df['Name'])
 else:
     existing_materials = set()
 
@@ -55,10 +55,11 @@ updated_materials_df = pd.DataFrame()
 
 # Proceed only if there are new materials to add
 if new_materials:
-    new_materials_df = pd.DataFrame(list(new_materials), columns=['Material'])
+    new_materials_df = pd.DataFrame(list(new_materials), columns=['Name'])
     new_materials_df['Biodegradable'] = ''
     new_materials_df['Natural'] = ''
     new_materials_df['Attributes'] = ''
+    new_materials_df['Checked'] = False
 
     # Append new materials to the existing DataFrame (if it exists) or create a new one
     if 'existing_materials_df' in locals():
@@ -71,9 +72,21 @@ if new_materials:
 
 # Only iterate if 'updated_materials_df' is not empty
 if not updated_materials_df.empty:
-    for material in updated_materials_df['Material']:
+    for material in updated_materials_df['Name']:
         # Add a new column for each material in consolidated_df and set default value to 0
         consolidated_df[material] = 0
+
+def clean_composition(composition):
+    # Split the string by commas and strip whitespace
+    materials = [mat.strip() for mat in composition.split(',')]
+    
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_materials = [x for x in materials if not (x in seen or seen.add(x))]
+
+    # Join the unique materials back into a string
+    return ', '.join(unique_materials)
+
 
 # Function to extract and round material percentages from composition string
 def extract_material_percentages(composition):
@@ -94,14 +107,19 @@ def extract_material_percentages(composition):
 
 # Iterate through each row in consolidated_df
 for index, row in consolidated_df.iterrows():
-    # Extract and round material percentages
-    composition = row['Composition']
+
+    # Clean the composition string and update the 'Composition' column
+    composition = clean_composition(row['Composition'])
+    consolidated_df.at[index, 'Composition'] = composition
+
+    # Extract and round material percentages from the cleaned composition
     material_percentages = extract_material_percentages(composition)
 
     # Update the material columns with their respective rounded percentages
     for material, percentage in material_percentages.items():
-        if material in consolidated_df.columns:
-            consolidated_df.at[index, material] = percentage
+        if material not in consolidated_df.columns:
+            consolidated_df[material] = 0  # Initialize a new column with 0
+        consolidated_df.at[index, material] = percentage
 
 # Add a 'Type' column to consolidated_df
 consolidated_df['Type'] = consolidated_df['Title'].apply(lambda title: title.split()[-1] if isinstance(title, str) else '')    

@@ -49,8 +49,8 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
 
-          # Add only new files in scraper/ or data/ folders
-          git add scraper/* data/*
+          # Add only new files in scraper/ or public/data/ folders
+          git add scraper/* public/data/*
 
           # Commit and push changes
           git commit -m "Update scraped items details" || exit 0

@@ -31,8 +31,8 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
 
-          # Add only new files in scraper/ or data/ folders
-          git add data/*
+          # Add only new files in scraper/ or public/data/ folders
+          git add public/data/*
 
           # Commit and push changes
           git commit -m "Update consolidated files" || exit 0 
