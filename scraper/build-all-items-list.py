@@ -77,8 +77,13 @@ if not updated_materials_df.empty:
         consolidated_df[material] = 0
 
 def clean_composition(composition):
-    # Split the string by commas and strip whitespace
-    materials = [mat.strip() for mat in composition.split(',')]
+    try:
+        # Split the string by commas and strip whitespace
+        materials = [mat.strip() for mat in composition.split(',')]
+    except AttributeError:
+        # Print the problematic composition and re-raise the error
+        print(f"Error with composition: {composition}")
+        raise
     
     # Remove duplicates while preserving order
     seen = set()
