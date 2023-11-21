@@ -1,43 +1,3 @@
-'''
-0. Define amount of links per scraping batch
-   - Assign limit = 3
-
-1. Get most recent list of links
-   - Find all .csv files in links/
-   - Order them alphabetically (Z->A)
-   - Assign first one to `links` variable
-   
-2. Shuffle links order 
-   - Randomize order
-   - Assign to "randomized_links" variable
-
-3. Prioritize links order 
-   - Create empty list `existing_links`
-   - Create empty list `new_links`
-   - For each item in randomized_links
-     - If it exists in my `items/` folder as {item.id}.csv 
-       - Append it to `existing_links`
-     - Otherwise
-       - Append it to `new_links`
-   - Create `prioritized_list`, concatenating `new_links` and `existing_links`
-
-4. Define get_item_details(link, id) function
-   - Simulate a browser access with Selenium
-   - Get item details:
-     - Title
-     - Type
-     - Image
-     - Price
-     - SKU
-     - Composition
-   - Save it in `items/` folder as {id}.csv 
-
-5. Get all items details
-   - Keep only the first `limit` elements in prioritized_list
-   - For each link in prioritized_list
-     - Call `get_item_details(link, id)` function
-'''
-
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -182,17 +142,23 @@ def get_item_details(link, item_id):
 
     composition = ', '.join(composition_values) if composition_values else ''
     
-    # Get Timestamp
-    timestamp = datetime.datetime.now()
-    
-    # Include the item name in the details
-    item_details = [[title, composition, price, image, timestamp, sku, link]]
+    # Check if required fields are present
+    if title and composition and image and sku:
         
-    # Creating DataFrame
-    df = pd.DataFrame(item_details, columns=['Title', 'Composition', 'Price', 'Image', 'Timestamp', 'SKU', 'Link'])
-    
-    # Save to CSV
-    df.to_csv(f"{output_folder}{item_id}.csv", index=False)
+        # Get Timestamp
+        timestamp = datetime.datetime.now()
+        
+        # Include the item name in the details
+        item_details = [[title, composition, price, image, timestamp, sku, link]]
+            
+        # Creating DataFrame
+        df = pd.DataFrame(item_details, columns=['Title', 'Composition', 'Price', 'Image', 'Timestamp', 'SKU', 'Link'])
+
+        # Save to CSV
+        df.to_csv(f"{output_folder}{item_id}.csv", index=False)
+
+    else:
+        print(f'Could not get required details about item {item_id}')
 
 
 # Create a new directory 'items' if it doesn't exist
