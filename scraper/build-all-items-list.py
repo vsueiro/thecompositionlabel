@@ -133,5 +133,8 @@ consolidated_df['Type'] = consolidated_df['Title'].apply(lambda title: title.spl
 type_counts = consolidated_df['Type'].value_counts()
 print(type_counts)
 
-# Save consolidated df as CSV
+# Drop duplicate rows from the DataFrame
+consolidated_df = consolidated_df.drop_duplicates()
+
+# Save the DataFrame without duplicates as a CSV file
 consolidated_df.to_csv(output_file, index=False)
