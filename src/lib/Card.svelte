@@ -3,20 +3,24 @@
 </script>
 
 <li class="card">
-  <figure>
-    <img src={item.Image} loading="lazy" />
-    <figcaption>
-      <div>
-        <h3>{item.Title}</h3>
-        <data value={item.Price}>${item.Price}</data>
-      </div>
-      <ol>
-        {#each item.Composition.split(",") as item}
-          <li>{item}</li>
-        {/each}
-      </ol>
-    </figcaption>
-  </figure>
+  <a href={item.Link} target="_blank">
+    <figure>
+      <img src={item.Image} loading="lazy" />
+      <figcaption>
+        <div>
+          <h3>{item.Title}</h3>
+          {#if item.Price}
+            <data value={item.Price}>${item.Price}</data>
+          {/if}
+        </div>
+        <ol>
+          {#each item.Composition.split(",") as item}
+            <li>{item}</li>
+          {/each}
+        </ol>
+      </figcaption>
+    </figure>
+  </a>
 </li>
 
 <style>
@@ -25,6 +29,11 @@
     background: #fff;
     border-radius: 8px;
     overflow: hidden;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 
   .card:hover {
@@ -57,6 +66,8 @@
   img {
     display: block;
     width: 100%;
+    aspect-ratio: 240/321;
+    object-fit: cover;
   }
 
   h3 {

@@ -4,7 +4,7 @@
   import { onMount } from "svelte";
   import { csv, autoType } from "d3";
 
-  let filterMode = "exactly"; // Variable to track the select option
+  let filterMode = "any-of"; // Variable to track the select option (exactly|any-of)
   let materials = [];
   let items = [];
   let checkboxStates = {};
@@ -61,8 +61,8 @@
   <p>
     View clothes that contain
     <select bind:value={filterMode}>
-      <option value="exactly">exactly</option>
       <option value="any-of">any of</option>
+      <option value="exactly">exactly</option>
     </select>
     these materials:
   </p>
