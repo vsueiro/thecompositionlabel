@@ -59,7 +59,7 @@ if new_materials:
     new_materials_df['Biodegradable'] = ''
     new_materials_df['Natural'] = ''
     new_materials_df['Attributes'] = ''
-    new_materials_df['Checked'] = False
+    new_materials_df['Checked'] = "false"
 
     # Append new materials to the existing DataFrame (if it exists) or create a new one
     if 'existing_materials_df' in locals():
