@@ -1,4 +1,4 @@
-// import "./css/reset.css";
+import "./css/reset.css";
 // import "./css/water.css";
 import "./css/app.css";
 
