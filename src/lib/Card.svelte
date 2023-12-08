@@ -1,7 +1,6 @@
 <script>
   export let item;
 
-  // quick and dirty
   let biodegradableMaterials = [
     "Linen",
     "Cotton",
@@ -10,18 +9,13 @@
     "Silk",
     "Modal",
   ];
-  let materials = item.Composition.split(",");
-  let biodegradableCount = 0;
 
-  for (let material of materials) {
-    if (
-      biodegradableMaterials.some((biodegradableMaterial) =>
-        material.includes(biodegradableMaterial)
-      )
-    ) {
-      biodegradableCount++;
-    }
-  }
+  $: materials = item.Composition.split(",");
+  $: biodegradableCount = materials.filter((material) =>
+    biodegradableMaterials.some((biodegradableMaterial) =>
+      material.includes(biodegradableMaterial)
+    )
+  ).length;
 
   $: isBiodegradable = materials.length === biodegradableCount;
 </script>

@@ -34,24 +34,31 @@
 
   // Updated reactive statement for dynamic filtering
   $: {
+    // Reactive statement to get checked materials
+    // let checkedMaterials = materials.filter(
+    //   (material) => checkboxStates[material.Name]
+    // );
+
     if (materials.length) {
-      if (filterMode === "exactly") {
-        filteredItems = items.filter((item) =>
-          materials.every((material) => {
-            const isSelected = checkboxStates[material.Name];
-            const hasMaterial = item[material.Name] > 0;
-            return isSelected ? hasMaterial : !hasMaterial;
-          })
-        );
-      } else if (filterMode === "any-of") {
-        filteredItems = items.filter((item) =>
-          materials.some((material) => {
-            const isSelected = checkboxStates[material.Name];
-            const hasMaterial = item[material.Name] > 0;
-            return isSelected && hasMaterial;
-          })
-        );
-      }
+      // Contains exactly those materials
+      let strictly = items.filter((item) =>
+        materials.every((material) => {
+          const isSelected = checkboxStates[material.Name];
+          const hasMaterial = item[material.Name] > 0;
+          return isSelected ? hasMaterial : !hasMaterial;
+        })
+      );
+
+      // Contains any of those materials
+      let loosely = items.filter((item) =>
+        materials.some((material) => {
+          const isSelected = checkboxStates[material.Name];
+          const hasMaterial = item[material.Name] > 0;
+          return isSelected && hasMaterial;
+        })
+      );
+
+      filteredItems = [...new Set([...strictly, ...loosely])];
     }
   }
 </script>
@@ -59,12 +66,12 @@
 <!-- Dynamic Checkbox filters -->
 <form action="return false">
   <p>
-    View clothes that contain
-    <select bind:value={filterMode}>
+    <!-- View clothes that contain -->
+    <select bind:value={filterMode} hidden>
       <option value="any-of">any of</option>
       <option value="exactly">exactly</option>
     </select>
-    these materials:
+    <!-- these materials: -->
   </p>
   <div>
     {#each materials as material}
