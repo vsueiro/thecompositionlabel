@@ -63,31 +63,22 @@
   .card {
     width: 240px;
     background: #fff;
+    outline: 1px solid black;
+    transition: all 0.25s;
     border-radius: 8px;
-    overflow: hidden;
-    outline: 1px solid transparent;
-    transition: all 0.4s;
   }
 
   a {
+    position: relative;
+    display: block;
     text-decoration: none;
     color: inherit;
   }
 
-  .card:hover {
-    outline: 1px solid black;
-  }
-
-  .card:hover figcaption {
-    border-color: currentColor;
-  }
-
-  .card:hover .photo:after {
-    opacity: 0.2;
-  }
-
   figure {
     margin: 0;
+    border-radius: 8px;
+    overflow: hidden;
   }
 
   figcaption {
@@ -140,26 +131,15 @@
     width: fit-content;
   }
 
-  .photo {
-    position: relative;
-  }
-
-  .photo:after {
+  .biodegradable a:after {
     content: "";
     display: block;
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-image: radial-gradient(#ffd7df 33%, transparent 33%);
-    background-attachment: fixed;
-    background-size: 2px 2px;
-    opacity: 1;
-    transition: all 0.4s;
-  }
-
-  .biodegradable .photo:after {
-    background-image: radial-gradient(#bcf2ff 33%, transparent 33%);
+    width: 64px;
+    height: 64px;
+    top: -12px;
+    left: -12px;
+    background: blue;
+    border-radius: 50%;
   }
 </style>
