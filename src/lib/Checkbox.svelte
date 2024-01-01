@@ -4,6 +4,12 @@
 </script>
 
 <label>
-  <input type="checkbox" bind:checked={checked} />
+  <input type="checkbox" bind:checked />
   {material.Name}
 </label>
+
+<style>
+  label {
+    user-select: none;
+  }
+</style>

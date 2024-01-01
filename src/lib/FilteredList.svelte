@@ -9,6 +9,16 @@
   let items = [];
   let checkboxStates = {};
   let filteredItems = [];
+  let itemsPerPage = 100;
+  let page = 1;
+  let totalPages = 1;
+
+  $: totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+
+  $: paginatedItems = filteredItems.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
 
   onMount(async () => {
     try {
@@ -61,6 +71,18 @@
       filteredItems = [...new Set([...strictly, ...loosely])];
     }
   }
+
+  function prevPage() {
+    if (page > 1) {
+      page--;
+    }
+  }
+
+  function nextPage() {
+    if (page < totalPages) {
+      page++;
+    }
+  }
 </script>
 
 <!-- Dynamic Checkbox filters -->
@@ -80,14 +102,21 @@
   </div>
 </form>
 
-<!-- Filtered List -->
-<output>{filteredItems.length} items found</output>
-
 <ul>
-  {#each filteredItems as item}
+  {#each paginatedItems as item}
     <Card {item} />
   {/each}
 </ul>
+
+<!-- Filtered List -->
+<output>{filteredItems.length} items found</output>
+
+<!-- Pagination Controls -->
+<nav>
+  <button on:click={prevPage}>Previous</button>
+  <span>Page {page} of {totalPages}</span>
+  <button on:click={nextPage}>Next</button>
+</nav>
 
 <style>
   ul {
