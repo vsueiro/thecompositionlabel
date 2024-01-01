@@ -8,7 +8,7 @@
     Cotton: "cotton.svg",
     Elastane: "elastane.svg",
     Linen: "linen.svg",
-    Nylon: "nylon.svg",
+    Polyamide: "nylon.svg",
     Polyester: "polyester.svg",
     Viscose: "viscose.svg",
   };
@@ -117,21 +117,18 @@
 
 <!-- Dynamic Checkbox filters -->
 <form action="return false">
-  <p>
-    <!-- View clothes that contain -->
-    <select bind:value={filterMode} hidden>
-      <option value="any-of">any of</option>
-      <option value="exactly">exactly</option>
-    </select>
-    <!-- these materials: -->
-  </p>
-  <div>
+  <div class="checkboxes">
     {#each filteredMaterials as material}
-      <Checkbox {material} bind:checked={checkboxStates[material.Name]} />
+      <Checkbox
+        {material}
+        icon={icons[material.Name]}
+        bind:checked={checkboxStates[material.Name]}
+      />
     {/each}
 
     <Checkbox
       material={othersMaterial}
+      icon="others.svg"
       bind:checked={checkboxStates["Others"]}
     />
   </div>
@@ -154,6 +151,12 @@
 </nav>
 
 <style>
+  .checkboxes {
+    display: flex;
+    justify-content: start;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
   ul {
     display: flex;
     justify-content: center;

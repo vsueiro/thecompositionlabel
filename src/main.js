@@ -1,5 +1,4 @@
 import "./css/reset.css";
-// import "./css/water.css";
 import "./css/app.css";
 
 import App from "./App.svelte";
