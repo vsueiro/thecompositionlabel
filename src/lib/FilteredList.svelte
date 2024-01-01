@@ -4,14 +4,32 @@
   import { onMount } from "svelte";
   import { csv, autoType } from "d3";
 
+  const icons = {
+    Cotton: "cotton.svg",
+    Elastane: "elastane.svg",
+    Linen: "linen.svg",
+    Nylon: "nylon.svg",
+    Polyester: "polyester.svg",
+    Viscose: "viscose.svg",
+  };
+
+  // Synthetic object for "Others"
+  const othersMaterial = { Name: "Others" };
+
   let filterMode = "any-of"; // Variable to track the select option (exactly|any-of)
   let materials = [];
   let items = [];
-  let checkboxStates = {};
   let filteredItems = [];
+  let filteredMaterials = [];
+  let checkboxStates = {};
   let itemsPerPage = 100;
   let page = 1;
   let totalPages = 1;
+
+  // Reactive declaration to update filteredMaterials
+  $: if (materials.length > 0) {
+    filteredMaterials = materials.filter((material) => icons[material.Name]);
+  }
 
   $: totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
@@ -35,6 +53,11 @@
         checkboxStates[material.Name] = material.Checked;
       }
 
+      // Add a special "Others" entry
+      checkboxStates["Others"] = false;
+
+      console.log(filteredMaterials);
+
       // Trigger reactive update
       filteredItems = [...items];
     } catch (error) {
@@ -44,12 +67,19 @@
 
   // Updated reactive statement for dynamic filtering
   $: {
-    // Reactive statement to get checked materials
-    // let checkedMaterials = materials.filter(
-    //   (material) => checkboxStates[material.Name]
-    // );
-
     if (materials.length) {
+      let others = [];
+      if (checkboxStates["Others"]) {
+        // Does not contain any of the main materials
+        others = items.filter(
+          (item) =>
+            !filteredMaterials.some((material) => {
+              const hasMaterial = item[material.Name] > 0;
+              return hasMaterial;
+            })
+        );
+      }
+
       // Contains exactly those materials
       let strictly = items.filter((item) =>
         materials.every((material) => {
@@ -68,7 +98,7 @@
         })
       );
 
-      filteredItems = [...new Set([...strictly, ...loosely])];
+      filteredItems = [...new Set([...strictly, ...loosely, ...others])];
     }
   }
 
@@ -96,9 +126,14 @@
     <!-- these materials: -->
   </p>
   <div>
-    {#each materials as material}
+    {#each filteredMaterials as material}
       <Checkbox {material} bind:checked={checkboxStates[material.Name]} />
     {/each}
+
+    <Checkbox
+      material={othersMaterial}
+      bind:checked={checkboxStates["Others"]}
+    />
   </div>
 </form>
 
