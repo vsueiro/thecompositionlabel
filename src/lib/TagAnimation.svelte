@@ -1,6 +1,4 @@
 <script>
-  import { onMount } from "svelte";
-
   const tags = [
     {
       name: "Cotton",
@@ -45,37 +43,6 @@
       biodegradable: false,
     },
   ];
-
-  // const duration = 18000;
-  // const delay = duration * 0.2;
-
-  onMount(() => {
-    // const tags = document.querySelectorAll(".tag");
-    // tags.forEach((tag, index) => {
-    //   let base = tag.querySelector(".base");
-    //   let info = tag.querySelector(".info");
-    //   base.style.animationDelay = `${delay * -index}s`;
-    //   info.style.animationDelay = `${delay * -index}s`;
-    // });
-    // let index = 0;
-    // setInterval(() => {
-    //   tags.forEach((tag, i) => {
-    //     const isCurrent = i === index;
-    //     if (isCurrent) {
-    //       bases[index].style.animationPlayState = "running";
-    //       infos[index].style.animationPlayState = "running";
-    //       setTimeout(() => {
-    //         bases[index].style.animationPlayState = "paused";
-    //         infos[index].style.animationPlayState = "paused";
-    //       }, duration);
-    //     }
-    //   });
-    //   index++;
-    //   if (index > tags.length - 1) {
-    //     index = 0;
-    //   }
-    // }, delay);
-  });
 </script>
 
 <dl>
@@ -193,10 +160,15 @@
     background: white;
     transform: translate(0, var(--height));
     animation: showTagBase var(--duration) infinite;
+    border-right: 1px dashed #494b53;
     /* animation-play-state: paused; */
     /* animation-fill-mode: backwards; */
   }
-  .base::before {
+  .shirt[data-biodegradable="false"] .base {
+    border-right: none;
+    border-left: 1px dashed #494b53;
+  }
+  /* .base::before {
     content: "";
     position: absolute;
     display: block;
@@ -204,21 +176,41 @@
     top: 0;
     bottom: 0;
     right: -1px;
-    border-right: 1px dashed white;
+    border-right: 1px dashed #494b53;
   }
   .shirt[data-biodegradable="false"] .base::before {
     right: initial;
     left: -1px;
     border-right: none;
-    border-left: 1px dashed white;
+    border-left: 1px dashed #494b53;
+  } */
+  .base::after {
+    content: "";
+    position: absolute;
+    display: block;
+    right: 0;
+    bottom: 12px;
+    width: 24px;
+    height: 24px;
+    background-image: url(assets/scissors.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position-x: 8px;
+    animation: cut var(--duration) infinite;
+  }
+  .shirt[data-biodegradable="false"] .base::after {
+    right: initial;
+    left: 0;
+    transform: rotateY(180deg);
+    animation: cutRight var(--duration) infinite;
   }
   .info {
     position: relative;
     width: 384px;
     height: 176px;
     background: white;
-    border-left: 1px dashed white;
-    margin-left: 2px;
+    /* border-left: 1px dashed #494b53; */
+    /* margin-left: 2px; */
     transform: translate(0, var(--height));
     animation: showTagInfoLeft var(--duration) infinite;
     /* animation-play-state: paused; */
@@ -226,37 +218,43 @@
   }
   .shirt[data-biodegradable="false"] .info {
     animation: showTagInfoRight var(--duration) infinite;
-    margin-right: 2px;
-    margin-left: 0;
-    border-left: none;
-    border-right: 1px dashed white;
+    /* margin-right: 2px;
+    margin-left: 0; */
+    /* border-left: none; */
+    /* border-right: 1px dashed #494b53; */
   }
   .shirt:nth-child(1) .base,
-  .shirt:nth-child(1) .info {
+  .shirt:nth-child(1) .info,
+  .shirt:nth-child(1) .base::after {
     animation-delay: 0s;
   }
   .shirt:nth-child(2) .base,
-  .shirt:nth-child(2) .info {
+  .shirt:nth-child(2) .info,
+  .shirt:nth-child(2) .base::after {
     animation-delay: calc(calc(var(--duration) / var(--count)) * calc(1 * 1));
   }
   .shirt:nth-child(3) .base,
-  .shirt:nth-child(3) .info {
+  .shirt:nth-child(3) .info,
+  .shirt:nth-child(3) .base::after {
     animation-delay: calc(calc(var(--duration) / var(--count)) * calc(2 * 1));
   }
   .shirt:nth-child(4) .base,
-  .shirt:nth-child(4) .info {
+  .shirt:nth-child(4) .info,
+  .shirt:nth-child(4) .base::after {
     animation-delay: calc(calc(var(--duration) / var(--count)) * calc(3 * 1));
   }
   .shirt:nth-child(5) .base,
-  .shirt:nth-child(5) .info {
+  .shirt:nth-child(5) .info,
+  .shirt:nth-child(5) .base::after {
     animation-delay: calc(calc(var(--duration) / var(--count)) * calc(4 * 1));
   }
   .shirt:nth-child(6) .base,
-  .shirt:nth-child(6) .info {
+  .shirt:nth-child(6) .info,
+  .shirt:nth-child(6) .base::after {
     animation-delay: calc(calc(var(--duration) / var(--count)) * calc(5 * 1));
   }
 
-  .info::before {
+  /* .info::before {
     content: "";
     position: absolute;
     display: block;
@@ -264,14 +262,14 @@
     top: 0;
     bottom: 0;
     left: -2px;
-    border-right: 1px dashed white;
+    border-right: 1px dashed #494b53;
   }
   .shirt[data-biodegradable="false"] .info::before {
     left: initial;
     right: -2px;
     border-right: none;
-    border-left: 1px dashed white;
-  }
+    border-left: 1px dashed #494b53;
+  } */
   .print {
     position: relative;
     border: 1px solid #494b53;
@@ -370,6 +368,36 @@
     100% {
       transform: translate(var(--height), calc(var(--height) * -1.1))
         rotate(60deg);
+    }
+  }
+
+  @keyframes cut {
+    0% {
+      transform: translateY(0);
+    }
+    18% {
+      transform: translateY(0);
+    }
+    21% {
+      transform: translateY(-140px);
+    }
+    100% {
+      transform: translateY(-140px);
+    }
+  }
+
+  @keyframes cutRight {
+    0% {
+      transform: translateY(0) rotateY(180deg);
+    }
+    18% {
+      transform: translateY(0) rotateY(180deg);
+    }
+    21% {
+      transform: translateY(-140px) rotateY(180deg);
+    }
+    100% {
+      transform: translateY(-140px) rotateY(180deg);
     }
   }
 </style>
