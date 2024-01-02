@@ -4,18 +4,41 @@
 
 <section>
   <article>
-    <h2>Avoid wearing plastic</h2>
-    <p>
-      Fast fashion’s obsession with plastic-based fabrics, like polyester and
-      elastane, is trashing our planet. However, finding more natural
-      alternatives can be super time-consuming.
-    </p>
+    <div><!-- Spacer --></div>
 
-    <p>
-      That’s why we've sorted through SHEIN to bring you their best in
-      biodegradable fashion – focusing on natural fibers like cotton, linen, and
-      viscose.
-    </p>
+    <div>
+      <h2>Avoid wearing plastic</h2>
+      <p>
+        Fast fashion’s obsession with plastic-based fabrics, like polyester and
+        elastane, is trashing our planet. However, finding more natural
+        alternatives can be super time-consuming.
+      </p>
+
+      <p>
+        That’s why we've sorted through SHEIN to bring you their best in
+        biodegradable fashion – focusing on natural fibers like cotton, linen,
+        and viscose.
+      </p>
+    </div>
+
+    <a href="#list" class="button">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-arrow-down"
+        ><line x1="12" y1="5" x2="12" y2="19"></line><polyline
+          points="19 12 12 19 5 12"
+        ></polyline></svg
+      >
+      <span class="screen-reader">Scroll Down</span>
+    </a>
   </article>
   <TagAnimation />
 </section>
@@ -24,7 +47,7 @@
   section {
     background: #fff;
     display: flex;
-    align-items: center;
+    align-items: normal;
     justify-content: space-between;
     gap: 40px;
     padding: 40px;
@@ -35,7 +58,9 @@
     max-width: 50%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding-right: 80px;
+    min-height: 100%;
   }
   h2 {
     font-size: 48px;
@@ -48,5 +73,33 @@
   p {
     font-size: 18px;
     margin-bottom: 1em;
+  }
+  a.button {
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    appearance: none;
+    box-shadow: none;
+    height: 56px;
+    width: 56px;
+    border: 1px solid currentColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  .screen-reader {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
 </style>

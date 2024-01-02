@@ -169,9 +169,39 @@
 <footer>
   <output>{filteredItems.length} items found</output>
   <nav>
-    <button on:click={prevPage}>Previous</button>
+    <button on:click={prevPage}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#494b53"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-chevron-left"
+        ><polyline points="15 18 9 12 15 6"></polyline></svg
+      >
+      <span class="screen-reader">Previous</span>
+    </button>
     <span>Page {page} of {totalPages}</span>
-    <button on:click={nextPage}>Next</button>
+    <button on:click={nextPage}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#494b53"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-chevron-right"
+        ><polyline points="9 18 15 12 9 6"></polyline></svg
+      >
+      <span class="screen-reader">Next</span>
+    </button>
   </nav>
 </footer>
 
@@ -205,5 +235,39 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  nav button {
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    appearance: none;
+    box-shadow: none;
+    height: 32px;
+    width: 32px;
+    border: 1px solid currentColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  .screen-reader {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
 </style>

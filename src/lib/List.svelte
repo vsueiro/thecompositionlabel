@@ -2,7 +2,7 @@
   import FilteredList from "../lib/FilteredList.svelte";
 </script>
 
-<section>
+<section id="list">
   <div>
     <h3>Types of materials</h3>
     <p>

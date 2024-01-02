@@ -9,6 +9,10 @@
   text-rendering: optimizeLegibility;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #efe2ea;
   color: #494b53;
