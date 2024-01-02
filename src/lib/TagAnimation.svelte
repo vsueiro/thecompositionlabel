@@ -101,7 +101,7 @@
 
 <style>
   :root {
-    --height: 70vh;
+    --height: 60vh;
   }
   dl {
     background: linear-gradient(180deg, #c8b4d2 0%, #dfc1d0 50%, #f1e6ec 100%);
@@ -119,7 +119,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    box-shadow: inset 0 0 48px #ceb8d280;
+    box-shadow: inset 0 0 96px #ceb8d280;
   }
   dd {
     margin: 0;
