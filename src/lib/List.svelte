@@ -25,7 +25,7 @@
   }
 
   section > div {
-    padding: 40px 40px 40px 40px;
+    padding: 60px 40px 20px 40px;
     display: flex;
     align-items: center;
     gap: 40px;
