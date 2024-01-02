@@ -101,7 +101,12 @@
 
 <style>
   :root {
-    --height: 60vh;
+    --height: 66.666vh;
+  }
+  @media (min-height: 960px) {
+    :root {
+      --height: 640px;
+    }
   }
   dl {
     background: linear-gradient(180deg, #c8b4d2 0%, #dfc1d0 50%, #f1e6ec 100%);
