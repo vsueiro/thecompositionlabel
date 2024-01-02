@@ -8,7 +8,7 @@
     Cotton: "cotton.svg",
     Elastane: "elastane.svg",
     Linen: "linen.svg",
-    // Polyamide: "nylon.svg",
+    Polyamide: "nylon.svg",
     Polyester: "polyester.svg",
     Viscose: "viscose.svg",
   };

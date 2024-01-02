@@ -25,7 +25,7 @@
                 ? "biodegradable"
                 : ""}
             >
-              {material}
+              {material.replace("Polyamide", "Nylon")}
             </li>
           {/each}
         </ol>

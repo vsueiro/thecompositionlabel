@@ -9,7 +9,7 @@
   {#if icon}
     <img src="assets/icons/{icon}" alt="" />
   {/if}
-  <div>{material.Name}</div>
+  <div>{material.Name === "Polyamide" ? "Nylon" : material.Name}</div>
 </label>
 
 <style>
