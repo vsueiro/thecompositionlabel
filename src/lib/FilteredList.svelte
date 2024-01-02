@@ -138,6 +138,9 @@
           return 0;
         }
       });
+
+      // Reset page number
+      page = 1;
     }
   }
 
