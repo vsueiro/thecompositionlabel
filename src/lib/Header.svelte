@@ -31,4 +31,14 @@
   span:nth-child(2) {
     font-weight: 700;
   }
+
+  @media (max-width: 960px) {
+    header {
+      height: 56px;
+      padding: 0 20px;
+    }
+    h1 {
+      font-size: 17.6px;
+    }
+  }
 </style>

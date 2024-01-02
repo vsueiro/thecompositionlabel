@@ -230,7 +230,6 @@
   }
   .checkboxes {
     display: flex;
-
     justify-content: start;
     gap: 16px;
     flex-wrap: wrap;
@@ -304,5 +303,11 @@
   footer output {
     font-family: "Dela Gothic One";
     font-size: 40px;
+  }
+  @media (max-width: 960px) {
+    .checkboxes {
+      gap: 8px;
+      padding: 20px;
+    }
   }
 </style>

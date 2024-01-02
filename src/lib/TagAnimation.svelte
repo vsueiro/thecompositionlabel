@@ -400,4 +400,10 @@
       transform: translateY(-140px) rotateY(180deg);
     }
   }
+
+  @media (max-width: 960px) {
+    dl {
+      display: none;
+    }
+  }
 </style>

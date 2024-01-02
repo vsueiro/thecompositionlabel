@@ -4,7 +4,7 @@
 
 <section>
   <article>
-    <div><!-- Spacer --></div>
+    <div class="spacer"></div>
 
     <div>
       <h2>Avoid wearing plastic</h2>
@@ -105,5 +105,35 @@
     position: absolute;
     white-space: nowrap;
     width: 1px;
+  }
+  @media (max-width: 1280px) {
+    article {
+      padding-right: 40px;
+    }
+  }
+  @media (max-width: 960px) {
+    section {
+      gap: 20px;
+      padding: 20px;
+    }
+    article {
+      max-width: 100%;
+      padding-right: 0;
+      padding-top: 20px;
+    }
+    h2 {
+      font-size: 36px;
+    }
+    p {
+      font-size: 16px;
+    }
+    a.button {
+      height: 36px;
+      width: 36px;
+      display: none;
+    }
+    .spacer {
+      display: none;
+    }
   }
 </style>

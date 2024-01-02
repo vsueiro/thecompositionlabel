@@ -19,4 +19,10 @@
     width: calc(100% - 48px);
     margin: 24px auto 48px;
   }
+  @media (max-width: 960px) {
+    .container {
+      width: calc(100% - 24px);
+      margin: 12px auto 24px;
+    }
+  }
 </style>

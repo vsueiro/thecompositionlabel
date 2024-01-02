@@ -39,4 +39,16 @@
     padding-right: 40px;
     text-wrap: pretty;
   }
+  @media (max-width: 960px) {
+    section > div {
+      padding: 40px 20px 0 20px;
+      gap: 20px;
+      flex-direction: column;
+      align-items: start;
+    }
+    h3 {
+      font-size: 32px;
+      padding-right: 0;
+    }
+  }
 </style>

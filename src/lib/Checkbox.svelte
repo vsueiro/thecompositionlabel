@@ -65,4 +65,17 @@
   label[data-biodegradable="true"]:has(input:checked) {
     background: #e5f4bc;
   }
+
+  @media (max-width: 960px) {
+    label {
+      height: 48px;
+      font-size: 12px;
+    }
+    img {
+      width: 40px;
+    }
+    div {
+      padding: 0 12px;
+    }
+  }
 </style>
