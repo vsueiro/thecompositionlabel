@@ -4,15 +4,15 @@
   import List from "./lib/List.svelte";
 </script>
 
-<div id="app">
+<div class="container">
   <Header />
   <Cover />
   <List />
 </div>
 
 <style>
-  #app {
-    max-width: 1440px;
+  .container {
+    max-width: 1376px;
     width: calc(100% - 48px);
     margin: 24px auto 48px;
   }

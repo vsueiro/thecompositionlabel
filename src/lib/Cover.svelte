@@ -25,8 +25,28 @@
     background: #fff;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 40px;
     padding: 40px;
     margin: 8px auto;
     border-radius: 16px;
+  }
+  article {
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding-right: 80px;
+  }
+  h2 {
+    font-size: 48px;
+    line-height: 1;
+    font-family: "Dela Gothic One";
+    font-synthesis: none;
+    margin-bottom: 1em;
+    text-wrap: pretty;
+  }
+  p {
+    font-size: 18px;
+    margin-bottom: 1em;
   }
 </style>

@@ -176,11 +176,16 @@
 </footer>
 
 <style>
+  form {
+    width: 100%;
+  }
   .checkboxes {
     display: flex;
+
     justify-content: start;
-    gap: 8px;
+    gap: 16px;
     flex-wrap: wrap;
+    width: 100%;
     padding: 40px;
   }
 

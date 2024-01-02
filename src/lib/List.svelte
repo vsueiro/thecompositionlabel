@@ -4,7 +4,7 @@
 
 <section>
   <div>
-    <h2>Types of materials</h2>
+    <h3>Types of materials</h3>
     <p>
       Play with the filters below to discover a more sustainable closet. Inserir
       algum conteúdo sobre a diferença das cores serem biodegradáveis ou não
@@ -25,6 +25,18 @@
   }
 
   section > div {
-    padding: 40px 40px 0 40px;
+    padding: 40px 40px 40px 40px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  h3 {
+    font-size: 40px;
+    line-height: 1;
+    font-family: "Dela Gothic One";
+    font-synthesis: none;
+    padding-right: 40px;
+    text-wrap: pretty;
   }
 </style>

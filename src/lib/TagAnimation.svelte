@@ -59,12 +59,18 @@
 </dl>
 
 <style>
+  :root {
+    --height: 70vh;
+  }
+
   dl {
-    background: Lavender;
-    width: 400px;
-    height: 400px;
+    background: linear-gradient(180deg, #c8b4d2 0%, #dfc1d0 50%, #f1e6ec 100%);
+    width: 50%;
+    height: var(--height);
     position: relative;
     overflow: hidden;
+    flex-shrink: 0;
+    border-radius: 16px;
   }
   .shirt {
     height: 100%;
@@ -84,7 +90,7 @@
     width: 24px;
     background: white;
     border-right: 1px dashed black;
-    transform: translate(0, 400px);
+    transform: translate(0, var(--height));
     animation: showTagBase 6s infinite;
   }
   .info {
@@ -92,7 +98,7 @@
     min-width: 120px;
     background: white;
     border-left: 1px dashed black;
-    transform: translate(0, 400px);
+    transform: translate(0, var(--height));
     animation: showTagInfo 6s infinite;
   }
   .print {
@@ -105,7 +111,7 @@
 
   @keyframes showTagBase {
     0% {
-      transform: translate(0, 400px);
+      transform: translate(0, var(--height));
     }
     50% {
       transform: translate(0, 0);
@@ -114,13 +120,13 @@
       transform: translate(0, 0);
     }
     100% {
-      transform: translate(0, -400px);
+      transform: translate(0, calc(-1 * var(--height)));
     }
   }
 
   @keyframes showTagInfo {
     0% {
-      transform: translate(0, 400px);
+      transform: translate(0, var(--height));
     }
     50% {
       transform: translate(0, 0);
@@ -129,7 +135,8 @@
       transform: translate(0, -20px);
     }
     100% {
-      transform: translate(400px, calc(-400px * 1.1)) rotate(60deg);
+      transform: translate(var(--height), calc(var(--height) * -1.1))
+        rotate(60deg);
     }
   }
 </style>

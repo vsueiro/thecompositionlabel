@@ -11,7 +11,7 @@
 <style>
   header {
     background: #fff;
-    height: 56px;
+    height: 72px;
     display: flex;
     align-items: center;
     padding: 0 40px;
