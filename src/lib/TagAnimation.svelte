@@ -319,13 +319,13 @@
     0% {
       transform: translate(0, var(--height));
     }
-    16.666% {
+    18% {
       transform: translate(0, 0);
     }
-    20.666% {
+    21% {
       transform: translate(0, 0);
     }
-    33.333% {
+    36% {
       transform: translate(0, calc(-1 * var(--height)));
     }
     100% {
@@ -337,13 +337,13 @@
     0% {
       transform: translate(0, var(--height));
     }
-    16.666% {
+    18% {
       transform: translate(0, 0);
     }
-    20.666% {
-      transform: translate(5px, -20px) rotate(-2.5deg);
+    21% {
+      transform: translate(4px, -24px) rotate(-2.5deg);
     }
-    33.333% {
+    36% {
       transform: translate(var(--height), calc(var(--height) * -1.1))
         rotate(60deg);
     }
@@ -357,13 +357,13 @@
     0% {
       transform: translate(0, var(--height));
     }
-    16.666% {
+    18% {
       transform: translate(0, 0);
     }
-    20.666% {
-      transform: translate(-5px, -20px) rotate(2.5deg);
+    21% {
+      transform: translate(-4px, -24px) rotate(2.5deg);
     }
-    33.333% {
+    36% {
       transform: translate(calc(-1 * var(--height)), calc(var(--height) * -1.1))
         rotate(-60deg);
     }
