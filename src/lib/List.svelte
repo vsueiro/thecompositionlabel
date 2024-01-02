@@ -3,14 +3,20 @@
 </script>
 
 <section id="list">
-  <div>
-    <h3>Types of materials</h3>
-    <p>
-      Play with the filters below to discover a more sustainable closet. Inserir
-      algum conteúdo sobre a diferença das cores serem biodegradáveis ou não
-    </p>
+  <div class="columns">
+    <h3>Types of <br />materials</h3>
+    <div>
+      <p class="description">
+        Play with the filters below to discover a more sustainable closet.
+        <br />
+        Legend colors reveal the eco&#8209;friendliness of each fabric.
+      </p>
+      <p class="legend">
+        <span class="green">Biodegradable</span>
+        <span class="red">Non-Biodegradable</span>
+      </p>
+    </div>
   </div>
-
   <FilteredList />
 </section>
 
@@ -24,11 +30,15 @@
     border-radius: 16px;
   }
 
-  section > div {
+  .columns {
     padding: 60px 40px 20px 40px;
     display: flex;
     align-items: center;
-    gap: 40px;
+    width: 100%;
+  }
+
+  .columns > * {
+    width: 50%;
   }
 
   h3 {
@@ -36,15 +46,58 @@
     line-height: 1;
     font-family: "Dela Gothic One";
     font-synthesis: none;
-    padding-right: 40px;
     text-wrap: pretty;
   }
+
+  .legend {
+    display: flex;
+    gap: 1em;
+    font-size: 14px;
+    white-space: nowrap;
+    margin-top: 1em;
+  }
+  .green,
+  .red {
+    display: flex;
+    align-items: center;
+  }
+  .green::before,
+  .red::before {
+    content: "";
+    display: block;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    transform: translateY(-1px);
+    margin-right: 0.5em;
+  }
+  .green:before {
+    background: #e5f4bc;
+    border: 1px solid hsl(75, 82%, 56%);
+  }
+  .red::before {
+    background: #f4e1f0;
+    border: 1px solid hsl(289, 41%, 84%);
+  }
+
   @media (max-width: 960px) {
-    section > div {
-      padding: 40px 20px 0 20px;
-      gap: 20px;
+    .columns {
+      padding: 40px 20px 20px 20px;
+      gap: 0;
       flex-direction: column;
       align-items: start;
+    }
+    .columns > * {
+      width: 100%;
+    }
+    h3 {
+      margin-bottom: 1em;
+    }
+    h3 br {
+      display: none;
+    }
+    .description br {
+      display: none;
     }
     h3 {
       font-size: 32px;
