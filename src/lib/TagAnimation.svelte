@@ -1,6 +1,51 @@
 <script>
   import { onMount } from "svelte";
 
+  const tags = [
+    {
+      name: "Cotton",
+      icon: "cotton.svg",
+      tagline: "A natural fiber",
+      labels: ["Versatile", "Breathable", "Comfortable"],
+      biodegradable: true,
+    },
+    {
+      name: "Polyester",
+      icon: "polyester.svg",
+      tagline: "A synthetic fiber",
+      labels: ["Microplastics", "Chemical", "Pollution"],
+      biodegradable: false,
+    },
+    {
+      name: "Linen",
+      icon: "linen.svg",
+      tagline: "A natural fiber",
+      labels: ["Stylish", "Hypoallergenic", "Strong"],
+      biodegradable: true,
+    },
+    {
+      name: "Elastane",
+      icon: "elastane.svg",
+      tagline: "A synthetic fiber",
+      labels: ["Allergen", "Pollution", "Microplastics"],
+      biodegradable: false,
+    },
+    {
+      name: "Viscose",
+      icon: "viscose.svg",
+      tagline: "A semi synthetic fiber",
+      labels: ["Light", "Durable", "Absorbent"],
+      biodegradable: true,
+    },
+    {
+      name: "Nylon",
+      icon: "nylon.svg",
+      tagline: "A synthetic fiber",
+      labels: ["Non-breathable", "Plastic", "Chemical"],
+      biodegradable: false,
+    },
+  ];
+
   const duration = 6;
 
   onMount(() => {
@@ -23,39 +68,32 @@
 </script>
 
 <dl>
-  <div class="shirt">
-    <div class="tag">
-      <div class="base" />
-      <div class="info">
-        <div class="print">
-          <dt>Cotton</dt>
-          <dd>…</dd>
+  {#each tags as tag}
+    <div class="shirt">
+      <div class="tag">
+        <div class="base" />
+        <div class="info">
+          <div class="print">
+            <dt>
+              <span>{tag.name}</span>
+              <span>{tag.tagline}</span>
+            </dt>
+            <dd>
+              <img src="assets/icons/{tag.icon}" alt="" />
+              <div class="biodegradable">
+                {tag.biodegradable ? "Biodegradable" : "Non-Biodegradable"}
+              </div>
+              <div class="labels">
+                {#each tag.labels as label}
+                  <span>{label}</span>
+                {/each}
+              </div>
+            </dd>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="shirt">
-    <div class="tag">
-      <div class="base" />
-      <div class="info">
-        <div class="print">
-          <dt>Polyester</dt>
-          <dd>…</dd>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="shirt">
-    <div class="tag">
-      <div class="base" />
-      <div class="info">
-        <div class="print">
-          <dt>Metallic Fibers</dt>
-          <dd>…</dd>
-        </div>
-      </div>
-    </div>
-  </div>
+  {/each}
 </dl>
 
 <style>
