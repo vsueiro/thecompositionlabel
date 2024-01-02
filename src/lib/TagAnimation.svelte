@@ -46,30 +46,41 @@
     },
   ];
 
-  const duration = 6;
+  // const duration = 18000;
+  // const delay = duration * 0.2;
 
   onMount(() => {
-    let tags = document.querySelectorAll(".tag");
-    let index = 0;
-
-    setInterval(() => {
-      tags.forEach((tag, i) => {
-        const isCurrent = i === index;
-        tag.style.opacity = isCurrent ? 1 : 0;
-        tag.style.animationPlayState = isCurrent ? "running" : "paused";
-      });
-
-      index++;
-      if (index > tags.length - 1) {
-        index = 0;
-      }
-    }, duration * 1000);
+    // const tags = document.querySelectorAll(".tag");
+    // tags.forEach((tag, index) => {
+    //   let base = tag.querySelector(".base");
+    //   let info = tag.querySelector(".info");
+    //   base.style.animationDelay = `${delay * -index}s`;
+    //   info.style.animationDelay = `${delay * -index}s`;
+    // });
+    // let index = 0;
+    // setInterval(() => {
+    //   tags.forEach((tag, i) => {
+    //     const isCurrent = i === index;
+    //     if (isCurrent) {
+    //       bases[index].style.animationPlayState = "running";
+    //       infos[index].style.animationPlayState = "running";
+    //       setTimeout(() => {
+    //         bases[index].style.animationPlayState = "paused";
+    //         infos[index].style.animationPlayState = "paused";
+    //       }, duration);
+    //     }
+    //   });
+    //   index++;
+    //   if (index > tags.length - 1) {
+    //     index = 0;
+    //   }
+    // }, delay);
   });
 </script>
 
 <dl>
   {#each tags as tag}
-    <div class="shirt">
+    <div class="shirt" data-biodegradable={tag.biodegradable}>
       <div class="tag">
         <div class="base" />
         <div class="info">
@@ -102,6 +113,8 @@
 <style>
   :root {
     --height: 66.666vh;
+    --duration: 24s;
+    --count: 6;
   }
   @media (min-height: 960px) {
     :root {
@@ -157,23 +170,31 @@
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: start;
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
   }
+  .shirt[data-biodegradable="false"] {
+    justify-content: end;
+  }
   .tag {
     width: fit-content;
     display: flex;
+  }
+  .shirt[data-biodegradable="false"] .tag {
+    flex-direction: row-reverse;
   }
   .base {
     position: relative;
     width: 32px;
     background: white;
-
     transform: translate(0, var(--height));
-    animation: showTagBase 6s infinite;
+    animation: showTagBase var(--duration) infinite;
+    /* animation-play-state: paused; */
+    /* animation-fill-mode: backwards; */
   }
   .base::before {
     content: "";
@@ -185,6 +206,12 @@
     right: -1px;
     border-right: 1px dashed white;
   }
+  .shirt[data-biodegradable="false"] .base::before {
+    right: initial;
+    left: -1px;
+    border-right: none;
+    border-left: 1px dashed white;
+  }
   .info {
     position: relative;
     width: 384px;
@@ -193,8 +220,42 @@
     border-left: 1px dashed white;
     margin-left: 2px;
     transform: translate(0, var(--height));
-    animation: showTagInfo 6s infinite;
+    animation: showTagInfoLeft var(--duration) infinite;
+    /* animation-play-state: paused; */
+    /* animation-fill-mode: backwards; */
   }
+  .shirt[data-biodegradable="false"] .info {
+    animation: showTagInfoRight var(--duration) infinite;
+    margin-right: 2px;
+    margin-left: 0;
+    border-left: none;
+    border-right: 1px dashed white;
+  }
+  .shirt:nth-child(1) .base,
+  .shirt:nth-child(1) .info {
+    animation-delay: 0s;
+  }
+  .shirt:nth-child(2) .base,
+  .shirt:nth-child(2) .info {
+    animation-delay: calc(calc(var(--duration) / var(--count)) * calc(1 * 1));
+  }
+  .shirt:nth-child(3) .base,
+  .shirt:nth-child(3) .info {
+    animation-delay: calc(calc(var(--duration) / var(--count)) * calc(2 * 1));
+  }
+  .shirt:nth-child(4) .base,
+  .shirt:nth-child(4) .info {
+    animation-delay: calc(calc(var(--duration) / var(--count)) * calc(3 * 1));
+  }
+  .shirt:nth-child(5) .base,
+  .shirt:nth-child(5) .info {
+    animation-delay: calc(calc(var(--duration) / var(--count)) * calc(4 * 1));
+  }
+  .shirt:nth-child(6) .base,
+  .shirt:nth-child(6) .info {
+    animation-delay: calc(calc(var(--duration) / var(--count)) * calc(5 * 1));
+  }
+
   .info::before {
     content: "";
     position: absolute;
@@ -204,6 +265,12 @@
     bottom: 0;
     left: -2px;
     border-right: 1px dashed white;
+  }
+  .shirt[data-biodegradable="false"] .info::before {
+    left: initial;
+    right: -2px;
+    border-right: none;
+    border-left: 1px dashed white;
   }
   .print {
     position: relative;
@@ -252,26 +319,53 @@
     0% {
       transform: translate(0, var(--height));
     }
-    50% {
+    16.666% {
       transform: translate(0, 0);
     }
-    60% {
+    20.666% {
       transform: translate(0, 0);
+    }
+    33.333% {
+      transform: translate(0, calc(-1 * var(--height)));
     }
     100% {
       transform: translate(0, calc(-1 * var(--height)));
     }
   }
 
-  @keyframes showTagInfo {
+  @keyframes showTagInfoLeft {
     0% {
       transform: translate(0, var(--height));
     }
-    50% {
+    16.666% {
       transform: translate(0, 0);
     }
-    60% {
-      transform: translate(0, -20px);
+    20.666% {
+      transform: translate(5px, -20px) rotate(-2.5deg);
+    }
+    33.333% {
+      transform: translate(var(--height), calc(var(--height) * -1.1))
+        rotate(60deg);
+    }
+    100% {
+      transform: translate(var(--height), calc(var(--height) * -1.1))
+        rotate(60deg);
+    }
+  }
+
+  @keyframes showTagInfoRight {
+    0% {
+      transform: translate(0, var(--height));
+    }
+    16.666% {
+      transform: translate(0, 0);
+    }
+    20.666% {
+      transform: translate(-5px, -20px) rotate(2.5deg);
+    }
+    33.333% {
+      transform: translate(calc(-1 * var(--height)), calc(var(--height) * -1.1))
+        rotate(-60deg);
     }
     100% {
       transform: translate(var(--height), calc(var(--height) * -1.1))
