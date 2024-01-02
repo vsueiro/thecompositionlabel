@@ -128,10 +128,10 @@
   }
   img {
     position: absolute;
-    left: calc(0 + 16px);
-    top: calc(32px + 16px);
-    bottom: 32px;
+    left: 16px;
+    top: calc(32px + 18px);
     width: 48px;
+    height: 48px;
   }
   .shirt {
     height: 100%;
