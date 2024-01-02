@@ -247,6 +247,10 @@
     background: #f5f2ed;
     width: 100%;
   }
+  ul:empty::before {
+    content: "Oh no! Try picking another material ↑";
+    /* opacity: 0.5; */
+  }
   footer {
     padding: 40px;
     width: 100%;
