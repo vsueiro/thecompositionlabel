@@ -8,6 +8,7 @@
     <figure>
       <div class="photo">
         <img src={item.Image} loading="lazy" alt={item.Title} />
+        <div class="button">See on Shein</div>
       </div>
       <figcaption>
         <div>
@@ -56,9 +57,59 @@
     overflow: hidden;
   }
 
+  .photo {
+    position: relative;
+  }
+
+  .photo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: #494b53;
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s;
+    z-index: 1;
+  }
+
+  .button {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity: 0;
+    background: white;
+    white-space: nowrap;
+    border: 1px solid #494b53;
+    height: 40px;
+    padding: 2px 16px 0;
+    border-radius: 999px;
+    font-size: 14px;
+    width: fit-content;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.4s;
+    z-index: 2;
+  }
+
+  a:hover .photo::after {
+    opacity: 0.3;
+  }
+
+  a:hover .button {
+    opacity: 1;
+    transform: translate(-50%, -16px);
+  }
+
   figcaption {
     padding: 8px 0 0;
-    border-top: 1px solid transparent;
+    border-top: 1px solid #494b53;
   }
 
   figcaption > div {
@@ -120,5 +171,6 @@
     left: -12px;
     background: url(assets/badge.svg) center no-repeat;
     background-size: 100%;
+    z-index: 3;
   }
 </style>
