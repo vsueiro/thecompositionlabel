@@ -1,18 +1,18 @@
 Name,Biodegradable,Natural,Attributes,Checked
 Polyvinyl Chloride,false,,,false
 Elastane,false,,,false
-Cotton,true,,,false
+Cotton,true,,,true
 Silk,true,,,false
 Polyurethane,false,,,false
 Metallized Fibres,false,,,false
 Polyamide,false,,,false
 Polyester,false,,,false
-Viscose,true,,,false
+Viscose,true,,,true
 Lyocell,true,,,false
 Acrylic,false,,,false
 Wool,true,,,false
 Modal,true,,,false
-Linen,true,,,false
+Linen,true,,,true
 Metal,false,,,false
 Spandex,false,,,false
 Glass,false,,,false

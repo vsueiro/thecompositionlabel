@@ -1,26 +1,9 @@
 <script>
   export let item;
-
-  let biodegradableMaterials = [
-    "Linen",
-    "Cotton",
-    "Viscose",
-    "Lyocell",
-    "Silk",
-    "Modal",
-  ];
-
-  $: materials = item.Composition.split(",");
-  $: biodegradableCount = materials.filter((material) =>
-    biodegradableMaterials.some((biodegradableMaterial) =>
-      material.includes(biodegradableMaterial)
-    )
-  ).length;
-
-  $: isBiodegradable = materials.length === biodegradableCount;
+  export let biodegradableMaterials;
 </script>
 
-<li class="card {isBiodegradable ? 'biodegradable' : 'non-biodegradable'}">
+<li class="card {item.isBiodegradable ? 'biodegradable' : 'non-biodegradable'}">
   <a href={item.Link} target="_blank">
     <figure>
       <div class="photo">
@@ -36,13 +19,11 @@
         <ol>
           {#each item.Composition.split(",") as material}
             <li
-              style="background: {biodegradableMaterials.some(
-                (biodegradableMaterial) =>
-                  material.includes(biodegradableMaterial)
+              class={biodegradableMaterials.some((biodegradableMaterial) =>
+                material.includes(biodegradableMaterial)
               )
-                ? '#bcf2ff'
-                : '#ffd7df'}
-                "
+                ? "biodegradable"
+                : ""}
             >
               {material}
             </li>
@@ -57,7 +38,7 @@
   .card {
     width: 240px;
     background: #fff;
-    outline: 1px solid black;
+    outline: 1px solid #494b53;
     transition: all 0.25s;
     border-radius: 8px;
   }
@@ -119,21 +100,26 @@
     font-size: 12px;
     text-transform: lowercase;
     padding: 0 0.4em;
-    background: #f5f2ec;
-    border-radius: 4px;
+    background: #f4e1f0;
+    border-radius: 3px;
     align-self: start;
     width: fit-content;
   }
 
-  .biodegradable a:after {
+  ol > li.biodegradable {
+    background: #e5f4bc;
+  }
+
+  .card.biodegradable a:after {
     content: "";
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     top: -12px;
     left: -12px;
-    background: blue;
+    background: #dbe6f5;
+    outline: 1px solid #c5cce2;
     border-radius: 50%;
   }
 </style>

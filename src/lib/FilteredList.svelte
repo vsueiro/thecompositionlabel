@@ -8,7 +8,7 @@
     Cotton: "cotton.svg",
     Elastane: "elastane.svg",
     Linen: "linen.svg",
-    Polyamide: "nylon.svg",
+    // Polyamide: "nylon.svg",
     Polyester: "polyester.svg",
     Viscose: "viscose.svg",
   };
@@ -21,6 +21,7 @@
   let items = [];
   let filteredItems = [];
   let filteredMaterials = [];
+  let biodegradableMaterials = [];
   let checkboxStates = {};
   let itemsPerPage = 100;
   let page = 1;
@@ -29,6 +30,12 @@
   // Reactive declaration to update filteredMaterials
   $: if (materials.length > 0) {
     filteredMaterials = materials.filter((material) => icons[material.Name]);
+  }
+
+  $: if (materials.length > 0) {
+    biodegradableMaterials = materials
+      .filter((material) => material.Biodegradable)
+      .map((material) => material.Name);
   }
 
   $: totalPages = Math.ceil(filteredItems.length / itemsPerPage);
@@ -56,7 +63,16 @@
       // Add a special "Others" entry
       checkboxStates["Others"] = false;
 
-      console.log(filteredMaterials);
+      items.forEach((item, index) => {
+        const materials = item.Composition.split(",");
+        const biodegradableCount = materials.filter((material) =>
+          biodegradableMaterials.some((biodegradableMaterial) =>
+            material.includes(biodegradableMaterial)
+          )
+        ).length;
+
+        items[index].isBiodegradable = materials.length === biodegradableCount;
+      });
 
       // Trigger reactive update
       filteredItems = [...items];
@@ -99,6 +115,16 @@
       );
 
       filteredItems = [...new Set([...strictly, ...loosely, ...others])];
+
+      filteredItems.sort((a, b) => {
+        if (a.isBiodegradable && !b.isBiodegradable) {
+          return -1;
+        } else if (!a.isBiodegradable && b.isBiodegradable) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
     }
   }
 
@@ -136,7 +162,7 @@
 
 <ul>
   {#each paginatedItems as item}
-    <Card {item} />
+    <Card {item} {biodegradableMaterials} />
   {/each}
 </ul>
 
@@ -157,11 +183,12 @@
     gap: 8px;
     flex-wrap: wrap;
   }
+
   ul {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 32px;
     list-style: none;
     padding: 0;
   }
