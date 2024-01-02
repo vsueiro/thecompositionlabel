@@ -154,7 +154,6 @@
 
     <Checkbox
       material={othersMaterial}
-      icon="others.svg"
       bind:checked={checkboxStates["Others"]}
     />
   </div>
@@ -167,7 +166,11 @@
 </ul>
 
 <footer>
-  <output>{filteredItems.length} items found</output>
+  <p>
+    <output>{filteredItems.length}</output>
+    <span>{filteredItems.length === 1 ? "item" : "items"} found</span>
+  </p>
+
   <nav>
     <button on:click={prevPage}>
       <svg
@@ -218,7 +221,6 @@
     width: 100%;
     padding: 40px;
   }
-
   ul {
     display: flex;
     justify-content: center;
@@ -227,8 +229,8 @@
     list-style: none;
     padding: 40px 16px;
     background: #f5f2ed;
+    width: 100%;
   }
-
   footer {
     padding: 40px;
     width: 100%;
@@ -236,7 +238,6 @@
     flex-direction: column;
     align-items: center;
   }
-
   nav {
     display: flex;
     align-items: center;
@@ -269,5 +270,15 @@
     position: absolute;
     white-space: nowrap;
     width: 1px;
+  }
+  footer p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+  footer output {
+    font-family: "Dela Gothic One";
+    font-size: 40px;
   }
 </style>

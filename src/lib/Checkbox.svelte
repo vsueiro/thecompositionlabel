@@ -6,7 +6,9 @@
 
 <label data-biodegradable={material.Biodegradable}>
   <input type="checkbox" bind:checked />
-  <img src="assets/icons/{icon}" alt="" />
+  {#if icon}
+    <img src="assets/icons/{icon}" alt="" />
+  {/if}
   <div>{material.Name}</div>
 </label>
 
@@ -37,8 +39,11 @@
     display: flex;
     align-items: center;
     padding: 0 16px;
-    border-left: 1px solid #494b53;
     height: 100%;
+  }
+
+  img + div {
+    border-left: 1px solid #494b53;
   }
 
   input {
