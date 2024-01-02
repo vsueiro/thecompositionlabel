@@ -169,7 +169,7 @@
     height: 64px;
     top: -12px;
     left: -12px;
-    background: url(assets/badge.svg) center no-repeat;
+    background: url(/assets/badge.svg) center no-repeat;
     background-size: 100%;
     z-index: 3;
   }

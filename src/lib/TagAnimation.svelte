@@ -192,7 +192,7 @@
     bottom: 12px;
     width: 24px;
     height: 24px;
-    background-image: url(assets/scissors.svg);
+    background-image: url(/assets/scissors.svg);
     background-repeat: no-repeat;
     background-size: 100%;
     background-position-x: 8px;
