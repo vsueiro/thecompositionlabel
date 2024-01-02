@@ -180,7 +180,7 @@
 
 <footer>
   <p>
-    <output>{filteredItems.length}</output>
+    <output>{filteredItems.length.toLocaleString("en-US")}</output>
     <span>{filteredItems.length === 1 ? "item" : "items"} found</span>
   </p>
 
@@ -274,6 +274,10 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  nav button:hover {
+    transform: scale(1.05);
   }
   .screen-reader {
     clip: rect(0 0 0 0);

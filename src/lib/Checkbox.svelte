@@ -50,6 +50,14 @@
     display: none;
   }
 
+  label {
+    transition: transform 0.2s;
+  }
+
+  label:hover {
+    transform: scale(1.05);
+  }
+
   label:has(input:checked) {
     background: #f4e1f0;
   }

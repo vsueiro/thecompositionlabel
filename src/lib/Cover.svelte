@@ -92,6 +92,10 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  a.button:hover {
+    transform: scale(1.05);
   }
   .screen-reader {
     clip: rect(0 0 0 0);
