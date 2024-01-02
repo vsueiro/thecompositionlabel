@@ -114,12 +114,11 @@
     content: "";
     display: block;
     position: absolute;
-    width: 56px;
-    height: 56px;
+    width: 64px;
+    height: 64px;
     top: -12px;
     left: -12px;
-    background: #dbe6f5;
-    outline: 1px solid #c5cce2;
-    border-radius: 50%;
+    background: url(assets/badge.svg) center no-repeat;
+    background-size: 100%;
   }
 </style>
