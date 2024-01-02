@@ -16,7 +16,6 @@
   // Synthetic object for "Others"
   const othersMaterial = { Name: "Others" };
 
-  let filterMode = "any-of"; // Variable to track the select option (exactly|any-of)
   let materials = [];
   let items = [];
   let filteredItems = [];
@@ -26,6 +25,7 @@
   let itemsPerPage = 100;
   let page = 1;
   let totalPages = 1;
+  let listElement;
 
   // Reactive declaration to update filteredMaterials
   $: if (materials.length > 0) {
@@ -79,6 +79,19 @@
     } catch (error) {
       console.error(error);
     }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const backlight = document.querySelector(".backlight");
+        if (entry.isIntersecting) {
+          backlight.style.opacity = 1;
+        } else {
+          backlight.style.opacity = 0;
+        }
+      });
+    });
+
+    observer.observe(listElement);
   });
 
   // Updated reactive statement for dynamic filtering
@@ -159,7 +172,7 @@
   </div>
 </form>
 
-<ul>
+<ul bind:this={listElement}>
   {#each paginatedItems as item}
     <Card {item} {biodegradableMaterials} />
   {/each}
