@@ -1,9 +1,19 @@
 <script>
-  import TagAnimation from "./lib/TagAnimation.svelte";
-  import FilteredList from "./lib/FilteredList.svelte";
+  import Header from "./lib/Header.svelte";
+  import Cover from "./lib/Cover.svelte";
+  import List from "./lib/List.svelte";
 </script>
 
-<main>
-  <TagAnimation />
-  <FilteredList />
-</main>
+<div id="app">
+  <Header />
+  <Cover />
+  <List />
+</div>
+
+<style>
+  #app {
+    max-width: 1440px;
+    width: calc(100% - 48px);
+    margin: 24px auto 48px;
+  }
+</style>

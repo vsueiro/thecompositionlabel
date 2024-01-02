@@ -166,15 +166,14 @@
   {/each}
 </ul>
 
-<!-- Filtered List -->
-<output>{filteredItems.length} items found</output>
-
-<!-- Pagination Controls -->
-<nav>
-  <button on:click={prevPage}>Previous</button>
-  <span>Page {page} of {totalPages}</span>
-  <button on:click={nextPage}>Next</button>
-</nav>
+<footer>
+  <output>{filteredItems.length} items found</output>
+  <nav>
+    <button on:click={prevPage}>Previous</button>
+    <span>Page {page} of {totalPages}</span>
+    <button on:click={nextPage}>Next</button>
+  </nav>
+</footer>
 
 <style>
   .checkboxes {
@@ -182,6 +181,7 @@
     justify-content: start;
     gap: 8px;
     flex-wrap: wrap;
+    padding: 40px;
   }
 
   ul {
@@ -190,6 +190,15 @@
     flex-wrap: wrap;
     gap: 32px;
     list-style: none;
-    padding: 0;
+    padding: 40px 16px;
+    background: #f5f2ed;
+  }
+
+  footer {
+    padding: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 </style>
