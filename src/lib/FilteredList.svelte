@@ -28,6 +28,15 @@
     { value: "1779", label: "Tank Tops & Camis" },
   ];
 
+  let windowWidth = window.innerWidth;
+
+  function handleResize() {
+    windowWidth = window.innerWidth;
+    if (windowWidth < 576) {
+      selectedType = "all";
+    }
+  }
+
   let materials = [];
   let items = [];
   let filteredItems = [];
@@ -59,6 +68,8 @@
   );
 
   onMount(async () => {
+    window.addEventListener("resize", handleResize);
+
     try {
       materials = await csv("./data/materials.csv", autoType);
       items = await csv("./data/items.csv", autoType);
@@ -195,12 +206,14 @@
 </form>
 
 <ul bind:this={listElement} data-count={paginatedItems.length}>
-  <li class="category-filter">
-    <form action="return false">
-      <h4>Women Top&nbsp;Rated</h4>
-      <RadioButtons {radioOptions} bind:selectedType />
-    </form>
-  </li>
+  {#if windowWidth >= 576}
+    <li class="category-filter">
+      <form action="return false">
+        <h4>Women Top&nbsp;Rated</h4>
+        <RadioButtons {radioOptions} bind:selectedType />
+      </form>
+    </li>
+  {/if}
   {#if paginatedItems.length === 0}
     <li class="no-items">
       <p>Oh no! Try picking another material ↑</p>
