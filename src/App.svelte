@@ -3,6 +3,7 @@
   import Header from "./lib/Header.svelte";
   import Cover from "./lib/Cover.svelte";
   import List from "./lib/List.svelte";
+  import Footer from "./lib/Footer.svelte";
 </script>
 
 <Backlight />
@@ -11,6 +12,7 @@
   <Header />
   <Cover />
   <List />
+  <Footer />
 </div>
 
 <style>
