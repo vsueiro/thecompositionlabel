@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import re
 
 # Define directory for saving item details CSVs
 links_folder = 'scraper/links/'
@@ -126,8 +127,11 @@ for index, row in consolidated_df.iterrows():
             consolidated_df[material] = 0  # Initialize a new column with 0
         consolidated_df.at[index, material] = percentage
 
-# Add a 'Type' column to consolidated_df
-consolidated_df['Type'] = consolidated_df['Title'].apply(lambda title: title.split()[-1] if isinstance(title, str) else '')    
+# Regular Expression to extract numbers between '-cat-' and '.html'
+pattern = r'-cat-(\d+)\.html'
+
+# Extracting the desired substring and assigning it to the 'Type' column
+consolidated_df['Type'] = consolidated_df['Link'].str.extract(pattern, expand=False)
 
 # Count the frequency of each unique value in the 'Type' column
 type_counts = consolidated_df['Type'].value_counts()
