@@ -80,7 +80,7 @@
     border: 1px solid hsl(289, 41%, 84%);
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 864px) {
     .columns {
       padding: 40px 20px 20px 20px;
       gap: 0;

@@ -25,7 +25,7 @@
   .punctuation {
     display: none;
   }
-  @media (max-width: 960px) {
+  @media (max-width: 864px) {
     footer {
       padding: 40px 0px;
     }

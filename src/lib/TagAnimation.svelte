@@ -401,7 +401,7 @@
     }
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 864px) {
     dl {
       display: none;
     }

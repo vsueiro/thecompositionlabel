@@ -37,7 +37,7 @@
 
 <style>
   .card {
-    width: 240px;
+    width: var(--card-width);
     background: #fff;
     outline: 1px solid #494b53;
     transition: all 0.25s;

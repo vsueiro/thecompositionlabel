@@ -184,7 +184,7 @@
   </div>
 </form>
 
-<ul bind:this={listElement}>
+<ul bind:this={listElement} data-count={paginatedItems.length}>
   <li class="category-filter">
     <form action="return false">
       <h4>Women Top Rated</h4>
@@ -242,6 +242,11 @@
       </div>
     </form>
   </li>
+  {#if paginatedItems.length === 0}
+    <li class="no-items">
+      <p>Oh no! Try picking another material ↑</p>
+    </li>
+  {/if}
   {#each paginatedItems as item (item.SKU)}
     <li animate:flip={{ duration: 400 }} transition:fade={{ duration: 100 }}>
       <Card {item} {biodegradableMaterials} />
@@ -298,11 +303,29 @@
   }
   .category-filter {
     display: flex;
-    width: 240px;
+    width: var(--card-width);
     background: #fff;
     border-radius: 8px;
     min-height: 100%;
+    flex-shrink: 0;
   }
+  .category-filter form {
+    min-height: calc(388px + 1px);
+  }
+  .no-items {
+    min-height: calc(388px + 1px);
+    width: calc(100% - 1px);
+    background: #494b5310;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+  }
+  .no-items p {
+    height: fit-content;
+  }
+
   .radio-buttons {
     display: flex;
     flex-direction: column;
@@ -317,19 +340,17 @@
   }
   ul {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     flex-wrap: wrap;
-    gap: 32px;
+    gap: 24px;
     list-style: none;
-    padding: 40px 16px;
+    padding: 40px 24px;
     background: #f5f2ed;
     width: 100%;
     min-height: 108px;
   }
-  ul:empty::before {
-    content: "Oh no! Try picking another material ↑";
-    line-height: 1.5;
-    /* opacity: 0.5; */
+  ul[data-count="0"] {
+    flex-wrap: nowrap;
   }
   footer {
     padding: 40px;
@@ -386,10 +407,14 @@
     font-family: "Dela Gothic One";
     font-size: 40px;
   }
-  @media (max-width: 960px) {
+  @media (max-width: 864px) {
     .checkboxes {
       gap: 8px;
       padding: 20px;
+    }
+    ul {
+      gap: 16px;
+      padding: 40px 16px;
     }
   }
 </style>

@@ -113,7 +113,7 @@
       padding-right: 40px;
     }
   }
-  @media (max-width: 960px) {
+  @media (max-width: 864px) {
     section {
       gap: 20px;
       padding: 20px;

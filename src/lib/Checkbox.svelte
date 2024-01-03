@@ -76,7 +76,7 @@
     background: #e5f4bc;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 864px) {
     label {
       height: 48px;
       font-size: 12px;

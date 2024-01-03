@@ -67,7 +67,7 @@
     color: white;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 864px) {
     header {
       height: 56px;
       padding: 0 20px;
