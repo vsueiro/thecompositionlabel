@@ -61,7 +61,8 @@
   }
 
   label:has(input:focus-visible) {
-    outline: 2px solid #494b53;
+    outline: 2px solid #1c6fd4;
+    outline-offset: 1px;
   }
 
   label:hover {

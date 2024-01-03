@@ -34,6 +34,10 @@
     text-decoration: none;
     color: inherit;
   }
+  a:focus-visible {
+    outline: 2px solid #1c6fd4;
+    outline-offset: 1px;
+  }
   h1 {
     display: flex;
     text-transform: lowercase;
@@ -58,7 +62,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.4s;
+    transition:
+      background-color 0.4s,
+      color 0.4s;
     z-index: 2;
     cursor: pointer;
     user-select: none;
@@ -67,6 +73,11 @@
   .button:hover {
     background: #494b53;
     color: white;
+  }
+
+  .button:focus-visible {
+    outline: 2px solid #1c6fd4;
+    outline-offset: 1px;
   }
 
   @media (max-width: 864px) {

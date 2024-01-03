@@ -50,6 +50,13 @@
     display: block;
     text-decoration: none;
     color: inherit;
+    height: 100%;
+    border-radius: 8px;
+  }
+
+  a:focus-visible {
+    outline: 2px solid #1c6fd4;
+    outline-offset: 2px;
   }
 
   figure {

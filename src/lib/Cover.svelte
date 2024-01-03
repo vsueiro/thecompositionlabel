@@ -93,11 +93,17 @@
     align-items: center;
     border-radius: 50%;
     user-select: none;
-    transition: all 0.4s;
+    transition:
+      background-color 0.4s,
+      color 0.4s;
   }
   a.button:hover {
     background: #494b53;
     color: white;
+  }
+  a.button:focus-visible {
+    outline: 2px solid #1c6fd4;
+    outline-offset: 1px;
   }
   .screen-reader {
     clip: rect(0 0 0 0);

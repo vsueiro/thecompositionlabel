@@ -48,7 +48,9 @@
     gap: 8px;
     justify-content: center;
     align-items: center;
-    transition: all 0.4s;
+    transition:
+      background-color 0.4s,
+      color 0.4s;
     cursor: pointer;
     user-select: none;
     padding: 8px 16px 8px;
@@ -76,5 +78,9 @@
   }
   span {
     padding-top: 2px;
+  }
+  label:has(input:focus-visible) {
+    outline: 2px solid #1c6fd4;
+    outline-offset: 1px;
   }
 </style>
