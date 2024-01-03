@@ -85,8 +85,9 @@
     background: white;
     white-space: nowrap;
     border: 1px solid #494b53;
+    color: #494b53;
     height: 40px;
-    padding: 2px 16px 0;
+    padding: 3px 16px 0;
     border-radius: 999px;
     font-size: 14px;
     width: fit-content;
@@ -96,6 +97,11 @@
     align-items: center;
     transition: all 0.4s;
     z-index: 2;
+  }
+
+  .button:hover {
+    background: #494b53;
+    color: white;
   }
 
   a:hover .photo::after {
