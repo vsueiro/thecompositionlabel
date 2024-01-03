@@ -24,6 +24,7 @@
   let filteredMaterials = [];
   let biodegradableMaterials = [];
   let checkboxStates = {};
+  let selectedType = "all";
   let itemsPerPage = 100;
   let page = 1;
   let totalPages = 1;
@@ -141,6 +142,12 @@
         }
       });
 
+      if (selectedType !== "all") {
+        filteredItems = filteredItems.filter(
+          (item) => item.Type === parseInt(selectedType)
+        );
+      }
+
       // Reset page number
       page = 1;
     }
@@ -184,27 +191,52 @@
 
       <div class="radio-buttons">
         <label>
-          <input type="radio" name="clothing" value="all" />
+          <input
+            type="radio"
+            bind:group={selectedType}
+            name="clothing"
+            value="all"
+          />
           All
         </label>
 
         <label>
-          <input type="radio" name="clothing" value="1738" />
+          <input
+            type="radio"
+            bind:group={selectedType}
+            name="clothing"
+            value="1738"
+          />
           T-Shirts
         </label>
 
         <label>
-          <input type="radio" name="clothing" value="1733" />
+          <input
+            type="radio"
+            bind:group={selectedType}
+            name="clothing"
+            value="1733"
+          />
           Blouses
         </label>
 
         <label>
-          <input type="radio" name="clothing" value="2223" />
+          <input
+            type="radio"
+            bind:group={selectedType}
+            name="clothing"
+            value="2223"
+          />
           Tops
         </label>
 
         <label>
-          <input type="radio" name="clothing" value="1779" />
+          <input
+            type="radio"
+            bind:group={selectedType}
+            name="clothing"
+            value="1779"
+          />
           Tank Tops & Camis
         </label>
       </div>
