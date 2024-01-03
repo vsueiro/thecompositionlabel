@@ -298,8 +298,10 @@
   }
   .no-items {
     min-height: calc(388px + 1px);
-    width: calc(100% - 1px);
-    background: #494b5310;
+    width: 100%;
+    background: #ede7de;
+    /* border: 1px dashed #494b5380; */
+
     border-radius: 8px;
     display: flex;
     justify-content: center;
