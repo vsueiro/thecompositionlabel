@@ -96,6 +96,7 @@
     justify-content: center;
     align-items: center;
     transition: all 0.4s;
+    user-select: none;
     z-index: 2;
   }
 

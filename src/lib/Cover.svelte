@@ -82,20 +82,22 @@
     margin: 0;
     font: inherit;
     cursor: pointer;
-    outline: inherit;
+    /* outline: inherit; */
     appearance: none;
     box-shadow: none;
     height: 56px;
     width: 56px;
-    border: 1px solid currentColor;
+    border: 1px solid #494b53;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    transition: transform 0.2s;
+    user-select: none;
+    transition: all 0.4s;
   }
   a.button:hover {
-    transform: scale(1.05);
+    background: #494b53;
+    color: white;
   }
   .screen-reader {
     clip: rect(0 0 0 0);

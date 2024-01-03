@@ -1,3 +1,11 @@
+<script>
+  import { modalOpen } from "./modalStore.js";
+
+  function toggleModal() {
+    modalOpen.set(true);
+  }
+</script>
+
 <header>
   <a href="/">
     <h1>
@@ -6,7 +14,7 @@
       <span>Label</span>
     </h1>
   </a>
-  <button class="button">Care Instructions</button>
+  <button class="button" on:click={toggleModal}>Care Instructions</button>
 </header>
 
 <style>
@@ -51,6 +59,7 @@
     transition: all 0.4s;
     z-index: 2;
     cursor: pointer;
+    user-select: none;
   }
 
   .button:hover {

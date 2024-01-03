@@ -195,7 +195,7 @@
         height="24"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="#494b53"
+        stroke="currentColor"
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -212,7 +212,7 @@
         height="24"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="#494b53"
+        stroke="currentColor"
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -275,15 +275,16 @@
     box-shadow: none;
     height: 32px;
     width: 32px;
-    border: 1px solid currentColor;
+    border: 1px solid #494b53;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    transition: transform 0.2s;
+    transition: all 0.4s;
   }
   nav button:hover {
-    transform: scale(1.05);
+    background: #494b53;
+    color: white;
   }
   .screen-reader {
     clip: rect(0 0 0 0);

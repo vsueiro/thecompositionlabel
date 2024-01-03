@@ -5,7 +5,7 @@
 </script>
 
 <label data-biodegradable={material.Biodegradable}>
-  <input type="checkbox" bind:checked />
+  <input type="checkbox" bind:checked class="screen-reader" />
   {#if icon}
     <img src="assets/icons/{icon}" alt="" />
   {/if}
@@ -46,12 +46,22 @@
     border-left: 1px solid #494b53;
   }
 
-  input {
-    display: none;
+  .screen-reader {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
 
   label {
     transition: transform 0.2s;
+  }
+
+  label:has(input:focus) {
+    outline: 2px solid #494b53;
   }
 
   label:hover {
