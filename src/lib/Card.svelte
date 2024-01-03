@@ -3,7 +3,7 @@
   export let biodegradableMaterials;
 </script>
 
-<li class="card {item.isBiodegradable ? 'biodegradable' : 'non-biodegradable'}">
+<div class="card {item.isBiodegradable ? 'biodegradable' : ''}">
   <a href={item.Link} target="_blank">
     <figure>
       <div class="photo">
@@ -33,7 +33,7 @@
       </figcaption>
     </figure>
   </a>
-</li>
+</div>
 
 <style>
   .card {
@@ -42,6 +42,7 @@
     outline: 1px solid #494b53;
     transition: all 0.25s;
     border-radius: 8px;
+    height: 100%;
   }
 
   a {

@@ -2,6 +2,8 @@
   import Checkbox from "./Checkbox.svelte";
   import Card from "./Card.svelte";
   import { onMount } from "svelte";
+  import { fade, slide, scale } from "svelte/transition";
+  import { flip } from "svelte/animate";
   import { csv, autoType } from "d3";
 
   const icons = {
@@ -176,8 +178,10 @@
 </form>
 
 <ul bind:this={listElement}>
-  {#each paginatedItems as item}
-    <Card {item} {biodegradableMaterials} />
+  {#each paginatedItems as item (item.SKU)}
+    <li animate:flip={{ duration: 400 }} transition:fade={{ duration: 100 }}>
+      <Card {item} {biodegradableMaterials} />
+    </li>
   {/each}
 </ul>
 
@@ -245,9 +249,11 @@
     padding: 40px 16px;
     background: #f5f2ed;
     width: 100%;
+    min-height: 108px;
   }
   ul:empty::before {
     content: "Oh no! Try picking another material ↑";
+    line-height: 1.5;
     /* opacity: 0.5; */
   }
   footer {
