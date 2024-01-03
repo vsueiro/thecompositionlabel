@@ -60,7 +60,7 @@
     transition: transform 0.2s;
   }
 
-  label:has(input:focus) {
+  label:has(input:focus-visible) {
     outline: 2px solid #494b53;
   }
 
