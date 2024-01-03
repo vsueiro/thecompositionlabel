@@ -14,7 +14,9 @@
       <span>Label</span>
     </h1>
   </a>
-  <button class="button" on:click={toggleModal}>Care Instructions</button>
+  <button class="button" on:click={toggleModal}
+    >Care<span>&nbsp;Instructions</span></button
+  >
 </header>
 
 <style>
@@ -74,6 +76,12 @@
     }
     h1 {
       font-size: 17.6px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .button span {
+      display: none;
     }
   }
 </style>
