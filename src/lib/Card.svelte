@@ -12,7 +12,7 @@
       </div>
       <figcaption>
         <div>
-          <h3>{item.Title}</h3>
+          <h5 title={item.Title}>{item.Title}</h5>
           {#if item.Price}
             <data value={item.Price}>${item.Price}</data>
           {/if}
@@ -116,7 +116,7 @@
   }
 
   figcaption {
-    padding: 8px 0 0;
+    padding: 12px 0 4px;
     border-top: 1px solid #494b53;
   }
 
@@ -126,7 +126,7 @@
   }
 
   data {
-    margin-right: 8px;
+    margin-right: 12px;
     font-size: 14px;
   }
 
@@ -137,8 +137,8 @@
     object-fit: cover;
   }
 
-  h3 {
-    margin: 0 8px;
+  h5 {
+    margin: 0 12px;
     font-size: 14px;
     font-weight: normal;
     white-space: nowrap;
@@ -148,7 +148,7 @@
 
   ol {
     list-style: none;
-    padding: 8px;
+    padding: 4px 12px 8px;
     display: flex;
     flex-wrap: wrap;
     justify-items: start;
