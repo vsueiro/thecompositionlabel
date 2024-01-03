@@ -1,6 +1,8 @@
 <script>
   import Checkbox from "./Checkbox.svelte";
   import Card from "./Card.svelte";
+  import RadioButtons from "./RadioButtons.svelte";
+
   import { onMount } from "svelte";
   import { fade, slide, scale } from "svelte/transition";
   import { flip } from "svelte/animate";
@@ -17,6 +19,14 @@
 
   // Synthetic object for "Others"
   const othersMaterial = { Name: "Others" };
+
+  const radioOptions = [
+    { value: "all", label: "All" },
+    { value: "1738", label: "T-Shirts" },
+    { value: "1733", label: "Blouses" },
+    { value: "2223", label: "Tops" },
+    { value: "1779", label: "Tank Tops & Camis" },
+  ];
 
   let materials = [];
   let items = [];
@@ -187,59 +197,8 @@
 <ul bind:this={listElement} data-count={paginatedItems.length}>
   <li class="category-filter">
     <form action="return false">
-      <h4>Women Top Rated</h4>
-
-      <div class="radio-buttons">
-        <label>
-          <input
-            type="radio"
-            bind:group={selectedType}
-            name="clothing"
-            value="all"
-          />
-          All
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            bind:group={selectedType}
-            name="clothing"
-            value="1738"
-          />
-          T-Shirts
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            bind:group={selectedType}
-            name="clothing"
-            value="1733"
-          />
-          Blouses
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            bind:group={selectedType}
-            name="clothing"
-            value="2223"
-          />
-          Tops
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            bind:group={selectedType}
-            name="clothing"
-            value="1779"
-          />
-          Tank Tops & Camis
-        </label>
-      </div>
+      <h4>Women Top&nbsp;Rated</h4>
+      <RadioButtons {radioOptions} bind:selectedType />
     </form>
   </li>
   {#if paginatedItems.length === 0}
@@ -311,6 +270,18 @@
   }
   .category-filter form {
     min-height: calc(388px + 1px);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .category-filter form h4 {
+    font-size: 24px;
+    line-height: 1;
+    font-family: "Dela Gothic One";
+    font-synthesis: none;
+    text-wrap: pretty;
+    margin-bottom: 1em;
   }
   .no-items {
     min-height: calc(388px + 1px);
@@ -324,11 +295,6 @@
   }
   .no-items p {
     height: fit-content;
-  }
-
-  .radio-buttons {
-    display: flex;
-    flex-direction: column;
   }
   .checkboxes {
     display: flex;
