@@ -181,4 +181,11 @@
     background-size: 100%;
     z-index: 3;
   }
+
+  @media (max-width: 576px) {
+    .card.biodegradable a:after {
+      width: 48px;
+      height: 48px;
+    }
+  }
 </style>
