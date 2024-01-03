@@ -178,6 +178,38 @@
 </form>
 
 <ul bind:this={listElement}>
+  <li class="category-filter">
+    <form action="return false">
+      <h4>Women Top Rated</h4>
+
+      <div class="radio-buttons">
+        <label>
+          <input type="radio" name="clothing" value="all" />
+          All
+        </label>
+
+        <label>
+          <input type="radio" name="clothing" value="1738" />
+          T-Shirts
+        </label>
+
+        <label>
+          <input type="radio" name="clothing" value="1733" />
+          Blouses
+        </label>
+
+        <label>
+          <input type="radio" name="clothing" value="2223" />
+          Tops
+        </label>
+
+        <label>
+          <input type="radio" name="clothing" value="1779" />
+          Tank Tops & Camis
+        </label>
+      </div>
+    </form>
+  </li>
   {#each paginatedItems as item (item.SKU)}
     <li animate:flip={{ duration: 400 }} transition:fade={{ duration: 100 }}>
       <Card {item} {biodegradableMaterials} />
@@ -231,6 +263,17 @@
 <style>
   form {
     width: 100%;
+  }
+  .category-filter {
+    display: flex;
+    width: 240px;
+    background: #fff;
+    border-radius: 8px;
+    min-height: 100%;
+  }
+  .radio-buttons {
+    display: flex;
+    flex-direction: column;
   }
   .checkboxes {
     display: flex;
