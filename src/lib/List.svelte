@@ -90,9 +90,6 @@
     .columns > * {
       width: 100%;
     }
-    h3 {
-      margin-bottom: 1em;
-    }
     h3 br {
       display: none;
     }
@@ -102,6 +99,7 @@
     h3 {
       font-size: 32px;
       padding-right: 0;
+      margin-bottom: 1em;
     }
   }
 </style>

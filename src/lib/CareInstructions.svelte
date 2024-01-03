@@ -5,11 +5,25 @@
 <div class="modal {$modalOpen ? 'modal-open' : ''}">
   <div class="overlay" on:click={() => modalOpen.set(false)}></div>
   <aside>
-    {#if $modalOpen}
-      <button class="button" on:click={() => modalOpen.set(false)}>
-        Close
-      </button>
-    {/if}
+    <button
+      class="button"
+      on:click={() => modalOpen.set(false)}
+      disabled={!$modalOpen}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-chevron-left"
+        ><polyline points="15 18 9 12 15 6"></polyline></svg
+      >
+    </button>
 
     <h3>Why Should I Care?</h3>
 
@@ -60,14 +74,14 @@
     top: 0;
     right: 0;
     bottom: 0;
-    width: 80%;
+    width: calc(100% - 20px);
     max-width: 576px;
     background: white;
     padding: 40px;
     transform: translateX(100%);
     pointer-events: none;
     user-select: none;
-    transition: all 0.4s;
+    transition: transform 0.4s;
     z-index: 5;
   }
 
@@ -83,10 +97,9 @@
     border: 1px solid #494b53;
     color: #494b53;
     height: 40px;
-    padding: 3px 16px 0;
+    width: 40px;
     border-radius: 999px;
     font-size: 14px;
-    width: fit-content;
     text-transform: uppercase;
     display: flex;
     justify-content: center;
@@ -100,5 +113,14 @@
   .button:hover {
     background: #494b53;
     color: white;
+  }
+
+  @media (max-width: 864px) {
+    aside {
+      padding: 20px;
+    }
+    h3 {
+      font-size: 32px;
+    }
   }
 </style>
