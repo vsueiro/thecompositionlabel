@@ -108,6 +108,7 @@
     z-index: 2;
     cursor: pointer;
     user-select: none;
+    padding: 0;
   }
 
   .button:hover {
