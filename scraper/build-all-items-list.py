@@ -72,10 +72,10 @@ updated_materials_df = pd.DataFrame()
 # Proceed only if there are new materials to add
 if new_materials:
     new_materials_df = pd.DataFrame(list(new_materials), columns=['Name'])
-    new_materials_df['Biodegradable'] = ''
+    new_materials_df['Biodegradable'] = False
     new_materials_df['Natural'] = ''
     new_materials_df['Attributes'] = ''
-    new_materials_df['Checked'] = "false"
+    new_materials_df['Checked'] = False
 
     # Append new materials to the existing DataFrame (if it exists) or create a new one
     if 'existing_materials_df' in locals():
@@ -155,9 +155,6 @@ print(type_counts)
 # Drop duplicate rows from the DataFrame
 consolidated_df = consolidated_df.drop_duplicates()
 
-# Save the DataFrame without duplicates as a CSV file
-consolidated_df.to_csv(output_file, index=False)
-
 # Update count of items that contain each material
 if os.path.exists(materials_file):
     existing_materials_df = pd.read_csv(materials_file)
@@ -180,3 +177,22 @@ if os.path.exists(materials_file):
     # Save the updated DataFrame to materials.csv
     existing_materials_df.to_csv(materials_file, index=False)
 
+    # Check if items are fully biodegradable
+
+    # Initialize 'isBiodegradable' column with False
+    consolidated_df['isBiodegradable'] = False
+
+    # Convert materials_df to dictionary for faster lookup
+    biodegradable_dict = dict(zip(existing_materials_df['Name'], existing_materials_df['Biodegradable']))
+
+    # Check each item's materials and update 'isBiodegradable' if applicable
+    for index, row in consolidated_df.iterrows():
+        is_biodegradable = True
+        for material in biodegradable_dict:
+            if material in consolidated_df.columns and row[material] > 0 and not biodegradable_dict[material]:
+                is_biodegradable = False
+                break
+        consolidated_df.at[index, 'isBiodegradable'] = is_biodegradable
+
+# Save the DataFrame without duplicates as a CSV file
+consolidated_df.to_csv(output_file, index=False)
