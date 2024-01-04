@@ -18,8 +18,15 @@
   };
 
   onMount(async () => {
-    data = await d3.csv("./data/materials.csv", d3.autoType);
-    console.log(data);
+    let materials = await d3.csv("./data/materials.csv", d3.autoType);
+
+    materials = materials.map((d) => {
+      d.Biodegradable = d.Biodegradable === "True";
+      d.Checked = d.Checked === "True";
+      return d;
+    });
+
+    data = materials;
     createTreemap();
   });
 

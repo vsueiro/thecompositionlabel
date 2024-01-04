@@ -71,8 +71,14 @@
     window.addEventListener("resize", handleResize);
 
     try {
-      materials = await csv("./data/materials.csv", autoType);
       items = await csv("./data/items.csv", autoType);
+      materials = await csv("./data/materials.csv", autoType);
+
+      materials = materials.map((d) => {
+        d.Biodegradable = d.Biodegradable === "True";
+        d.Checked = d.Checked === "True";
+        return d;
+      });
 
       // Filter materials where any matching item in 'items' has a value > 0
       materials = materials.filter((material) => {
