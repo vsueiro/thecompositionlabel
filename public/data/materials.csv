@@ -1,19 +1,19 @@
-Name,Biodegradable,Natural,Attributes,Checked
-Cotton,true,,,true
-Viscose,true,,,true
-Linen,true,,,true
-Polyester,false,,,false
-Elastane,false,,,false
-Polyamide,false,,,false
-Polyvinyl Chloride,false,,,false
-Silk,true,,,false
-Polyurethane,false,,,false
-Metallized Fibres,false,,,false
-Lyocell,true,,,false
-Acrylic,false,,,false
-Wool,true,,,false
-Modal,true,,,false
-Metal,false,,,false
-Spandex,false,,,false
-Glass,false,,,false
-Acetate,true,,,false
+Name,Biodegradable,Natural,Attributes,Checked,Count
+Cotton,True,,,True,71
+Viscose,True,,,True,148
+Linen,True,,,True,3
+Polyester,False,,,False,1082
+Elastane,False,,,False,888
+Polyamide,False,,,False,75
+Polyvinyl Chloride,False,,,False,2
+Silk,True,,,False,1
+Polyurethane,False,,,False,0
+Metallized Fibres,False,,,False,15
+Lyocell,True,,,False,0
+Acrylic,False,,,False,1
+Wool,True,,,False,1
+Modal,True,,,False,1
+Metal,False,,,False,1
+Spandex,False,,,False,0
+Glass,False,,,False,2
+Acetate,True,,,False,0
