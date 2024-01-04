@@ -7,6 +7,7 @@ links_folder = 'scraper/links/'
 items_folder = 'scraper/items/'
 output_file = 'public/data/items.csv'
 materials_file = 'public/data/materials.csv'
+updated_file = 'public/data/updated.txt'
 
 # Get the most recent list of links
 def get_most_recent_csv(directory):
@@ -16,6 +17,10 @@ def get_most_recent_csv(directory):
 
 links_file = get_most_recent_csv(links_folder)
 links = pd.read_csv(links_file) if links_file else []
+
+# Writing timestamp to a file
+with open(updated_file, 'w') as file:
+    file.write(links_file)
 
 # Initialize an empty DataFrame for the consolidated data
 consolidated_df = pd.DataFrame()
