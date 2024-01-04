@@ -140,7 +140,8 @@
 
   @media (max-width: 864px) {
     .scrollable {
-      padding: 20px 20px 40px;
+      padding: 20px 20px 80px;
+      border-top: 1px solid #494b53;
     }
     h3 {
       margin-top: 0;
@@ -150,8 +151,7 @@
       position: relative;
       top: initial;
       left: initial;
-      margin-top: 20px;
-      margin-left: 20px;
+      margin: 20px 20px 16px;
     }
     aside {
       width: calc(100% - 12px);
