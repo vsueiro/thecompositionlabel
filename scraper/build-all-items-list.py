@@ -157,5 +157,5 @@ if os.path.exists(materials_file):
             existing_materials_df.loc[existing_materials_df['Name'] == name, 'Count'] = count
 
     # Save the updated DataFrame to materials.csv
-    updated_materials_df.to_csv(materials_file, index=False)
+    existing_materials_df.to_csv(materials_file, index=False)
 
