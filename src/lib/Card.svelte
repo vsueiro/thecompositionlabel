@@ -166,14 +166,14 @@
     font-size: 12px;
     text-transform: lowercase;
     padding: 0 0.4em;
-    background: #f4e1f0;
+    background: #f0e2f3;
     border-radius: 3px;
     align-self: start;
     width: fit-content;
   }
 
   ol > li.biodegradable {
-    background: #e5f4bc;
+    background: #e8f8b9;
   }
 
   .card.biodegradable a:after {

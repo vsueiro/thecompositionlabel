@@ -72,11 +72,11 @@
     margin-right: 0.5em;
   }
   .green:before {
-    background: #e5f4bc;
+    background: #e8f8b9;
     border: 1px solid hsl(75, 82%, 56%);
   }
   .red::before {
-    background: #f4e1f0;
+    background: #f0e2f3;
     border: 1px solid hsl(289, 41%, 84%);
   }
 

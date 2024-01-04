@@ -60,7 +60,7 @@
       .map((material) => material.Name);
   }
 
-  $: totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  $: totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
 
   $: paginatedItems = filteredItems.slice(
     (page - 1) * itemsPerPage,
@@ -173,16 +173,15 @@
       page = 1;
     }
   }
-
-  function prevPage() {
-    if (page > 1) {
-      page--;
-    }
-  }
-
-  function nextPage() {
-    if (page < totalPages) {
-      page++;
+  function setPage(change) {
+    if (typeof change === "number") {
+      page = change;
+    } else {
+      if (change === "next" && page < totalPages) {
+        page++;
+      } else if (change === "prev" && page > 1) {
+        page--;
+      }
     }
   }
 </script>
@@ -228,12 +227,18 @@
 
 <footer>
   <p>
-    <output>{filteredItems.length.toLocaleString("en-US")}</output>
-    <span>{filteredItems.length === 1 ? "item" : "items"} found</span>
+    {#if filteredItems.length > 0}
+      Showing
+      {(page - 1) * itemsPerPage + 1}–{page * itemsPerPage >
+      filteredItems.length
+        ? (page - 1) * itemsPerPage + (filteredItems.length % itemsPerPage)
+        : page * itemsPerPage} of
+    {/if}
+    {filteredItems.length.toLocaleString("en-US")}
+    {filteredItems.length === 1 ? "result" : "results"}
   </p>
-
   <nav>
-    <button on:click={prevPage}>
+    <button on:click={() => setPage("prev")}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -241,7 +246,7 @@
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
+        stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
         class="feather feather-chevron-left"
@@ -249,8 +254,23 @@
       >
       <span class="screen-reader">Previous</span>
     </button>
-    <span>Page {page} of {totalPages}</span>
-    <button on:click={nextPage}>
+
+    {#if windowWidth >= 576}
+      <div class="page-numbers">
+        {#each Array(totalPages) as _, i}
+          <button
+            on:click={() => setPage(i + 1)}
+            style={i + 1 === page ? "font-weight: bold" : ""}
+          >
+            {i + 1}
+          </button>
+        {/each}
+      </div>
+    {:else}
+      <p>Page {page} of {totalPages}</p>
+    {/if}
+
+    <button on:click={() => setPage("next")}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -258,7 +278,7 @@
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
+        stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
         class="feather feather-chevron-right"
@@ -266,6 +286,8 @@
       >
       <span class="screen-reader">Next</span>
     </button>
+
+    <!-- 1-30 of 400 items -->
   </nav>
 </footer>
 
@@ -345,6 +367,7 @@
     align-items: center;
     gap: 8px;
   }
+
   nav button {
     color: inherit;
     background: none;
@@ -369,6 +392,18 @@
     background: #494b53;
     color: white;
   }
+  nav .page-numbers {
+    display: flex;
+  }
+  nav .page-numbers button {
+    border: none;
+    width: initial;
+    padding: 0 0.4em;
+  }
+  nav .page-numbers button:hover {
+    background: white;
+    color: #494b53;
+  }
   .screen-reader {
     clip: rect(0 0 0 0);
     clip-path: inset(50%);
@@ -384,11 +419,17 @@
     align-items: center;
     margin-bottom: 1em;
   }
+  footer nav p {
+    margin: 0 0.4em;
+  }
   footer output {
     font-family: "Dela Gothic One";
     font-size: 40px;
   }
   @media (max-width: 864px) {
+    footer {
+      padding: 40px 20px;
+    }
     .checkboxes {
       gap: 8px;
       padding: 20px;

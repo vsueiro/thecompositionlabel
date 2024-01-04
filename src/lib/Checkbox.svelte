@@ -70,11 +70,11 @@
   }
 
   label:has(input:checked) {
-    background: #f4e1f0;
+    background: #f0e2f3;
   }
 
   label[data-biodegradable="true"]:has(input:checked) {
-    background: #e5f4bc;
+    background: #e8f8b9;
   }
 
   @media (max-width: 864px) {
