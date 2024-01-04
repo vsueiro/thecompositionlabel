@@ -22,7 +22,6 @@
 
     materials = materials.map((d) => {
       d.Biodegradable = d.Biodegradable === "True";
-      d.Checked = d.Checked === "True";
       return d;
     });
 
@@ -39,8 +38,6 @@
     d3.treemap().size(size).padding(0).round(true).tile(d3.treemapBinary)(root);
 
     treemapData = root.leaves();
-
-    console.log(treemapData);
   }
 
   function percentX(number) {
@@ -60,7 +57,7 @@
         y={node.y0}
         width={node.x1 - node.x0}
         height={node.y1 - node.y0}
-        fill={node.data.Biodegradable === "True" ? "#e8f8b9" : "#f0e2f3"}
+        fill={node.data.Biodegradable ? "#e8f8b9" : "#f0e2f3"}
         stroke-width="1"
         stroke="#494b53"
       >
