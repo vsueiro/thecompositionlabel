@@ -79,9 +79,14 @@
 
 <style>
   :root {
-    --height: 66.666vh;
+    --height: calc(100vh - 240px);
     --duration: 24s;
     --count: 6;
+  }
+  @media (max-height: 720px) {
+    :root {
+      --height: 480px;
+    }
   }
   @media (min-height: 960px) {
     :root {
