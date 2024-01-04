@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-import re
+import datetime
 
 # Define directory for saving item details CSVs
 links_folder = 'scraper/links/'
@@ -20,7 +20,17 @@ links = pd.read_csv(links_file) if links_file else []
 
 # Writing timestamp to a file
 with open(updated_file, 'w') as file:
-    file.write(links_file)
+
+    # Extracting just the file name (without .csv)
+    file_name = links_file.split('/')[-1].replace('.csv', '')
+
+    # Concatenating the date and time parts into one string
+    date_time_str = file_name.replace('-', '')
+
+    # Formatting the date and time as an ISO date
+    iso_date_time = datetime.datetime.strptime(date_time_str, '%Y%m%d%H%M%S').isoformat()
+
+    file.write(iso_date_time)
 
 # Initialize an empty DataFrame for the consolidated data
 consolidated_df = pd.DataFrame()
