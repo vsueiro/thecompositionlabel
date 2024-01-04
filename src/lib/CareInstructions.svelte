@@ -28,16 +28,11 @@
     <h3>Why Should I Care?</h3>
 
     <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptas
-      quibusdam similique.
+      Microplastics from non-biodegradable fabrics pollute oceans, enter our
+      food and bodies, with unknown long-term health effects.
     </p>
 
-    <p>
-      Inventore reprehenderit error eius facere cum, facilis quasi eligendi
-      necessitatibus.
-    </p>
-
-    <p>vero, doloremque natus ducimus fugit tempora? Eos, minima!</p>
+    <h4>How many clothes are made from each material?</h4>
   </aside>
 </div>
 
@@ -67,6 +62,15 @@
     font-synthesis: none;
     margin: 1em 0;
     text-wrap: pretty;
+  }
+
+  h4 {
+    font-size: 24px;
+    line-height: 1;
+    font-family: "Dela Gothic One";
+    font-synthesis: none;
+    text-wrap: pretty;
+    margin: 1em 0;
   }
 
   aside {
