@@ -142,3 +142,20 @@ consolidated_df = consolidated_df.drop_duplicates()
 
 # Save the DataFrame without duplicates as a CSV file
 consolidated_df.to_csv(output_file, index=False)
+
+# Update count of items that contain each material
+if os.path.exists(materials_file):
+    existing_materials_df = pd.read_csv(materials_file)
+
+    # Ensure Count column exists and set all its values to 0
+    existing_materials_df['Count'] = 0
+
+    # Update Count column
+    for name in existing_materials_df['Name']:
+        if name in consolidated_df.columns:
+            count = (consolidated_df[name] > 0).sum()
+            existing_materials_df.loc[existing_materials_df['Name'] == name, 'Count'] = count
+
+    # Save the updated DataFrame to materials.csv
+    updated_materials_df.to_csv(materials_file, index=False)
+
