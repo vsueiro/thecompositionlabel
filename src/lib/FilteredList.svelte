@@ -54,12 +54,6 @@
     filteredMaterials = materials.filter((material) => icons[material.Name]);
   }
 
-  $: if (materials.length > 0) {
-    biodegradableMaterials = materials
-      .filter((material) => material.Biodegradable)
-      .map((material) => material.Name);
-  }
-
   $: totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
 
   $: paginatedItems = filteredItems.slice(
@@ -93,15 +87,20 @@
       // Add a special "Others" entry
       checkboxStates["Others"] = false;
 
+      biodegradableMaterials = materials
+        .filter((material) => material.Biodegradable)
+        .map((material) => material.Name);
+
       items.forEach((item, index) => {
-        const materials = item.Composition.split(",");
-        const biodegradableCount = materials.filter((material) =>
+        const itemMaterials = item.Composition.split(",");
+        const biodegradableCount = itemMaterials.filter((itemMaterial) =>
           biodegradableMaterials.some((biodegradableMaterial) =>
-            material.includes(biodegradableMaterial)
+            itemMaterial.includes(biodegradableMaterial)
           )
         ).length;
 
-        items[index].isBiodegradable = materials.length === biodegradableCount;
+        items[index].isBiodegradable =
+          itemMaterials.length === biodegradableCount;
       });
 
       // Trigger reactive update
@@ -205,6 +204,7 @@
 
     <Checkbox
       material={othersMaterial}
+      icon=""
       bind:checked={checkboxStates["Others"]}
     />
   </div>
