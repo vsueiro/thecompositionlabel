@@ -1,6 +1,7 @@
 <script>
   import { modalOpen } from "./modalStore.js";
   import Treemap from "./Treemap.svelte";
+  import UpdatedDate from "./UpdatedDate.svelte";
 </script>
 
 <div class="modal {$modalOpen ? 'modal-open' : ''}">
@@ -36,6 +37,8 @@
       <h4>How many clothes are made from each material?</h4>
 
       <Treemap />
+
+      <UpdatedDate />
     </div>
   </aside>
 </div>
