@@ -261,7 +261,7 @@
       <span class="screen-reader">Previous</span>
     </button>
 
-    {#if windowWidth >= 576}
+    {#if windowWidth >= 576 && totalPages <= 10}
       <div class="page-numbers">
         {#each Array(totalPages) as _, i}
           <button
@@ -292,8 +292,6 @@
       >
       <span class="screen-reader">Next</span>
     </button>
-
-    <!-- 1-30 of 400 items -->
   </nav>
 </footer>
 
