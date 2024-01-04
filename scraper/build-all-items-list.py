@@ -156,6 +156,12 @@ if os.path.exists(materials_file):
             count = (consolidated_df[name] > 0).sum()
             existing_materials_df.loc[existing_materials_df['Name'] == name, 'Count'] = count
 
+    # Calculate the total of the 'Count' column
+    total_count = existing_materials_df['Count'].sum()
+
+    # Create the 'Percent' column
+    existing_materials_df['Percent'] = (existing_materials_df['Count'] / total_count) * 100
+
     # Save the updated DataFrame to materials.csv
     existing_materials_df.to_csv(materials_file, index=False)
 
