@@ -7,7 +7,7 @@
 </script>
 
 <header>
-  <a href="/">
+  <a href="./">
     <h1>
       <span>The</span>
       <span>Composition</span>
