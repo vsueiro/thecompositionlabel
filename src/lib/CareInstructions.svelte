@@ -46,6 +46,7 @@
 <style>
   .scrollable {
     height: 100%;
+    max-height: 100%;
     overflow-y: scroll;
     scroll-behavior: smooth;
     padding: 40px 40px 60px;
