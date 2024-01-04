@@ -28,6 +28,7 @@
     align-items: start;
     margin: 8px auto;
     border-radius: 16px;
+    scroll-margin-top: 8px;
   }
 
   .columns {
