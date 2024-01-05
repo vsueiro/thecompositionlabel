@@ -3,7 +3,7 @@
   export let biodegradableMaterials;
 </script>
 
-<div class="card {item.isBiodegradable ? 'biodegradable' : ''}">
+<div class="card {item.Biodegradable ? 'biodegradable' : ''}">
   <a href={item.Link} target="_blank">
     <figure>
       <div class="photo">

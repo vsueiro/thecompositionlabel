@@ -179,20 +179,20 @@ if os.path.exists(materials_file):
 
     # Check if items are fully biodegradable
 
-    # Initialize 'isBiodegradable' column with False
-    consolidated_df['isBiodegradable'] = False
+    # Initialize 'Biodegradable' column with False
+    consolidated_df['Biodegradable'] = False
 
     # Convert materials_df to dictionary for faster lookup
     biodegradable_dict = dict(zip(existing_materials_df['Name'], existing_materials_df['Biodegradable']))
 
-    # Check each item's materials and update 'isBiodegradable' if applicable
+    # Check each item's materials and update 'Biodegradable' if applicable
     for index, row in consolidated_df.iterrows():
         is_biodegradable = True
         for material in biodegradable_dict:
             if material in consolidated_df.columns and row[material] > 0 and not biodegradable_dict[material]:
                 is_biodegradable = False
                 break
-        consolidated_df.at[index, 'isBiodegradable'] = is_biodegradable
+        consolidated_df.at[index, 'Biodegradable'] = is_biodegradable
 
 # Save the DataFrame without duplicates as a CSV file
 consolidated_df.to_csv(output_file, index=False)

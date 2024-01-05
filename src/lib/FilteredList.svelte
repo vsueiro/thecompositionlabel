@@ -4,7 +4,7 @@
   import RadioButtons from "./RadioButtons.svelte";
 
   import { onMount } from "svelte";
-  import { fade, slide, scale } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import { flip } from "svelte/animate";
   import { csv, autoType } from "d3";
 
@@ -66,6 +66,12 @@
 
     try {
       items = await csv("./data/items.csv", autoType);
+
+      items = items.map((d) => {
+        d.Biodegradable = d.Biodegradable === "True";
+        return d;
+      });
+
       materials = await csv("./data/materials.csv", autoType);
 
       materials = materials.map((d) => {
@@ -90,18 +96,6 @@
       biodegradableMaterials = materials
         .filter((material) => material.Biodegradable)
         .map((material) => material.Name);
-
-      items.forEach((item, index) => {
-        const itemMaterials = item.Composition.split(",");
-        const biodegradableCount = itemMaterials.filter((itemMaterial) =>
-          biodegradableMaterials.some((biodegradableMaterial) =>
-            itemMaterial.includes(biodegradableMaterial)
-          )
-        ).length;
-
-        items[index].isBiodegradable =
-          itemMaterials.length === biodegradableCount;
-      });
 
       // Trigger reactive update
       filteredItems = [...items];
@@ -159,9 +153,9 @@
       filteredItems = [...new Set([...strictly, ...loosely, ...others])];
 
       filteredItems.sort((a, b) => {
-        if (a.isBiodegradable && !b.isBiodegradable) {
+        if (a.Biodegradable && !b.Biodegradable) {
           return -1;
-        } else if (!a.isBiodegradable && b.isBiodegradable) {
+        } else if (!a.Biodegradable && b.Biodegradable) {
           return 1;
         } else {
           return 0;
