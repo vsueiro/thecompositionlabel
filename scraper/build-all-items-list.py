@@ -8,6 +8,7 @@ items_folder = 'scraper/items/'
 output_file = 'public/data/items.csv'
 materials_file = 'public/data/materials.csv'
 updated_file = 'public/data/updated.txt'
+weird_items_file = 'public/data/weird-items.csv'
 
 # Get the most recent list of links
 def get_most_recent_csv(directory):
@@ -193,6 +194,23 @@ if os.path.exists(materials_file):
                 is_biodegradable = False
                 break
         consolidated_df.at[index, 'Biodegradable'] = is_biodegradable
+
+# Check for weird items (e.g., duplicated materials in composition)
+        
+def check_duplicated_materials(text):
+    words = text.split()
+    seen = set()
+    for word in words:
+        if word in seen:
+            return True
+        seen.add(word)
+    return False
+
+# Filter the DataFrame directly using the check_duplicated_materials function
+weird_items = consolidated_df[consolidated_df['Composition'].apply(check_duplicated_materials)]
+
+# Save to CSV
+weird_items.to_csv(weird_items_file, index=False)
 
 # Save the DataFrame without duplicates as a CSV file
 consolidated_df.to_csv(output_file, index=False)
