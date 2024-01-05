@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import re
 import datetime
 
 # Define directory for saving item details CSVs
@@ -198,7 +199,10 @@ if os.path.exists(materials_file):
 # Check for weird items (e.g., duplicated materials in composition)
         
 def check_duplicated_materials(text):
-    words = text.split()
+    # Use regular expressions to remove numbers (including those with %)
+    text_without_numbers = re.sub(r'\b\d+%?\b', '', text)
+    
+    words = text_without_numbers.split()
     seen = set()
     for word in words:
         if word in seen:
