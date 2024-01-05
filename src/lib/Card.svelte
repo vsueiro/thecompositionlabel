@@ -1,6 +1,6 @@
 <script>
   export let item;
-  export let biodegradableMaterials;
+  export let materials;
 </script>
 
 <div class="card {item.Biodegradable ? 'biodegradable' : ''}">
@@ -18,16 +18,13 @@
           {/if}
         </div>
         <ol>
-          {#each item.Composition.split(",") as material}
-            <li
-              class={biodegradableMaterials.some((biodegradableMaterial) =>
-                material.includes(biodegradableMaterial)
-              )
-                ? "biodegradable"
-                : ""}
-            >
-              {material.replace("Polyamide", "Nylon")}
-            </li>
+          {#each materials as material}
+            {#if material.Name in item && item[material.Name] > 0}
+              <li class={material.Biodegradable ? "biodegradable" : ""}>
+                {item[material.Name]}%
+                {material.Name.replace("Polyamide", "Nylon")}
+              </li>
+            {/if}
           {/each}
         </ol>
       </figcaption>

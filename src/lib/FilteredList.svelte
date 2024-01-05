@@ -41,7 +41,6 @@
   let items = [];
   let filteredItems = [];
   let filteredMaterials = [];
-  let biodegradableMaterials = [];
   let checkboxStates = {};
   let selectedType = "all";
   let itemsPerPage = 100;
@@ -92,10 +91,6 @@
 
       // Add a special "Others" entry
       checkboxStates["Others"] = false;
-
-      biodegradableMaterials = materials
-        .filter((material) => material.Biodegradable)
-        .map((material) => material.Name);
 
       // Trigger reactive update
       filteredItems = [...items];
@@ -220,7 +215,7 @@
   {/if}
   {#each paginatedItems as item (item.SKU)}
     <li animate:flip={{ duration: 400 }} transition:fade={{ duration: 100 }}>
-      <Card {item} {biodegradableMaterials} />
+      <Card {item} {materials} />
     </li>
   {/each}
 </ul>
