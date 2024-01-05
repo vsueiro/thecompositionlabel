@@ -199,10 +199,13 @@ if os.path.exists(materials_file):
 # Check for weird items (e.g., duplicated materials in composition)
         
 def check_duplicated_materials(text):
-    # Use regular expressions to remove numbers (including those with %)
-    text_without_numbers = re.sub(r'\b\d+%?\b', '', text)
+    # Regular expression to find patterns like '95% ' or '50.0% ' and remove them
+    clean_string = re.sub(r'\d+(\.\d+)?%\s*', '', text)
     
-    words = text_without_numbers.split()
+    # Remove commas
+    clean_string = clean_string.replace(',', '')
+    
+    words = clean_string.split()
     seen = set()
     for word in words:
         if word in seen:
