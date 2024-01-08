@@ -8,7 +8,7 @@ links_folder = 'scraper/links/'
 items_folder = 'scraper/items/'
 output_file = 'public/data/items.csv'
 materials_file = 'public/data/materials.csv'
-meta_file = 'public/data/meta.txt'
+meta_file = 'public/data/meta.csv'
 weird_items_file = 'public/data/weird-items.csv'
 
 # Get the most recent list of links
@@ -213,7 +213,7 @@ consolidated_df.to_csv(output_file, index=False)
 # Calculate summary values
 total_items = len(consolidated_df)
 biodegradable_count = consolidated_df[consolidated_df['Biodegradable'] == True].shape[0]
-ratio = round((biodegradable_count / total_items) * 100)
+ratio = (biodegradable_count / total_items) * 100
 
 # Extracting just the file name (without .csv)
 file_name = links_file.split('/')[-1].replace('.csv', '')
