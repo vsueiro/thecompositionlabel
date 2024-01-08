@@ -8,7 +8,7 @@ links_folder = 'scraper/links/'
 items_folder = 'scraper/items/'
 output_file = 'public/data/items.csv'
 materials_file = 'public/data/materials.csv'
-updated_file = 'public/data/updated.txt'
+meta_file = 'public/data/meta.txt'
 weird_items_file = 'public/data/weird-items.csv'
 
 # Get the most recent list of links
@@ -19,20 +19,6 @@ def get_most_recent_csv(directory):
 
 links_file = get_most_recent_csv(links_folder)
 links = pd.read_csv(links_file) if links_file else []
-
-# Writing timestamp to a file
-with open(updated_file, 'w') as file:
-
-    # Extracting just the file name (without .csv)
-    file_name = links_file.split('/')[-1].replace('.csv', '')
-
-    # Concatenating the date and time parts into one string
-    date_time_str = file_name.replace('-', '')
-
-    # Formatting the date and time as an ISO date
-    iso_date_time = datetime.datetime.strptime(date_time_str, '%Y%m%d%H%M%S').isoformat()
-
-    file.write(iso_date_time)
 
 # Initialize an empty DataFrame for the consolidated data
 consolidated_df = pd.DataFrame()
@@ -221,3 +207,24 @@ weird_items.to_csv(weird_items_file, index=False)
 
 # Save the DataFrame without duplicates as a CSV file
 consolidated_df.to_csv(output_file, index=False)
+
+# Writing metadata to a file
+
+# Calculate summary values
+total_items = len(consolidated_df)
+biodegradable_count = consolidated_df[consolidated_df['Biodegradable'] == True].shape[0]
+ratio = round((biodegradable_count / total_items) * 100)
+
+# Extracting just the file name (without .csv)
+file_name = links_file.split('/')[-1].replace('.csv', '')
+
+# Formatting the date and time as an ISO date
+date_time_str = file_name.replace('-', '')
+iso_date_time = datetime.datetime.strptime(date_time_str, '%Y%m%d%H%M%S').isoformat()
+
+# Creating a new DataFrame with the required data
+data = {'Updated': [iso_date_time], 'Items': [total_items], 'Biodegradable': [biodegradable_count], 'Ratio': [ratio]}
+summary_df = pd.DataFrame(data)
+
+# Save the new DataFrame to a CSV file
+summary_df.to_csv(meta_file, index=False)
