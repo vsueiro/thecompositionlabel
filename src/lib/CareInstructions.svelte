@@ -246,5 +246,8 @@
     aside {
       width: calc(100% - 12px);
     }
+    p {
+      font-size: 16px;
+    }
   }
 </style>
