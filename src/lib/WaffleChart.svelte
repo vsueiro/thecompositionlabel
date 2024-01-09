@@ -58,7 +58,7 @@
     position: relative;
     aspect-ratio: 1;
     z-index: 1;
-    background-image: url(./assets/tee-non-biodegradable.svg);
+    background-image: url(/assets/tee-non-biodegradable.svg);
     background-repeat: no-repeat;
     background-size: 100%;
   }
@@ -90,7 +90,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: url(./assets/tee-biodegradable-alt.svg);
+    background-image: url(/assets/tee-biodegradable-alt.svg);
     background-repeat: no-repeat;
     background-size: 100%;
   }
