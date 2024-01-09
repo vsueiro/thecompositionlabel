@@ -83,11 +83,11 @@
       {#if node.data.Name in highlights}
         <div
           class="hotspot"
-          style="top: {percentY(node.y0)}; left: {percentX(
-            node.x0
-          )}; width: {percentX(node.x1 - node.x0)}; height: {percentY(
-            node.y1 - node.y0
-          )};"
+          style="
+            top: {percentY(node.y0)};
+            left: {percentX(node.x0)};
+            width: {percentX(node.x1 - node.x0)};
+            height: {percentY(node.y1 - node.y0)};"
         >
           <div class="info">
             <div class="shadow"></div>
@@ -97,6 +97,19 @@
             </div>
           </div>
         </div>
+      {:else if node.data.Percent <= 3}
+        <div
+          class="tooltip"
+          style="
+            top: {percentY(node.y0)};
+            left: {percentX(node.x0)};
+            width: {percentX(node.x1 - node.x0)};
+            height: {percentY(node.y1 - node.y0)};"
+          title="{node.data.Name.replace('Polyamide', 'Nylon')}: {node.data
+            .Percent > 1
+            ? Math.round(node.data.Percent)
+            : node.data.Percent.toFixed(1)}%"
+        ></div>
       {/if}
     {/each}
   </div>
@@ -131,6 +144,10 @@
     align-items: end;
     padding: 10px;
     overflow: hidden;
+  }
+
+  .tooltip {
+    position: absolute;
   }
 
   .info {
