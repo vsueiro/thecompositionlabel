@@ -136,10 +136,6 @@ pattern = r'-cat-(\d+)\.html'
 # Extracting the desired substring and assigning it to the 'Type' column
 consolidated_df['Type'] = consolidated_df['Link'].str.extract(pattern, expand=False)
 
-# Count the frequency of each unique value in the 'Type' column
-type_counts = consolidated_df['Type'].value_counts()
-print(type_counts)
-
 # Drop duplicate rows from the DataFrame
 consolidated_df = consolidated_df.drop_duplicates()
 
@@ -170,11 +166,19 @@ if os.path.exists(materials_file):
     # Initialize 'Biodegradable' column with False
     consolidated_df['Biodegradable'] = False
 
+    # Initialize 'BiodegradableRatio' column with 0
+    consolidated_df['BiodegradableRatio'] = 0
+
+    # Initialize 'MaterialCount' column with 0
+    consolidated_df['MaterialCount'] = 0
+
     # Convert materials_df to dictionary for faster lookup
     biodegradable_dict = dict(zip(existing_materials_df['Name'], existing_materials_df['Biodegradable']))
 
-    # Check each item's materials and update 'Biodegradable' if applicable
+    # Iterate over each row in the DataFrame
     for index, row in consolidated_df.iterrows():
+
+        # Check each item's materials and update 'Biodegradable' if applicable
         is_biodegradable = True
         for material in biodegradable_dict:
             if material in consolidated_df.columns and row[material] > 0 and not biodegradable_dict[material]:
@@ -182,17 +186,19 @@ if os.path.exists(materials_file):
                 break
         consolidated_df.at[index, 'Biodegradable'] = is_biodegradable
 
-    # Initialize 'BiodegradableRatio' column with 0
-    consolidated_df['BiodegradableRatio'] = 0
-
-    # Iterate over each row in the DataFrame
-    for index, row in consolidated_df.iterrows():
         # For each biodegradable material
         for material, is_biodegradable in biodegradable_dict.items():
             if is_biodegradable:
                 # Check if the material is in the row and add its percentage
                 if material in consolidated_df.columns:
                     consolidated_df.at[index, 'BiodegradableRatio'] += row[material]
+
+        # Count how many materials this item contains
+        count = 0
+        for material in biodegradable_dict.keys():
+            if material in consolidated_df.columns and row[material] > 0:
+                count += 1
+        consolidated_df.at[index, 'MaterialCount'] = count
 
     # Ensure that BiodegradableRatio does not exceed 100
     consolidated_df['BiodegradableRatio'] = consolidated_df['BiodegradableRatio'].clip(upper=100)
