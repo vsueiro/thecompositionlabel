@@ -15,9 +15,16 @@
       </p>
 
       <p>
-        That’s why we've sorted through SHEIN to bring you their best in
-        biodegradable fashion – focusing on natural fibers like cotton, linen,
-        and viscose.
+        That’s why we've sorted through
+        <a href="https://us.shein.com/" target="_blank">SHEIN</a>
+        to bring you their best in
+        <span
+          style="
+            background: #e8f8b9;
+            padding: .25em;
+            white-space: nowrap;
+            border-radius: 3px">biodegradable</span
+        > fashion – focusing on natural fibers like cotton, linen, and viscose.
       </p>
     </div>
 
