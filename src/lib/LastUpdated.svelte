@@ -1,12 +1,16 @@
 <script>
   import { onMount } from "svelte";
+  import { csv, autoType } from "d3";
 
   $: formattedDate = "";
 
   onMount(async () => {
     try {
-      let response = await fetch("./data/updated.txt");
-      let timestamp = await response.text();
+      let response = await csv("./data/meta.csv", autoType);
+
+      let meta = response[0];
+
+      let timestamp = meta.Updated;
 
       // Format the timestamp
       const date = new Date(timestamp);
@@ -17,7 +21,13 @@
       }).format(date);
 
       // Update the reactive variable
-      formattedDate = `Last updated in ${formatted}`;
+      formattedDate = `
+        Last updated in ${formatted}. <br>
+        Out of the 
+        ${new Intl.NumberFormat("en-US").format(meta.Items)}
+        items we collected this week,
+        ${new Intl.NumberFormat("en-US").format(meta.Biodegradable)}
+        are biodegradable.`;
     } catch (error) {
       console.error("Failed to fetch timestamp:", error);
       formattedDate = "";
@@ -26,7 +36,7 @@
 </script>
 
 <!-- Display the formatted date inside a paragraph tag -->
-<p><small>{formattedDate}</small></p>
+<p><small>{@html formattedDate}</small></p>
 
 <style>
   p {

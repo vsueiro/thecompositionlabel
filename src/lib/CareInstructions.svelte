@@ -1,7 +1,9 @@
 <script>
   import { modalOpen } from "./modalStore.js";
   import Treemap from "./Treemap.svelte";
-  import UpdatedDate from "./UpdatedDate.svelte";
+  import LastUpdated from "./LastUpdated.svelte";
+
+  // import "tippy.js/dist/tippy.css"; // optional for styling
 </script>
 
 <div class="modal {$modalOpen ? 'modal-open' : ''}">
@@ -38,7 +40,7 @@
 
       <Treemap />
 
-      <UpdatedDate />
+      <LastUpdated />
     </div>
   </aside>
 </div>
