@@ -132,6 +132,7 @@
       });
 
       let others = [];
+
       if (checkboxStates["Others"]) {
         // Does not contain any of the main materials
         others = itemsClone.filter(
@@ -143,17 +144,8 @@
         );
       }
 
-      // Contains exactly those materials
-      let strictly = itemsClone.filter((item) =>
-        materials.every((material) => {
-          const isSelected = checkboxStates[material.Name];
-          const hasMaterial = item[material.Name] > 0;
-          return isSelected ? hasMaterial : !hasMaterial;
-        })
-      );
-
       // Contains any of those materials
-      let loosely = itemsClone.filter((item) =>
+      const loosely = itemsClone.filter((item) =>
         materials.some((material) => {
           const isSelected = checkboxStates[material.Name];
           const hasMaterial = item[material.Name] > 0;
@@ -161,11 +153,18 @@
         })
       );
 
-      filteredItems = [...new Set([...strictly, ...loosely, ...others])].sort(
-        (a, b) => {
-          return b.BiodegradableRatio - a.BiodegradableRatio;
+      filteredItems = [...new Set([...loosely, ...others])].sort((a, b) => {
+        // Sort by most biodegradable first
+        const BiodegradableRatioDiff =
+          b.BiodegradableRatio - a.BiodegradableRatio;
+
+        if (BiodegradableRatioDiff === 0) {
+          // Break tie by prioritizing items made from less materials
+          return a.MaterialCount - b.MaterialCount;
         }
-      );
+
+        return BiodegradableRatioDiff;
+      });
 
       // Reset page number
       page = 1;
