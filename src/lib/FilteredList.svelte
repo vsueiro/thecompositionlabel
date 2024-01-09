@@ -37,13 +37,20 @@
     }
   }
 
+  // Function to check if the browser is Safari
+  function isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  }
+
+  const onSafari = isSafari();
+
   let materials = [];
   let items = [];
   let filteredItems = [];
   let filteredMaterials = [];
   let checkboxStates = {};
   let selectedType = "all";
-  let itemsPerPage = 100;
+  let itemsPerPage = onSafari ? 25 : 100;
   let page = 1;
   let totalPages = 1;
   let listElement;
@@ -145,17 +152,11 @@
         })
       );
 
-      filteredItems = [...new Set([...strictly, ...loosely, ...others])];
-
-      filteredItems.sort((a, b) => {
-        if (a.Biodegradable && !b.Biodegradable) {
-          return -1;
-        } else if (!a.Biodegradable && b.Biodegradable) {
-          return 1;
-        } else {
-          return 0;
+      filteredItems = [...new Set([...strictly, ...loosely, ...others])].sort(
+        (a, b) => {
+          return b.BiodegradableRatio - a.BiodegradableRatio;
         }
-      });
+      );
 
       if (selectedType !== "all") {
         filteredItems = filteredItems.filter(
