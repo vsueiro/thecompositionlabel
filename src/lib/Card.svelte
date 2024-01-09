@@ -1,6 +1,14 @@
 <script>
   export let item;
   export let materials;
+
+  const sortedMaterials = materials
+    .filter((material) => {
+      return material.Name in item && item[material.Name] > 0;
+    })
+    .sort((a, b) => {
+      return item[b.Name] - item[a.Name];
+    });
 </script>
 
 <div class="card {item.Biodegradable ? 'biodegradable' : ''}">
@@ -18,13 +26,11 @@
           {/if}
         </div>
         <ol>
-          {#each materials as material}
-            {#if material.Name in item && item[material.Name] > 0}
-              <li class={material.Biodegradable ? "biodegradable" : ""}>
-                {item[material.Name]}%
-                {material.Name.replace("Polyamide", "Nylon")}
-              </li>
-            {/if}
+          {#each sortedMaterials as material}
+            <li class={material.Biodegradable ? "biodegradable" : ""}>
+              {item[material.Name]}%
+              {material.Name.replace("Polyamide", "Nylon")}
+            </li>
           {/each}
         </ol>
       </figcaption>
