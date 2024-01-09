@@ -1,9 +1,26 @@
 <script>
+  import { onMount } from "svelte";
+  import { csv, autoType } from "d3";
   import { modalOpen } from "./modalStore.js";
   import Treemap from "./Treemap.svelte";
+  import WaffleChart from "./WaffleChart.svelte";
   import LastUpdated from "./LastUpdated.svelte";
 
-  // import "tippy.js/dist/tippy.css"; // optional for styling
+  $: meta = {};
+  $: items = new Intl.NumberFormat("en-US").format(meta.Items);
+  $: biodegradableItems = new Intl.NumberFormat("en-US").format(
+    meta.Biodegradable
+  );
+  $: biodegradableItemsPer1000 = Math.round(meta.Ratio * 10);
+
+  onMount(async () => {
+    try {
+      let response = await csv("./data/meta.csv", autoType);
+      meta = response[0];
+    } catch (error) {
+      console.error("Failed to fetch timestamp:", error);
+    }
+  });
 </script>
 
 <div class="modal {$modalOpen ? 'modal-open' : ''}">
@@ -32,15 +49,71 @@
       <h3>Why Should I Care?</h3>
 
       <p>
+        A major concern with synthetic fabric clothing are
+        <a href="https://en.wikipedia.org/wiki/Microplastics" target="_blank"
+          >microplastics</a
+        >, the tiny pieces of trash they keep leaving behind, which end up in
+        oceans, in the
+        <a
+          href="https://artsexperiments.withgoogle.com/plasticair/"
+          target="_blank">air</a
+        >, and in our food.
+      </p>
+
+      <p>
+        However,
+        <span
+          style="
+            background: #f0e2f3;
+            padding: .25em;
+            white-space: nowrap;
+            border-radius: 3px">synthetic materials</span
+        >
+        are present in most clothes from
+        <a href="https://us.shein.com/" target="_blank">SHEIN</a>, a leading
+        fast fashion ecommerce in the U.S.
+      </p>
+      <!--
+      <p>
         Microplastics from non-biodegradable fabrics pollute oceans, enter our
         food and bodies, with unknown long-term health effects.
       </p>
+      -->
 
-      <h4>How many clothes are made from each material?</h4>
+      <h4>How many clothes on SHEIN are made from each material?</h4>
 
       <Treemap />
 
-      <LastUpdated />
+      <p>
+        We exist to help you find those rare <span
+          style="
+          background: #e8f8b9;
+          padding: .25em;
+          white-space: nowrap;
+          border-radius: 3px">biodegradable</span
+        > items, by analzying SHEIN’s top-rated products every week.
+      </p>
+
+      {#if "Items" in meta}
+        <p>
+          Out of the {items}
+          items we collected this week, {biodegradableItems}
+          are biodegradable, in other words…
+        </p>
+
+        <h4>
+          For every 1,000 items,
+          {biodegradableItemsPer1000}
+          {biodegradableItemsPer1000 === 1 ? "is" : "are"}
+          fully biodegradable
+        </h4>
+
+        <WaffleChart amount={1000} highlights={biodegradableItemsPer1000} />
+      {/if}
+
+      {#if "Updated" in meta}
+        <LastUpdated timestamp={meta.Updated} />
+      {/if}
     </div>
   </aside>
 </div>
@@ -52,6 +125,9 @@
     overflow-y: scroll;
     scroll-behavior: smooth;
     padding: 40px 40px 60px;
+  }
+  .scrollable p + p {
+    margin-top: 1em;
   }
   .overlay {
     position: fixed;
@@ -86,7 +162,7 @@
     font-family: "Dela Gothic One";
     font-synthesis: none;
     text-wrap: pretty;
-    margin: 2em 0 1em;
+    margin: 1.5em 0 0.75em;
   }
 
   aside {

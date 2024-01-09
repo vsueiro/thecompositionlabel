@@ -4,7 +4,8 @@
 
   let data;
   let treemapData = [];
-  let size = [480, 360];
+  const size = [480, 360];
+  const limit = 2;
 
   let highlights = {
     Elastane: {
@@ -49,73 +50,85 @@
   }
 </script>
 
-<div class="container">
-  <svg viewBox="-1 -1 {size[0] + 2} {size[1] + 2}">
-    {#each treemapData as node}
-      <rect
-        x={node.x0}
-        y={node.y0}
-        width={node.x1 - node.x0}
-        height={node.y1 - node.y0}
-        fill={node.data.Biodegradable ? "#e8f8b9" : "#f0e2f3"}
-        stroke-width="1"
-        stroke="#494b53"
-      >
-      </rect>
-      {#if node.data.Percent > 3}
-        <text
-          x={node.x0 + 10}
-          y={node.y0 + 30}
-          fill="#494b53"
-          font-size="20"
-          font-family="Dela Gothic One"
+<figure>
+  <div class="container">
+    <svg viewBox="-1 -1 {size[0] + 2} {size[1] + 2}">
+      {#each treemapData as node}
+        <rect
+          x={node.x0}
+          y={node.y0}
+          width={node.x1 - node.x0}
+          height={node.y1 - node.y0}
+          fill={node.data.Biodegradable ? "#e8f8b9" : "#f0e2f3"}
+          stroke-width="1"
+          stroke="#494b53"
         >
-          {Math.round(node.data.Percent)}%
-        </text>
-        <text x={node.x0 + 10} y={node.y0 + 50} fill="#494b53" font-size="16">
-          {node.data.Name.replace("Polyamide", "Nylon")}
-        </text>
-      {/if}
-    {/each}
-  </svg>
-  <div class="hotspots">
-    {#each treemapData as node}
-      {#if node.data.Name in highlights}
-        <div
-          class="hotspot"
-          style="
+        </rect>
+        {#if node.data.Percent > limit}
+          <text
+            x={node.x0 + 10}
+            y={node.y0 + 30}
+            fill="#494b53"
+            font-size="20"
+            font-family="Dela Gothic One"
+          >
+            {Math.round(node.data.Percent)}%
+          </text>
+          <text x={node.x0 + 10} y={node.y0 + 50} fill="#494b53" font-size="16">
+            {node.data.Name.replace("Polyamide", "Nylon")}
+          </text>
+        {/if}
+      {/each}
+    </svg>
+    <div class="hotspots">
+      {#each treemapData as node}
+        {#if node.data.Name in highlights}
+          <div
+            class="hotspot"
+            style="
             top: {percentY(node.y0)};
             left: {percentX(node.x0)};
             width: {percentX(node.x1 - node.x0)};
             height: {percentY(node.y1 - node.y0)};"
-        >
-          <div class="info">
-            <div class="shadow"></div>
-            <div class="box">
-              <img src={highlights[node.data.Name].icon} alt="" />
-              <span>{highlights[node.data.Name].text}</span>
+          >
+            <div class="info">
+              <div class="shadow"></div>
+              <div class="box">
+                <img src={highlights[node.data.Name].icon} alt="" />
+                <span>{highlights[node.data.Name].text}</span>
+              </div>
             </div>
           </div>
-        </div>
-      {:else if node.data.Percent <= 3}
-        <div
-          class="tooltip"
-          style="
+        {:else if node.data.Percent <= limit}
+          <div
+            class="tooltip"
+            style="
             top: {percentY(node.y0)};
             left: {percentX(node.x0)};
             width: {percentX(node.x1 - node.x0)};
             height: {percentY(node.y1 - node.y0)};"
-          title="{node.data.Percent > 1
-            ? Math.round(node.data.Percent)
-            : node.data.Percent.toFixed(1)}% {node.data.Name.replace(
-            'Polyamide',
-            'Nylon'
-          )}"
-        ></div>
-      {/if}
-    {/each}
+            title="{node.data.Percent > 1
+              ? Math.round(node.data.Percent)
+              : node.data.Percent.toFixed(1)}% {node.data.Name.replace(
+              'Polyamide',
+              'Nylon'
+            )}"
+          ></div>
+        {/if}
+      {/each}
+    </div>
   </div>
-</div>
+  <figcaption>
+    <small>
+      Considers only
+      <a
+        href="https://us.shein.com/hotsale/Women-top-rated-sc-003161153.html?adp=12633563&categoryJump=true&ici=us_tab03navbar03menu01dir03&src_identifier=fc%3DWomen%20Clothing%60sc%3DWomen%20Clothing%60tc%3DShop%20by%20category%60oc%3DTop%20Rated%60ps%3Dtab03navbar03menu01dir03%60jc%3DitemPicking_003161153&src_module=topcat&src_tab_page_id=page_select_class1704778193437&child_cat_id=1766&page=1"
+        target="_blank">Women Top Rated (Top, Blouses & Tee)</a
+      >
+      category.
+    </small>
+  </figcaption>
+</figure>
 
 <style>
   /* rect {
@@ -131,6 +144,15 @@
   .container {
     position: relative;
   }
+
+  figcaption {
+    margin-bottom: 2em;
+  }
+
+  figcaption {
+    margin-top: 0.25em;
+  }
+
   .hotspots {
     position: absolute;
     top: 0;
