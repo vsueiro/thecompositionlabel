@@ -74,11 +74,11 @@
   }
   .green:before {
     background: #e8f8b9;
-    border: 1px solid hsl(75, 82%, 56%);
+    border: 1px solid #9dc528;
   }
   .red::before {
     background: #f0e2f3;
-    border: 1px solid hsl(289, 41%, 84%);
+    border: 1px solid #e0a8d2;
   }
 
   @media (max-width: 864px) {

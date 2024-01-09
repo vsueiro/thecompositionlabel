@@ -6,12 +6,15 @@
   import WaffleChart from "./WaffleChart.svelte";
   import LastUpdated from "./LastUpdated.svelte";
 
+  const browseDuration = 10;
+
   $: meta = {};
   $: items = new Intl.NumberFormat("en-US").format(meta.Items);
   $: biodegradableItems = new Intl.NumberFormat("en-US").format(
     meta.Biodegradable
   );
-  $: biodegradableItemsPer1000 = Math.round(meta.Ratio * 10);
+
+  $: hours = Math.round((items * browseDuration) / 60 / 60);
 
   onMount(async () => {
     try {
@@ -94,21 +97,30 @@
         > items, by analzying SHEIN’s top-rated products every week.
       </p>
 
-      {#if "Items" in meta}
-        <p>
-          Out of the {items}
-          items we collected this week, {biodegradableItems}
-          are biodegradable, in other words…
-        </p>
+      <p>
+        Just this week, we have analyzed {items} items,
+        {biodegradableItems} of which {meta.Biodegradable === 1 ? "is" : "are"}
+        biodegradable. In other words:
+      </p>
 
+      {#if "Items" in meta}
         <h4>
-          For every 1,000 items,
-          {biodegradableItemsPer1000}
-          {biodegradableItemsPer1000 === 1 ? "is" : "are"}
+          For every 100 items, {Math.ceil(meta.Ratio)}
+          {Math.ceil(meta.Ratio) === 1 ? "is" : "are"}
           fully biodegradable
         </h4>
 
-        <WaffleChart amount={1000} highlights={biodegradableItemsPer1000} />
+        <WaffleChart amount={100} highlights={Math.ceil(meta.Ratio)} />
+
+        <p>
+          If you were to manually browse through all those {items}
+          items, it would take you around {hours}
+          {hours === 1 ? "hour" : "hours"}.
+        </p>
+        <p>
+          Here, you find {meta.Biodegradable === 1 ? "that" : "those"} biodegradable
+          {meta.Biodegradable === 1 ? "gem" : "gems"} in seconds.
+        </p>
       {/if}
 
       {#if "Updated" in meta}
