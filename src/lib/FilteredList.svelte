@@ -301,10 +301,10 @@
   }
   .category-filter form {
     min-height: calc(388px + 1px);
-    padding: 24px;
+    padding: 36px 24px 24px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
   }
   .category-filter form h4 {
     font-size: 24px;
