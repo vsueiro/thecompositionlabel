@@ -105,10 +105,12 @@
             left: {percentX(node.x0)};
             width: {percentX(node.x1 - node.x0)};
             height: {percentY(node.y1 - node.y0)};"
-          title="{node.data.Name.replace('Polyamide', 'Nylon')}: {node.data
-            .Percent > 1
+          title="{node.data.Percent > 1
             ? Math.round(node.data.Percent)
-            : node.data.Percent.toFixed(1)}%"
+            : node.data.Percent.toFixed(1)}% {node.data.Name.replace(
+            'Polyamide',
+            'Nylon'
+          )}"
         ></div>
       {/if}
     {/each}
