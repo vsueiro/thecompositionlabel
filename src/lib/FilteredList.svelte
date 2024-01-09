@@ -122,10 +122,19 @@
   // Updated reactive statement for dynamic filtering
   $: {
     if (materials.length) {
+      // Filter by type
+      let itemsClone = items.filter((item) => {
+        if (selectedType === "all") {
+          return true;
+        } else {
+          return item.Type === parseInt(selectedType);
+        }
+      });
+
       let others = [];
       if (checkboxStates["Others"]) {
         // Does not contain any of the main materials
-        others = items.filter(
+        others = itemsClone.filter(
           (item) =>
             !filteredMaterials.some((material) => {
               const hasMaterial = item[material.Name] > 0;
@@ -135,7 +144,7 @@
       }
 
       // Contains exactly those materials
-      let strictly = items.filter((item) =>
+      let strictly = itemsClone.filter((item) =>
         materials.every((material) => {
           const isSelected = checkboxStates[material.Name];
           const hasMaterial = item[material.Name] > 0;
@@ -144,7 +153,7 @@
       );
 
       // Contains any of those materials
-      let loosely = items.filter((item) =>
+      let loosely = itemsClone.filter((item) =>
         materials.some((material) => {
           const isSelected = checkboxStates[material.Name];
           const hasMaterial = item[material.Name] > 0;
@@ -157,12 +166,6 @@
           return b.BiodegradableRatio - a.BiodegradableRatio;
         }
       );
-
-      if (selectedType !== "all") {
-        filteredItems = filteredItems.filter(
-          (item) => item.Type === parseInt(selectedType)
-        );
-      }
 
       // Reset page number
       page = 1;
