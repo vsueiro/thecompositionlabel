@@ -188,14 +188,14 @@ if os.path.exists(materials_file):
     # Iterate over each row in the DataFrame
     for index, row in consolidated_df.iterrows():
         # For each biodegradable material
-        for material in biodegradable_dict.keys():
-            # Check if the material is in the row and add its percentage
-            if material in consolidated_df.columns:
-                consolidated_df.at[index, 'BiodegradableRatio'] += row[material]
+        for material, is_biodegradable in biodegradable_dict.items():
+            if is_biodegradable:
+                # Check if the material is in the row and add its percentage
+                if material in consolidated_df.columns:
+                    consolidated_df.at[index, 'BiodegradableRatio'] += row[material]
 
     # Ensure that BiodegradableRatio does not exceed 100
     consolidated_df['BiodegradableRatio'] = consolidated_df['BiodegradableRatio'].clip(upper=100)
-    
 
 # Check for weird items (e.g., duplicated materials in composition)
         
