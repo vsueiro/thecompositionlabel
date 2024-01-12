@@ -16,6 +16,9 @@
 
   $: hours = Math.round((meta.Items * browseDuration) / 60 / 60);
 
+  $: highlights =
+    meta.Ratio === 0 ? 0 : meta.Ratio <= 1 ? 1 : Math.round(meta.Ratio);
+
   onMount(async () => {
     try {
       let response = await csv("./data/meta.csv", autoType);
@@ -105,12 +108,12 @@
 
       {#if "Items" in meta}
         <h4>
-          For every 100 items, {Math.ceil(meta.Ratio)}
-          {Math.ceil(meta.Ratio) === 1 ? "is" : "are"}
+          For every 100 items, {highlights}
+          {highlights === 1 ? "is" : "are"}
           fully biodegradable
         </h4>
 
-        <WaffleChart amount={100} highlights={Math.ceil(meta.Ratio)} />
+        <WaffleChart amount={100} {highlights} />
 
         <p>
           If you were to manually browse through all those {items}
