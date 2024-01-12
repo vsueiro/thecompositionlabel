@@ -2,6 +2,10 @@
 name: deploy-svelte-to-github-pages
 
 on:
+  workflow_run:
+    workflows: ["build-all-items-list"]
+    types:
+      - completed
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
