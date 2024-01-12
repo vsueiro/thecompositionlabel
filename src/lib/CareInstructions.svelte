@@ -14,7 +14,7 @@
     meta.Biodegradable
   );
 
-  $: hours = Math.round((items * browseDuration) / 60 / 60);
+  $: hours = Math.round((meta.Items * browseDuration) / 60 / 60);
 
   onMount(async () => {
     try {
