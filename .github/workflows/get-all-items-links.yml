@@ -2,7 +2,7 @@ name: get-all-items-links
 
 on:
   schedule:
-    - cron: "0 17 * * 1" # Runs at 5 PM UTC every Monday, which is 12 PM
+    - cron: "0 17 * * 1,3,5" # Runs at 5 PM UTC every Mon, Wed, Fri (around noon in Miami)
   workflow_dispatch: # Allows manual triggering via GitHub UI
 
 jobs:
