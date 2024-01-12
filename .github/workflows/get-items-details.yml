@@ -1,8 +1,6 @@
 name: get-items-details
 
 on:
-  schedule:
-    - cron: "0 0 * * *" # Run the task at midnight every day
   workflow_run:
     workflows: ["get-all-items-links"]
     types:
