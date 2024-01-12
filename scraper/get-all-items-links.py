@@ -45,7 +45,7 @@ def scrape_links(url):
         href = href_full.split('?')[0]
 
         # Extract the ID using regex
-        match = re.search(r'-p-(\d+)-', href)
+        match = re.search(r'-p-(\d+)\.html', href)
         if match:
             id = match.group(1)
         else:
