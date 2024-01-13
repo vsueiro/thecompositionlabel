@@ -131,10 +131,10 @@ for index, row in consolidated_df.iterrows():
         consolidated_df.at[index, material] = percentage
 
 # Regular Expression to extract numbers between '-cat-' and '.html'
-pattern = r'-cat-(\d+)\.html'
+# pattern = r'-cat-(\d+)\.html'
 
 # Extracting the desired substring and assigning it to the 'Type' column
-consolidated_df['Type'] = consolidated_df['Link'].str.extract(pattern, expand=False)
+# consolidated_df['Type'] = consolidated_df['Link'].str.extract(pattern, expand=False)
 
 # Drop duplicate rows from the DataFrame
 consolidated_df = consolidated_df.drop_duplicates()
