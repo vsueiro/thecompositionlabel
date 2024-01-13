@@ -112,7 +112,7 @@ def get_item_details(link, item_id):
         sku = parsed_json["rs"]["detail"]["goods_sn"]
     except Exception:
         sku = ""  # Set to an empty string in case of any error
-    
+
     # Get Composition
     composition_values = []
     
@@ -132,7 +132,6 @@ def get_item_details(link, item_id):
                 if 'attributeList'in item:
                     for attribute in item['attributeList']:
                         if 'attr_name_en' in attribute and attribute['attr_name_en'] == 'Composition':
-                            print('found attribute named composition')
                             composition_values.append(attribute.get('attr_value_en', ''))
 
         if 'productDetails' in detail:
@@ -142,6 +141,13 @@ def get_item_details(link, item_id):
 
     composition = ', '.join(composition_values) if composition_values else ''
     
+    Type = ""  # Initialize the variable before the try-except block
+
+    try:
+        Type = detail['productDetails']['cat_id']
+    except KeyError:
+        print("Could not get cat_id")
+
     # Check if required fields are present
     if title and composition and image and sku:
         
@@ -149,10 +155,10 @@ def get_item_details(link, item_id):
         timestamp = datetime.datetime.now()
         
         # Include the item name in the details
-        item_details = [[title, composition, price, image, timestamp, sku, link]]
+        item_details = [[title, composition, price, image, timestamp, sku, link, Type]]
             
         # Creating DataFrame
-        df = pd.DataFrame(item_details, columns=['Title', 'Composition', 'Price', 'Image', 'Timestamp', 'SKU', 'Link'])
+        df = pd.DataFrame(item_details, columns=['Title', 'Composition', 'Price', 'Image', 'Timestamp', 'SKU', 'Link', 'Type'])
 
         # Save to CSV
         df.to_csv(f"{output_folder}{item_id}.csv", index=False)
