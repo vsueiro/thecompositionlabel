@@ -1,6 +1,9 @@
 <script>
   export let timestamp;
 
+  // Add UTC
+  timestamp = timestamp + "Z";
+
   // Format the timestamp
   const date = new Date(timestamp);
   const formatted = new Intl.DateTimeFormat("en-US", {
