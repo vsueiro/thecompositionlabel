@@ -130,14 +130,22 @@ for index, row in consolidated_df.iterrows():
             consolidated_df[material] = 0  # Initialize a new column with 0
         consolidated_df.at[index, material] = percentage
 
-# Regular Expression to extract numbers between '-cat-' and '.html'
-# pattern = r'-cat-(\d+)\.html'
-
-# Extracting the desired substring and assigning it to the 'Type' column
-# consolidated_df['Type'] = consolidated_df['Link'].str.extract(pattern, expand=False)
-
 # Drop duplicate rows from the DataFrame
 consolidated_df = consolidated_df.drop_duplicates()
+
+# Get Type from older link standard
+
+# Regular Expression to extract numbers between '-cat-' and '.html'
+pattern = r'-cat-(\d+)\.html'
+
+# Iterate over each row
+for index, row in consolidated_df.iterrows():
+    # Check if 'Type' column is an empty string
+    if row['Type'] == '':
+        # Extract the desired substring using regex
+        extracted_value = row['Link'].str.extract(pattern, expand=False)
+        # Assign the extracted value to the 'Type' column of the current row
+        consolidated_df.at[index, 'Type'] = extracted_value
 
 # Update count of items that contain each material
 if os.path.exists(materials_file):

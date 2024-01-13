@@ -16,7 +16,7 @@ output_folder = 'scraper/items/'
 links_folder = 'scraper/links/'
 
 # Define the amount of links per scraping batch
-limit = 360
+limit = 10
 
 # Get the most recent list of links
 def get_most_recent_csv(directory):
@@ -126,6 +126,11 @@ def get_item_details(link, item_id):
 
     detail = extract_detail_from_json(parsed_json)
 
+    # Get category
+    Type = "" 
+    if "cat_id" in detail:
+        Type = detail["cat_id"] 
+
     if detail:
         if 'multiPartInfo' in detail:
             for item in detail['multiPartInfo']:
@@ -140,13 +145,6 @@ def get_item_details(link, item_id):
                     composition_values.append(item.get('attr_value_en', ''))
 
     composition = ', '.join(composition_values) if composition_values else ''
-    
-    Type = ""  # Initialize the variable before the try-except block
-
-    try:
-        Type = detail['productDetails']['cat_id']
-    except KeyError:
-        print("Could not get cat_id")
 
     # Check if required fields are present
     if title and composition and image and sku:
