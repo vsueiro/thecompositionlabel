@@ -33,6 +33,22 @@ for _, row in links.iterrows():
         # Read the CSV file
         item_df = pd.read_csv(file_path)
 
+        # Get Type from older link standard
+        if 'Type' not in item_df.columns:
+
+            # Regular Expression to extract numbers between '-cat-' and '.html'
+            pattern = r'-cat-(\d+)\.html'
+
+            # Extract the desired substring using regex
+            link_value = item_df.loc[0, 'Link']
+            match = re.search(pattern, link_value)
+
+            # Check if there is a match and extract the value
+            extracted_value = match.group(1) if match else ""
+
+            # Assign the extracted value to the 'Type' column of the first row
+            item_df.at[0, 'Type'] = extracted_value
+
         # Append this DataFrame to the consolidated DataFrame
         consolidated_df = pd.concat([consolidated_df, item_df], ignore_index=True)
 
@@ -132,20 +148,6 @@ for index, row in consolidated_df.iterrows():
 
 # Drop duplicate rows from the DataFrame
 consolidated_df = consolidated_df.drop_duplicates()
-
-# Get Type from older link standard
-
-# Regular Expression to extract numbers between '-cat-' and '.html'
-pattern = r'-cat-(\d+)\.html'
-
-# Iterate over each row
-for index, row in consolidated_df.iterrows():
-    # Check if 'Type' column is an empty string
-    if row['Type'] == '':
-        # Extract the desired substring using regex
-        extracted_value = row['Link'].str.extract(pattern, expand=False)
-        # Assign the extracted value to the 'Type' column of the current row
-        consolidated_df.at[index, 'Type'] = extracted_value
 
 # Update count of items that contain each material
 if os.path.exists(materials_file):
