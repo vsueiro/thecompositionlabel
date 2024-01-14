@@ -2,31 +2,11 @@
   export let amount;
   export let highlights;
 
-  // function calculateColumns(amount) {
-  //   // Find the square root of the amount
-  //   const sqrt = Math.sqrt(amount);
-
-  //   // Round it to the nearest whole number
-  //   const roundedSqrt = Math.floor(sqrt);
-
-  //   // Calculate the number of columns
-  //   // If the rounded square root squared is less than the amount,
-  //   // use the rounded square root as the number of columns
-  //   // Otherwise, use the rounded square root - 1 to ensure
-  //   // the total number of cells >= amount
-  //   const columns =
-  //     roundedSqrt * roundedSqrt >= amount ? roundedSqrt : roundedSqrt - 1;
-
-  //   return columns;
-  // }
-
   const columns = 20;
   const width = `${100 / columns}%`;
   const numbers = Array(amount)
     .fill()
     .map((_, i) => i);
-
-  console.log(columns, width);
 </script>
 
 <div class="symbols">
