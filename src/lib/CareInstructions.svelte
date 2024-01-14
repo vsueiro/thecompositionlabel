@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { csv, autoType } from "d3";
+  import { csv } from "d3";
   import { modalOpen } from "./modalStore.js";
   import Treemap from "./Treemap.svelte";
   import WaffleChart from "./WaffleChart.svelte";
@@ -21,7 +21,14 @@
 
   onMount(async () => {
     try {
-      let response = await csv("./data/meta.csv", autoType);
+      let response = await csv("./data/meta.csv", function (d) {
+        return {
+          Updated: d.Updated, // Keep as string
+          Items: +d.Items, // Convert to number
+          Biodegradable: +d.Biodegradable, // Convert to number
+          Ratio: +d.Ratio, // Convert to number
+        };
+      });
       meta = response[0];
     } catch (error) {
       console.error("Failed to fetch timestamp:", error);
