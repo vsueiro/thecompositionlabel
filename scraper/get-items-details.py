@@ -16,7 +16,7 @@ output_folder = 'scraper/items/'
 links_folder = 'scraper/links/'
 
 # Define the amount of links per scraping batch
-limit = 360
+limit = 1
 
 # Get the most recent list of links
 def get_most_recent_csv(directory):
@@ -99,13 +99,13 @@ def get_item_details(link, item_id):
         image = ""
     
     # Get Price
-    try:
-        price_element = driver.find_element(By.CSS_SELECTOR, ".product-intro__head-mainprice [aria-label]")
-        price_text = price_element.text
-        # Remove currency symbols and convert to float
-        price = float(re.sub(r'[^\d.]+', '', price_text))
-    except Exception:
-        price = ""
+    # try:
+    #     price_element = driver.find_element(By.CSS_SELECTOR, ".product-intro__head-mainprice [aria-label]")
+    #     price_text = price_element.text
+    #     # Remove currency symbols and convert to float
+    #     price = float(re.sub(r'[^\d.]+', '', price_text))
+    # except Exception:
+    #     price = ""
 
     # Get SKU
     try:
@@ -122,16 +122,43 @@ def get_item_details(link, item_id):
             detail = parsed_json['productIntroData']['detail']
             return detail
         else:
+            print(f'Could not get detail from JSON for item ID: {link}')
             return None
 
     detail = extract_detail_from_json(parsed_json)
 
-    # Get category
+    # Functions for getting price
+    def get_lowest_price(detail):
+        def try_float(value):
+            try:
+                value = float(value)
+                return value if value != 0 else None
+            except (TypeError, ValueError):
+                return None
+        
+        retail_price = detail.get('retailPrice', {}).get('usdAmount', None)
+        sale_price = detail.get('salePrice', {}).get('usdAmount', None)
+
+        # Convert to float and filter out None and 0 values
+        prices = filter(None, [try_float(retail_price), try_float(sale_price)])
+
+        # Return the minimum price if available, else None
+        return min(prices, default=None)
+
+    # Set some properties as empty strings by default
+    price = ""
     Type = "" 
-    if "cat_id" in detail:
-        Type = detail["cat_id"] 
 
     if detail:
+
+        # Get price
+        price = get_lowest_price(detail)
+
+        if "cat_id" in detail:
+
+            # Get category
+            Type = detail["cat_id"]
+
         if 'multiPartInfo' in detail:
             for item in detail['multiPartInfo']:
                 if 'attributeList'in item:
