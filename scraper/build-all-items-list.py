@@ -156,11 +156,19 @@ if os.path.exists(materials_file):
     # Ensure Count column exists and set all its values to 0
     existing_materials_df['Count'] = 0
 
+    # Create a new column for Median and set it to 0
+    existing_materials_df['Median'] = 0
+
     # Update Count column
     for name in existing_materials_df['Name']:
         if name in consolidated_df.columns:
+            # Counting items with material usage > 0
             count = (consolidated_df[name] > 0).sum()
             existing_materials_df.loc[existing_materials_df['Name'] == name, 'Count'] = count
+
+            # Calculating median of non-zero material usage
+            median = consolidated_df[consolidated_df[name] > 0][name].median()
+            existing_materials_df.loc[existing_materials_df['Name'] == name, 'Median'] = median
 
     # Calculate the total of the 'Count' column
     total_count = existing_materials_df['Count'].sum()
