@@ -77,8 +77,8 @@
             fill="#494b53"
             font-size="20"
             font-family="Dela Gothic One"
-          >
-            {Math.round(node.data.Percent)}%
+            >{new Intl.NumberFormat("en-US").format(node.data.Count)}
+            <!-- {Math.round(node.data.Percent)}% -->
           </text>
           <text x={node.x0 + 10} y={node.y0 + 50} fill="#494b53" font-size="16">
             {node.data.Name.replace("Polyamide", "Nylon")}
@@ -113,12 +113,9 @@
             left: {percentX(node.x0)};
             width: {percentX(node.x1 - node.x0)};
             height: {percentY(node.y1 - node.y0)};"
-            title="{node.data.Percent > 1
-              ? Math.round(node.data.Percent)
-              : node.data.Percent.toFixed(1)}% {node.data.Name.replace(
-              'Polyamide',
-              'Nylon'
-            )}"
+            title="{new Intl.NumberFormat('en-US').format(
+              node.data.Count
+            )} {node.data.Name.replace('Polyamide', 'Nylon')}"
           ></div>
         {/if}
       {/each}
