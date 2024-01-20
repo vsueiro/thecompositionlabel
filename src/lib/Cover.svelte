@@ -75,7 +75,7 @@
     font-family: "Dela Gothic One";
     font-synthesis: none;
     margin-bottom: 1em;
-    text-wrap: pretty;
+    text-wrap: balance;
   }
   p {
     font-size: 18px;

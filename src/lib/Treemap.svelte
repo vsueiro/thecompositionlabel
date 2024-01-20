@@ -21,13 +21,15 @@
 
     highlights = {
       Elastane: {
-        text: "Most in blended compositions",
+        text: `Usually makes up ${
+          data.find((d) => d.Name === "Elastane").Median
+        }% of the textile`,
         icon: "./assets/washing-machine.svg",
       },
       Polyester: {
-        text: `Appears ${new Intl.NumberFormat("en-US").format(
-          data.find((d) => d.Name === "Polyester").Count || 0
-        )}x in ”Women Top Rated”`,
+        text: `Usually makes up ${
+          data.find((d) => d.Name === "Polyester").Median
+        }% of the textile`,
         icon: "./assets/shirts.svg",
       },
     };

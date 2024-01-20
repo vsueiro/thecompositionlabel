@@ -93,7 +93,7 @@
       </p>
       -->
 
-      <h4>How many clothes on SHEIN are made from each material?</h4>
+      <h4>How many SHEIN clothes contain each material?</h4>
 
       <Treemap />
 
@@ -115,9 +115,9 @@
 
       {#if "Items" in meta}
         <h4>
-          For every 100 items, {highlights}
-          {highlights === 1 ? "is" : "are"}
-          fully biodegradable
+          For every 100 items, {highlights}&nbsp;{highlights === 1
+            ? "is"
+            : "are"} fully biodegradable
         </h4>
 
         <WaffleChart amount={100} {highlights} />
@@ -175,7 +175,7 @@
     font-family: "Dela Gothic One";
     font-synthesis: none;
     margin: 1em 0;
-    text-wrap: pretty;
+    text-wrap: balance;
   }
 
   h4 {
@@ -183,7 +183,7 @@
     line-height: 1;
     font-family: "Dela Gothic One";
     font-synthesis: none;
-    text-wrap: pretty;
+    text-wrap: balance;
     margin: 1.5em 0 0.75em;
   }
 

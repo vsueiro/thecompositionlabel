@@ -47,7 +47,7 @@
     line-height: 1;
     font-family: "Dela Gothic One";
     font-synthesis: none;
-    text-wrap: pretty;
+    text-wrap: balance;
   }
 
   .legend {
