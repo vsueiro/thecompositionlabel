@@ -19,8 +19,6 @@
 
     data = materials;
 
-    console.log(data);
-
     highlights = {
       Elastane: {
         text: "Most in blended compositions",
@@ -78,7 +76,6 @@
             font-size="20"
             font-family="Dela Gothic One"
             >{new Intl.NumberFormat("en-US").format(node.data.Count)}
-            <!-- {Math.round(node.data.Percent)}% -->
           </text>
           <text x={node.x0 + 10} y={node.y0 + 50} fill="#494b53" font-size="16">
             {node.data.Name.replace("Polyamide", "Nylon")}
