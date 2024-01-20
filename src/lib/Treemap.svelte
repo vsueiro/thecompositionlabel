@@ -2,21 +2,12 @@
   import { onMount } from "svelte";
   import * as d3 from "d3";
 
-  let data;
-  let treemapData = [];
   const size = [480, 360];
   const limit = 2;
 
-  let highlights = {
-    Elastane: {
-      text: "Most in blended compositions",
-      icon: "./assets/washing-machine.svg",
-    },
-    Polyester: {
-      text: "Appears 1000x in ”Women Top Rated”",
-      icon: "./assets/shirts.svg",
-    },
-  };
+  let data;
+  let treemapData = [];
+  let highlights = {};
 
   onMount(async () => {
     let materials = await d3.csv("./data/materials.csv", d3.autoType);
@@ -27,6 +18,21 @@
     });
 
     data = materials;
+
+    console.log(data);
+
+    highlights = {
+      Elastane: {
+        text: "Most in blended compositions",
+        icon: "./assets/washing-machine.svg",
+      },
+      Polyester: {
+        text: `Appears ${new Intl.NumberFormat("en-US").format(
+          data.find((d) => d.Name === "Polyester").Count || 0
+        )}x in ”Women Top Rated”`,
+        icon: "./assets/shirts.svg",
+      },
+    };
     createTreemap();
   });
 
