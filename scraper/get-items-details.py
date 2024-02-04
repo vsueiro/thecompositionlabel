@@ -16,7 +16,7 @@ output_folder = 'scraper/items/'
 links_folder = 'scraper/links/'
 
 # Define the amount of links per scraping batch
-limit = 300
+limit = 250
 
 # Get the most recent list of links
 def get_most_recent_csv(directory):
