@@ -16,7 +16,7 @@ output_folder = 'scraper/items/'
 links_folder = 'scraper/links/'
 
 # Define the amount of links per scraping batch
-limit = 250
+limit = 25
 
 # Get the most recent list of links
 def get_most_recent_csv(directory):
@@ -73,11 +73,14 @@ def get_item_details(link, item_id):
         target_text = "window.goodsDetailV3SsrData"
         script_tags = driver.find_elements(By.TAG_NAME, "script")
         for script_tag in script_tags:
-            script_content = script_tag.get_attribute('innerHTML')
-            if target_text in script_content:
-                match = re.search(r'{.*}', script_content)
-                if match:
-                    return json.loads(match.group(0))
+            try:
+                script_content = script_tag.get_attribute('innerHTML')
+                if target_text in script_content:
+                    match = re.search(r'{.*}', script_content)
+                    if match:
+                        return json.loads(match.group(0))
+            except Exception as e:
+                print(f'Encountered an error in item {item_id}: {e}')
         return {}
 
     # Get JSON from script tag
