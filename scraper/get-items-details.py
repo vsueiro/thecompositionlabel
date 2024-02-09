@@ -64,6 +64,8 @@ driver = webdriver.Chrome(service=service, options=options)
 
 # Define get_item_details function
 def get_item_details(link, item_id):
+    print(f'Getting details for item {item_id}')
+
     driver.get(link)
     time.sleep(random.uniform(8, 10))
     
@@ -78,7 +80,6 @@ def get_item_details(link, item_id):
                 if target_text in script_content:
                     match = re.search(r'{.*}', script_content)
                     if match:
-                        print(f'Found <script> with JSON for item {item_id}')
                         return json.loads(match.group(0))
             except Exception as e:
                 print(f'Did not find <script> for item {item_id}: {e}')
