@@ -16,7 +16,7 @@ output_folder = 'scraper/items/'
 links_folder = 'scraper/links/'
 
 # Define the amount of links per scraping batch
-limit = 100
+limit = 150
 
 # Define counter
 iteration = 1
