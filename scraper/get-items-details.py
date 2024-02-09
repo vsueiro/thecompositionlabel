@@ -16,7 +16,7 @@ output_folder = 'scraper/items/'
 links_folder = 'scraper/links/'
 
 # Define the amount of links per scraping batch
-limit = 200
+limit = 20
 
 # Get the most recent list of links
 def get_most_recent_csv(directory):
@@ -78,9 +78,10 @@ def get_item_details(link, item_id):
                 if target_text in script_content:
                     match = re.search(r'{.*}', script_content)
                     if match:
+                        print(f'Found <script> for item {item_id}')
                         return json.loads(match.group(0))
             except Exception as e:
-                print(f'Encountered an error in item {item_id}: {e}')
+                print(f'Did not find <script> for item {item_id}: {e}')
         return {}
 
     # Get JSON from script tag
