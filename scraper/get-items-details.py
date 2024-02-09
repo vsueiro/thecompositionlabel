@@ -67,7 +67,7 @@ def get_item_details(link, item_id):
     print(f'Getting details for item {item_id}')
 
     driver.get(link)
-    time.sleep(random.uniform(8, 10))
+    time.sleep(random.uniform(4, 6))
     
     # Get hardcoded JSON
     def extract_json():
@@ -87,51 +87,6 @@ def get_item_details(link, item_id):
 
     # Get JSON from script tag
     parsed_json = extract_json()
-    
-    # Get Title
-    try:
-        h1 = driver.find_element(By.TAG_NAME, 'h1')
-
-        if h1:
-           title = h1.text
-        else:
-            print(f'Could not get <h1> for item {item_id}')
-            titleElement = driver.find_element(By.TAG_NAME, 'title')
-
-            if titleElement:
-                title = titleElement.text.split('|')[0].strip()
-            else:
-                print(f'Could not get <title> for item {item_id}')
-
-    except Exception:
-        title = "" 
-    
-    # Get Image
-    try:
-        img_tag = driver.find_element(By.CSS_SELECTOR, "img[data-src]")
-        image = img_tag.get_attribute('data-src')
-        if image.startswith('//'):
-            image = 'https:' + image
-    except Exception:
-        image = ""
-    
-    # Get Price
-    # try:
-    #     price_element = driver.find_element(By.CSS_SELECTOR, ".product-intro__head-mainprice [aria-label]")
-    #     price_text = price_element.text
-    #     # Remove currency symbols and convert to float
-    #     price = float(re.sub(r'[^\d.]+', '', price_text))
-    # except Exception:
-    #     price = ""
-
-    # Get SKU
-    try:
-        sku = parsed_json["rs"]["detail"]["goods_sn"]
-    except Exception:
-        sku = ""  # Set to an empty string in case of any error
-
-    # Get Composition
-    composition_values = []
     
     def extract_detail_from_json(parsed_json):
         # Check if the expected data structure exists and return details
@@ -167,18 +122,41 @@ def get_item_details(link, item_id):
 
     # Set some properties as empty strings by default
     price = ""
-    Type = "" 
+    title = ""
+    image = ""
+    sku   = ""
+    Type  = "" 
+    composition_values = []
 
     if detail:
 
         # Get price
         price = get_lowest_price(detail)
 
+        if "goods_name" in detail:
+
+            # Get title
+            title = detail["goods_name"]
+
+        if "goods_thumb" in detail:
+
+            # Get image   
+            image = detail["goods_thumb"]
+
+            if image.startswith('//'):
+                image = 'https:' + image
+
+        if "goods_sn" in detail:
+
+            # Get SKU
+            sku = detail["goods_sn"]
+
         if "cat_id" in detail:
 
             # Get category
             Type = detail["cat_id"]
 
+        # Get composition
         if 'multiPartInfo' in detail:
             for item in detail['multiPartInfo']:
                 if 'attributeList'in item:
@@ -186,6 +164,7 @@ def get_item_details(link, item_id):
                         if 'attr_name_en' in attribute and attribute['attr_name_en'] == 'Composition':
                             composition_values.append(attribute.get('attr_value_en', ''))
 
+        # Get composition
         if 'productDetails' in detail:
             for item in detail['productDetails']:
                 if 'attr_name_en' in item and item['attr_name_en'] == 'Composition':
