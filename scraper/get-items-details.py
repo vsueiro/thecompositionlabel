@@ -73,7 +73,7 @@ def get_item_details(link, item_id):
     print(f'Getting details for item {item_id}')
 
     driver.get(link)
-    time.sleep(random.uniform(6, 8))
+    time.sleep(random.uniform(1, 2))
     
     # Get hardcoded JSON
     def extract_json():
