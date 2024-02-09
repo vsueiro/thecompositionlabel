@@ -16,7 +16,7 @@ output_folder = 'scraper/items/'
 links_folder = 'scraper/links/'
 
 # Define the amount of links per scraping batch
-limit = 20
+limit = 100
 
 # Define counter
 iteration = 1
@@ -45,6 +45,9 @@ for _, row in randomized_links.iterrows():
         existing_links.append((item_id, link))
     else:
         new_links.append((item_id, link))
+
+print(f'New links: {len(new_links)}')
+print(f'Existing links: {len(existing_links)}')
 
 prioritized_list = new_links + existing_links
 
