@@ -65,7 +65,7 @@ driver = webdriver.Chrome(service=service, options=options)
 # Define get_item_details function
 def get_item_details(link, item_id):
     driver.get(link)
-    time.sleep(random.uniform(6, 8))
+    time.sleep(random.uniform(8, 10))
     
     # Get hardcoded JSON
     def extract_json():
@@ -78,7 +78,7 @@ def get_item_details(link, item_id):
                 if target_text in script_content:
                     match = re.search(r'{.*}', script_content)
                     if match:
-                        print(f'Found <script> for item {item_id}')
+                        print(f'Found <script> with JSON for item {item_id}')
                         return json.loads(match.group(0))
             except Exception as e:
                 print(f'Did not find <script> for item {item_id}: {e}')
@@ -89,7 +89,19 @@ def get_item_details(link, item_id):
     
     # Get Title
     try:
-        title = driver.find_element(By.TAG_NAME, 'h1').text
+        h1 = driver.find_element(By.TAG_NAME, 'h1')
+
+        if h1:
+           title = h1.text
+        else:
+            print(f'Could not get <h1> for item {item_id}')
+            titleElement = driver.find_element(By.TAG_NAME, 'title')
+
+            if titleElement:
+                title = titleElement.text.split('|')[0].strip()
+            else:
+                print(f'Could not get <title> for item {item_id}')
+
     except Exception:
         title = "" 
     
@@ -122,11 +134,14 @@ def get_item_details(link, item_id):
     
     def extract_detail_from_json(parsed_json):
         # Check if the expected data structure exists and return details
-        if 'productIntroData' in parsed_json and 'detail' in parsed_json['productIntroData']:
-            detail = parsed_json['productIntroData']['detail']
-            return detail
+        if 'productIntroData' in parsed_json:
+            if 'detail' in parsed_json['productIntroData']:
+                detail = parsed_json['productIntroData']['detail']
+                return detail
+            else:
+                print(f'Did not find `detail` in JSON for item ID: {link}')    
         else:
-            print(f'Could not get detail from JSON for item ID: {link}')
+            print(f'Did not find `productIntroData` in JSON for item ID: {link}')
             return None
 
     detail = extract_detail_from_json(parsed_json)
@@ -191,9 +206,17 @@ def get_item_details(link, item_id):
 
         # Save to CSV
         df.to_csv(f"{output_folder}{item_id}.csv", index=False)
+        print(f'Saved item {item_id}')
 
     else:
-        print(f'Could not get required details about item {item_id}')
+        if not title:
+            print(f'Could not get title for item {item_id}')
+        if not composition:
+            print(f'Could not get composition for item {item_id}')
+        if not image:
+            print(f'Could not get image for item {item_id}')
+        if not sku:
+            print(f'Could not get image for item {item_id}')
 
 
 # Create a new directory 'items' if it doesn't exist
