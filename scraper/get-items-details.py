@@ -18,6 +18,9 @@ links_folder = 'scraper/links/'
 # Define the amount of links per scraping batch
 limit = 20
 
+# Define counter
+iteration = 1
+
 # Get the most recent list of links
 def get_most_recent_csv(directory):
     csv_files = [f for f in os.listdir(directory) if f.endswith('.csv')]
@@ -204,6 +207,8 @@ os.makedirs(output_folder, exist_ok=True)
 
 # Get all items details
 for item_id, link in prioritized_list[:limit]:
+    print(f'Iteration: {iteration}')
     get_item_details(link, item_id)
+    iteration = iteration + 1
 
 driver.quit() # Close the browser
