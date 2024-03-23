@@ -11,14 +11,31 @@ materials_file = 'public/data/materials.csv'
 meta_file = 'public/data/meta.csv'
 weird_items_file = 'public/data/weird-items.csv'
 
-# Get the most recent list of links
-def get_most_recent_csv(directory):
+def get_recent_csv_files(directory, num_files=14):
     csv_files = [f for f in os.listdir(directory) if f.endswith('.csv')]
     csv_files.sort(reverse=True)
-    return os.path.join(directory, csv_files[0]) if csv_files else None
+    return [os.path.join(directory, csv_files[i]) for i in range(min(len(csv_files), num_files))]
 
-links_file = get_most_recent_csv(links_folder)
-links = pd.read_csv(links_file) if links_file else []
+def combine_csv_files(file_paths):
+    dfs = []
+    for file_path in file_paths:
+        df = pd.read_csv(file_path)
+        dfs.append(df)
+    return pd.concat(dfs, ignore_index=True)
+
+def preprocess_dataframe(df):
+    df['Timestamp'] = pd.to_datetime(df['Timestamp'])  # Ensure Timestamp is in datetime format
+    df.sort_values(by=['Item ID', 'Timestamp'], ascending=[True, False], inplace=True)
+    df.drop_duplicates(subset='Item ID', keep='first', inplace=True)
+    return df
+
+# Assuming `links_folder` is defined and points to the directory with your CSV files
+recent_links_files = get_recent_csv_files(links_folder)
+combined_links_df = combine_csv_files(recent_links_files)
+links = preprocess_dataframe(combined_links_df)
+
+# `links` is now the DataFrame with combined data from the most recent 14 CSV files,
+# with duplicates removed based on `Item ID`, keeping the entry with the most recent `Timestamp`.
 
 # Initialize an empty DataFrame for the consolidated data
 consolidated_df = pd.DataFrame()
