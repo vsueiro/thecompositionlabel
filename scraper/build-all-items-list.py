@@ -272,7 +272,7 @@ biodegradable_count = consolidated_df[consolidated_df['Biodegradable'] == True].
 ratio = (biodegradable_count / total_items) * 100
 
 # Extracting just the file name (without .csv)
-file_name = links_file.split('/')[-1].replace('.csv', '')
+file_name = recent_links_files[0].split('/')[-1].replace('.csv', '')
 
 # Formatting the date and time as an ISO date
 date_time_str = file_name.replace('-', '')
