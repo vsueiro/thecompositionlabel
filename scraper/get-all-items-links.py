@@ -58,7 +58,9 @@ def scrape_links(url):
     return links
 
 all_links = []
-page_number = 1
+
+# Get random page from 1 to 10
+page_number = random.randint(1,10)
 
 while True:
     current_url = f"{base_url}&page={page_number}"
