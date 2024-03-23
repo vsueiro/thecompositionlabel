@@ -122,15 +122,17 @@
 
         <WaffleChart amount={100} {highlights} />
 
-        <p>
-          If you were to manually browse through all those {items}
-          items, it would take you around {hours}
-          {hours === 1 ? "hour" : "hours"}.
-        </p>
-        <p>
-          Here, you find {meta.Biodegradable === 1 ? "that" : "those"} biodegradable
-          {meta.Biodegradable === 1 ? "gem" : "gems"} in seconds.
-        </p>
+        {#if hours > 0}
+          <p>
+            If you were to manually browse through all those {items}
+            items, it would take you around {hours}
+            {hours === 1 ? "hour" : "hours"}.
+          </p>
+          <p>
+            Here, you find {meta.Biodegradable === 1 ? "that" : "those"} biodegradable
+            {meta.Biodegradable === 1 ? "gem" : "gems"} in seconds.
+          </p>
+        {/if}
       {/if}
 
       {#if "Updated" in meta}
