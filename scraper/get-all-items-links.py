@@ -58,6 +58,7 @@ def scrape_links(url):
     return links
 
 all_links = []
+min_links_to_save = 2
 
 # Get random page from 1 to 10
 page_number = random.randint(1,10)
@@ -80,11 +81,14 @@ driver.quit()  # Close the browser
 # Creating DataFrame
 df = pd.DataFrame(all_links, columns=['Item ID', 'Link', 'Timestamp'])
 
-# Create a new directory 'links' if it doesn't exist
-os.makedirs('scraper/links', exist_ok=True)
+if len(all_links) >= min_links_to_save:
+    # Create a new directory 'scraper/links' if it doesn't exist
+    os.makedirs('scraper/links', exist_ok=True)
 
-# Define file name
-filename = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    # Define file name using the current timestamp
+    filename = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
-# Save to CSV
-df.to_csv(f"scraper/links/{filename}.csv", index=False)
+    # Save to CSV
+    df.to_csv(f"scraper/links/{filename}.csv", index=False)
+else:
+    print(f"Not enough items to save. Need at least { min_links_to_save }, got:", len(all_links))
