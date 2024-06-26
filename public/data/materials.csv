@@ -1,19 +1,19 @@
 Name,Biodegradable,Natural,Attributes,Checked,Count,Percent,Median
-Cotton,True,,,True,106,4.8247610377787895,93.5
-Viscose,True,,,True,152,6.918525261720528,73.0
-Linen,True,,,True,3,0.13654984069185253,20.0
-Polyester,False,,,False,1046,47.61037778789258,95.0
-Elastane,False,,,False,824,37.505689576695495,5.0
-Polyamide,False,,,False,60,2.730996813837051,92.0
+Cotton,True,,,True,115,5.010893246187364,94.0
+Viscose,True,,,True,154,6.710239651416122,62.5
+Linen,True,,,True,3,0.130718954248366,20.0
+Polyester,False,,,False,1092,47.58169934640522,95.0
+Elastane,False,,,False,862,37.5599128540305,5.0
+Polyamide,False,,,False,63,2.7450980392156863,94.0
 Polyvinyl Chloride,False,,,False,0,0.0,0.0
 Silk,True,,,False,0,0.0,0.0
 Polyurethane,False,,,False,0,0.0,0.0
-Metallized Fibres,False,,,False,2,0.09103322712790168,52.0
-Lyocell,True,,,False,1,0.04551661356395084,85.0
-Acrylic,False,,,False,1,0.04551661356395084,100.0
+Metallized Fibres,False,,,False,2,0.08714596949891067,52.0
+Lyocell,True,,,False,1,0.04357298474945533,85.0
+Acrylic,False,,,False,1,0.04357298474945533,100.0
 Wool,True,,,False,0,0.0,0.0
-Modal,True,,,False,1,0.04551661356395084,70.0
-Metal,False,,,False,1,0.04551661356395084,100.0
+Modal,True,,,False,1,0.04357298474945533,70.0
+Metal,False,,,False,1,0.04357298474945533,100.0
 Spandex,False,,,False,0,0.0,0.0
 Glass,False,,,False,0,0.0,0.0
 Acetate,True,,,False,0,0.0,0.0
