@@ -1,10 +1,10 @@
 Name,Biodegradable,Natural,Attributes,Checked,Count,Percent,Median
-Cotton,True,,,True,62,5.585585585585585,60
-Viscose,True,,,True,67,6.036036036036037,35
+Cotton,True,,,True,61,5.500450856627593,60
+Viscose,True,,,True,67,6.0414788097385035,35
 Linen,True,,,True,0,0.0,0
-Polyester,False,,,False,549,49.45945945945946,95
-Elastane,False,,,False,410,36.93693693693694,5
-Polyamide,False,,,False,22,1.981981981981982,94
+Polyester,False,,,False,548,49.413886384129846,95
+Elastane,False,,,False,410,36.9702434625789,5
+Polyamide,False,,,False,23,2.0739404869251574,94
 Polyvinyl Chloride,False,,,False,0,0.0,0
 Silk,True,,,False,0,0.0,0
 Polyurethane,False,,,False,0,0.0,0
