@@ -1,8 +1,8 @@
 name: get-all-items-links
 
 on:
-  schedule:
-    - cron: "0 5,17 * * *" # Runs at 5 AM and 5 PM UTC everyday
+  # schedule:
+  #   - cron: "0 5,17 * * *" # Runs at 5 AM and 5 PM UTC everyday
 
   workflow_dispatch: # Allows manual triggering via GitHub UI
 
